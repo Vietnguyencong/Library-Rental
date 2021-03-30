@@ -75,14 +75,15 @@ async function createNoInjection(user){
   console.log(user.social_security);
   const result = await db.query(
     `INSERT INTO USERS 
-    (first_name, middle_initial, last_name, street_number, city, state, zip_code, discount_id, is_admin, social_security) 
+    (first_name, middle_initial, last_name, street_number, city, state, zip_code, discount_id, is_admin, 
+      social_security, phone_number, email_address, street_name) 
     VALUES 
     (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
     [
       user.first_name, user.middle_initial,
       user.last_name, user.street_number,
       user.city, user.state, user.zip_code,
-      user.discount_id, user.is_admin, user.social_security
+      user.discount_id, user.is_admin, user.social_security, user.email_address, user.phone_number, user.street_name
     ]
   );
 

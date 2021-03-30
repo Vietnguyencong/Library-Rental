@@ -4,6 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const itemsRouter = require('./routes/items');
 const usersRouter = require('./routes/users');
+const employeesRouter = require('./routes/employees.js')
 
 app.use(bodyParser.json());
 app.use(
