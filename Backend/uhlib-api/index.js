@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
 const itemsRouter = require('./routes/items');
+const usersRouter = require('./routes/users');
 
 app.use(bodyParser.json());
 app.use(
@@ -16,6 +17,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/items', itemsRouter);
+app.use('/users', usersRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
