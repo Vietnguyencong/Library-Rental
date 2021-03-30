@@ -29,3 +29,12 @@ steps:
             **\*.js
             package.json
     TargetFolder: '''$(Build.ArtifactStagingDirectory)'''
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'DigitalOcean'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: |
+      **\*.js
+                  package.json
+    targetFolder: '/home/api/api-host'
+    readyTimeout: '20000'
