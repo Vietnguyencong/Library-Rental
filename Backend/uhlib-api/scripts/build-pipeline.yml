@@ -13,8 +13,8 @@ steps:
 - task: SSH@0
   inputs:
     sshEndpoint: 'DO'
-    runOptions: 'commands'
-    commands: 'cd /home/api/Backend/uhlib-api/;pm2 stop index.js'
+    runOptions: 'inline'
+    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 stop index.js'
     readyTimeout: '20000'
 
 - task: CopyFilesOverSSH@0
@@ -27,6 +27,6 @@ steps:
 - task: SSH@0
   inputs:
     sshEndpoint: 'DO'
-    runOptions: 'commands'
-    commands: 'cd /home/api/Backend/uhlib-api/;npm i; pm2 start index.js'
+    runOptions: 'inline'
+    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 start index.js'
     readyTimeout: '20000'
