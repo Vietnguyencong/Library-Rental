@@ -4,7 +4,10 @@ const app = express();
 const port = process.env.PORT || 3000;
 const itemsRouter = require('./routes/items');
 const transaction_router = require("./routes/transactionRoute")
+const usersRouter = require('./routes/users');
+
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
@@ -15,7 +18,8 @@ app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
 
-app.use('/items', itemsRouter);
+app.use('/api/items', itemsRouter);
+app.use('/api/users', usersRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

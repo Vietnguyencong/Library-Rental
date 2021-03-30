@@ -1,11 +1,11 @@
 const  express = require('express')
 const router = express.Router()
-const {get, getMultiple, update, remove, create, get_transactions_user} = require("../services/transactionService")
+const {getOne, getMany,getList ,update, remove, create, get_transactions_user} = require("../services/transactionService")
 
 
-router.get("/:id", get) 
+router.get("/:id", getOne) 
 
-router.get("/", getMultiple)
+router.get("/", getList)
 
 router.put("/:id", update) 
 
