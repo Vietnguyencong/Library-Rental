@@ -33,5 +33,5 @@ steps:
   inputs:
     sshEndpoint: 'DO'
     runOptions: 'inline'
-    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 stop index.js'
+    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 start index.js'
     readyTimeout: '20000'
