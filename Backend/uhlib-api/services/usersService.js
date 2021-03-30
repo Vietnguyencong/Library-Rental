@@ -78,7 +78,7 @@ async function createNoInjection(user){
     (first_name, middle_initial, last_name, street_number, city, state, zip_code, discount_id, is_admin, 
       social_security, phone_number, email_address, street_name, user_password) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
     [
       user.first_name, user.middle_initial,
       user.last_name, user.street_number,
