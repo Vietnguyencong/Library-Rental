@@ -83,7 +83,7 @@ async function createNoInjection(user){
       user.first_name, user.middle_initial,
       user.last_name, user.street_number,
       user.city, user.state, user.zip_code,
-      user.discount_id, user.is_admin, user.social_security, user.email_address, user.phone_number, user.street_name
+      user.discount_id, user.is_admin, user.social_security, user.phone_number, user.email_address, user.street_name
     ]
   );
 
