@@ -16,25 +16,3 @@ steps:
     npm install
     npm run build
   displayName: 'npm install and build'
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '''$(System.DefaultWorkingDirectory)'''
-    Contents: |
-      |
-            **\*.js
-            package.json
-    TargetFolder: '''$(Build.ArtifactStagingDirectory)'''
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'DigitalOcean'
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    contents: |
-      **\*.js
-                  package.json
-    targetFolder: '/home/api/api-host'
-    readyTimeout: '20000'
