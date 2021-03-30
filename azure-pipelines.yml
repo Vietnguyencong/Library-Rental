@@ -15,9 +15,23 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'DO'
+    runOptions: 'commands'
+    commands: 'cd /home/api/Backend/uhlib-api/;pm2 stop index.js'
+    readyTimeout: '20000'
+
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'DO'
     contents: '**'
     targetFolder: '/home/api/'
+    readyTimeout: '20000'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'DO'
+    runOptions: 'commands'
+    commands: 'cd /home/api/Backend/uhlib-api/;npm i; pm2 start index.js'
     readyTimeout: '20000'
