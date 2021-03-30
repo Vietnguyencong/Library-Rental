@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usersService = require('../services/usersService');
 
-
+/* GET USERS WITH FILTER */
 router.get('/', async function(req, res, next) {
   
 //    req.params.filter
@@ -22,7 +22,7 @@ console.log(JSON.stringify(req.query));
   }
 });
 
-
+/* GET ALL USERS */
 router.get('/allusers', async function(req, res, next) {
   try {
     res.json(await usersService.get(req.query.page));
@@ -32,7 +32,7 @@ router.get('/allusers', async function(req, res, next) {
   }
 });
 
-
+/* GETUSER BY ID */
 router.get('/find/:id', async function(req, res, next) {
     let id  = req.params.id;
     // console.log('id is ${id}');
@@ -44,6 +44,7 @@ router.get('/find/:id', async function(req, res, next) {
     }
 });
 
+/* GET USER BY STATE */
 router.get('/state/:name', async function(req, res, next) {
   let name  = req.params.name;
   // console.log('id is ${id}');
@@ -55,6 +56,7 @@ router.get('/state/:name', async function(req, res, next) {
   }
 });
 
+/* POST NEW USER PARAM NO INJECTION */
 router.post('/', async function(req, res, next) {
   console.log('Create user /')
   try {
@@ -65,34 +67,53 @@ router.post('/', async function(req, res, next) {
   }
 });
 
+/* POST NEW USER */
 router.post('/createuser', async function(req, res, next) {
     let id  = req.params.id;
     // console.log('id is ${id}');
     try {
       res.json(await usersService.create(req));
     } catch (err) {
-      console.error(`Get error `, err.message);
+      console.error(`Error while creating new user `, err.message);
       next(err);
     }
 });
+
+/* UPDATE USER AT BASE*/
+
+router.put('/:id', async function(req, res, next) {
+  console.log('id is ${id}');
+
+  
+  try {
+    res.json(await usersService.update(req.params.id, req.body));
+  } catch (err) {
+    console.error(`Update error `, err.message);
+    next(err);
+  }
+});
+
+/* UPDATE USER  */
 
 router.put('/updateuser/:id', async function(req, res, next) {
     console.log('id is ${id}');
     
     try {
-      res.json(await usersService.update(req));
+      res.json(await usersService.updateNoBody(req));
     } catch (err) {
-      console.error(`Get error `, err.message);
+      console.error(`Update  error `, err.message);
       next(err);
     }
 });
+
+/* DELETE USER */
 
 router.delete('/deleteuser', async function(req, res, next) {
     console.log('id is ${id}');
     try {
       res.json(await usersService.remove(req));
     } catch (err) {
-      console.error(`Get error `, err.message);
+      console.error(`Delete error `, err.message);
       next(err);
     }
 });

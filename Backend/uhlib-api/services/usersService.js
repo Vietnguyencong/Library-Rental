@@ -28,7 +28,7 @@ async function getByFIlter(sort, range, filter){
 
 async function get(){
   const rows = await db.query(
-    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number
+    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_number
     FROM USERS`
   );
 
@@ -120,7 +120,33 @@ async function create(req){
 
 }
 
-async function update(req){
+async function update(id, req){
+  let name = req.first_name;
+  let thisid = id;
+  console.log("REQ BODY", req.first_name);
+  console.log(id);
+  console.log(req.id);
+  const user = await db.query(`
+  UPDATE USERS SET first_name=?, middle_initial=?, last_name=?, street_number=?, city=?, state=?, zip_code=?, discount_id=?, is_admin=?, social_security=?
+   WHERE user_id=?`,
+   [
+    req.first_name, req.middle_initial,
+    req.last_name, req.street_number,
+    req.city, req.state, req.zip_code,
+    req.discount_id, req.is_admin, req.social_security, id
+   ]
+   );
+  
+  let message = `Error in updating user ${id}`;
+
+
+  if (user.affectedRows) {
+    message = `User ${id}  updated successfully`;
+  }
+  return {message};
+}
+
+async function updateNoBody(req){
     let name = req.body.first_name;
     console.log(`update ${req.params.id} : ${name}`);
 
@@ -155,9 +181,11 @@ module.exports = {
   get,
   getUser,
   getUserByState,
+  getByFIlter,
   create,
   createNoInjection,
   update,
+  updateNoBody,
   remove,
-  getByFIlter
+  
 }
