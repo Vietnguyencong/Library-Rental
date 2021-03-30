@@ -1,4 +1,4 @@
-# Node.js
+# Build Pipeline
 
 trigger:
 - main
@@ -7,12 +7,26 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+- script: echo Buildling!
+  displayName: 'Build > Deploy'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'DO'
+    runOptions: 'inline'
+    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 stop index.js'
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'DO'
+    contents: '**'
+    targetFolder: '/home/api/'
+    readyTimeout: '20000'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'DO'
+    runOptions: 'inline'
+    inline: 'cd /home/api/Backend/uhlib-api/ && pm2 start index.js'
+    readyTimeout: '20000'
