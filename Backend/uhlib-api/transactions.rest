@@ -1,0 +1,36 @@
+### getOne 
+GET http://localhost:3000/transactions/one/0d976513-e86f-4347-b153-e7ab63118f11
+
+
+###  getList
+GET http://localhost:3000/transactions 
+
+### get transaction for a user 
+GET http://localhost:3000/transactions/refer?filter={"user_id ":1 } 
+ 
+### getMany 
+GET http://localhost:3000/transactions/many?filter={"id":["463269d6-17cc-44f8-8a0e-b8b3c68653d4","d8098b78-08bc-4f9b-9956-d670030c8bee"]}
+
+###  update one 
+PUT http://localhost:3000/transactions/1?update={"user_id":1}
+
+
+### create new post for user id = 1 
+POST http://localhost:3000/transactions 
+Content-Type: application/json
+
+{
+    "user_id": 1
+}
+
+### remove one 
+DELETE http://localhost:3000/transactions/0d976513-e86f-4347-b153-e7ab63118f11
+
+
+### remove many baseon the filters 
+
+DELETE http://localhost:3000/transactions/many?filter={"id":["d8098b78-08bc-4f9b-9956-d670030c8bee"]}
+ 
+
+###
+GET http://localhost:3000/transactions/view_all_items/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
