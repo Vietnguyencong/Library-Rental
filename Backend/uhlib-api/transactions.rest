@@ -9,7 +9,7 @@ GET http://localhost:3000/transactions
 GET http://localhost:3000/transactions/refer?filter={"user_id ":1 } 
  
 ### getMany 
-GET http://localhost:3000/transactions/many?filter={"id":["463269d6-17cc-44f8-8a0e-b8b3c68653d4","d8098b78-08bc-4f9b-9956-d670030c8bee"]}
+GET http://localhost:3000/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}
 
 ###  update one 
 PUT http://localhost:3000/transactions/1?update={"user_id":1}
