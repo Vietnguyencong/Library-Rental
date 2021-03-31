@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
 const itemsRouter = require('./routes/items');
-const transaction_router = require("./routes/transactionRoute")
+const transaction_router = require("./routes/transations")
 const usersRouter = require('./routes/users');
 
 app.use(express.json());
