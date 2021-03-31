@@ -104,9 +104,16 @@ removeMany = async(req,res)=>{
 
 // view the item inside the transaction   -> item name , item id, quantity  and user_id 
 // need transaction_id  
-view_items_in_transaction = (req,res)=>{
-    const trans_id = String(req.params.id) 
-    const user_id   
+view_items_in_transaction = async (req,res)=>{
+    const trans_id = String(req.params.trans_id) 
+    // get all the items in transactions 
+
+    // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
+    const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
+    const rows = await db.query(query, [trans_id, ]) 
+    const result = cleanRows(rows)
+    return res.json(result)
+
 
 }
 
@@ -119,7 +126,8 @@ module.exports = {
     remove, 
     create, 
     removeMany, 
-    get_transactions_for_user
+    get_transactions_for_user, 
+    view_items_in_transaction
 }
 
 function create_condition_string (length, value){ 
