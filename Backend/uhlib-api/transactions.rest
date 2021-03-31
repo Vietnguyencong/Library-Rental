@@ -34,3 +34,8 @@ DELETE http://localhost:3000/transactions/many?filter={"id":["d8098b78-08bc-4f9b
 
 ###
 GET http://localhost:3000/transactions/view_all_items/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
+
+
+### testing 
+
+GET http://localhost:3000/transactions/testing

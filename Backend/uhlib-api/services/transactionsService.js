@@ -119,6 +119,15 @@ view_items_in_transaction = async (req,res)=>{
 }
 
 
+test = async(req,res) =>{
+    const query =  `select  date_diff('2011-08-17', '2011-08-08') as date_diff;  `
+    const rows = await db.query(query, [])
+    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
+    const rows2 = await db.query(query2, [])
+    // console.log(JSON.parse(rows2))
+    return res.json({rows, rows2})
+}
+
 module.exports = { 
     getOne, 
     getList, 
@@ -128,7 +137,8 @@ module.exports = {
     create, 
     removeMany, 
     get_transactions_for_user, 
-    view_items_in_transaction
+    view_items_in_transaction,
+    test
 }
 
 function create_condition_string (length, value){ 
