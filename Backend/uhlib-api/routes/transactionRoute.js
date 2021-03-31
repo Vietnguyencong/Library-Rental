@@ -1,9 +1,11 @@
 const  express = require('express')
 const router = express.Router()
-const {getOne, getMany,getList ,update, remove, create, get_transactions_user} = require("../services/transactionService")
+const {getOne, getMany,getList ,update, remove, create, get_transactions_for_user, removeMany} = require("../services/transactionService")
 
 
-router.get("/:id", getOne) 
+router.get("/one/:id", getOne) 
+
+router.get('/many', getMany)
 
 router.get("/", getList)
 
@@ -13,7 +15,11 @@ router.delete("/:id", remove)
 
 router.post("/", create)
 
-router.get("/:user_id",get_transactions_user )
+router.get("/refer",get_transactions_for_user )
+
+router.delete("/many",removeMany)
+
+
 
 module.exports = router 
 
