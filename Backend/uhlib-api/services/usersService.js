@@ -8,11 +8,11 @@ const helper = require('../helper');
 // /users?sort= userid 
 
 async function getByFIlter(sort, range, filter){
-  //console.log(sort[1], filter.title);
+  console.log(sort[1], filter.title);
   let pair = Object.keys(filter);
   let key  = pair[0];
-  // console.log('data', key, JSON.stringify(pair));
-  // console.log(key, filter[key]);
+  console.log('data', key, JSON.stringify(pair));
+  console.log(key, filter[key]);
   const rows = await db.query(
     `Select * from USERS where ${key}='${filter[key]}' AND street_number BETWEEN ${range[0]} AND ${range[1]} ORDER BY ${sort[0]} ${sort[1]}`
   );

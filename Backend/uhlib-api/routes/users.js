@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const usersService = require('../services/usersService');
+
 
 /* GET USERS WITH FILTER */
 router.get('/', async function(req, res, next) {
@@ -12,6 +14,8 @@ console.log(JSON.stringify(req.query));
     
    
   try {
+    res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
+    res.setHeader('Content-Range', 5);
     res.json(await usersService.getByFIlter(
       JSON.parse(req.query.sort),
       JSON.parse(req.query.range),
