@@ -102,6 +102,14 @@ removeMany = async(req,res)=>{
     return res.json(message)
 }
 
+// view the item inside the transaction   -> item name , item id, quantity  and user_id 
+// need transaction_id  
+view_items_in_transaction = (req,res)=>{
+    const trans_id = String(req.params.id) 
+    const user_id   
+
+}
+
 
 module.exports = { 
     getOne, 

@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ### remove one 
-DELETE http://localhost:3000/transactions/d8098b78-08bc-4f9b-9956-d670030c8bee 
+DELETE http://localhost:3000/transactions/0d976513-e86f-4347-b153-e7ab63118f11
 
 
 ### remove many baseon the filters 
