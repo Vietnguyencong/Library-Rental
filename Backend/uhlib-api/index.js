@@ -1,8 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000;
+const cors = require('cors');
+const port = process.env.PORT || 5000;
 const itemsRouter = require('./routes/items');
+const usersRouter = require('./routes/users');
+const employeesRouter = require('./routes/employees.js')
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(
@@ -15,7 +19,8 @@ app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
 
-app.use('/items', itemsRouter);
+app.use('/api/items', itemsRouter);
+app.use('/api/users', usersRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
