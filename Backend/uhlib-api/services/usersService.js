@@ -7,7 +7,7 @@ const helper = require('../helper');
 
 // /users?sort= userid 
 
-async function getByFIlter(sort, range, filter){
+getByFIlter = async (sort, range, filter) => {
   console.log(sort[1], filter.title);
   let pair = Object.keys(filter);
   let key  = pair[0];
@@ -23,8 +23,7 @@ async function getByFIlter(sort, range, filter){
   return {
     data
   }
-
-};
+}
 
 async function get(){
   const rows = await db.query(
