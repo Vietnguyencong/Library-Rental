@@ -8,10 +8,8 @@ async function get(){
     );
   
     const data = helper.cleanRows(rows);
-    
-    return {
-      data
-    }
+    var ndata = JSON.parse(JSON.stringify(data).split('"library_id":').join('"id":'));
+    return ndata;
 }
 
 async function getID(libraryID){

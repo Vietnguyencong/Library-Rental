@@ -7,9 +7,8 @@ async function get(){
     FROM ITEMS`
   );
   const data = helper.cleanRows(rows);
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata;
 }
 
 async function getByFilter(sort, range, filter){

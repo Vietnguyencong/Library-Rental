@@ -32,10 +32,8 @@ async function get(){
   );
 
   const data = helper.cleanRows(rows);
-  
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata;
 }
 
 // /users/?state=TX 

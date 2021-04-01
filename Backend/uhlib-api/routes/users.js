@@ -29,6 +29,11 @@ console.log(JSON.stringify(req.query));
 /* GET ALL USERS */
 router.get('/allusers', async function(req, res, next) {
   try {
+    res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+    count = Object.keys( await usersService.get(req.query.page) ).length;
+    console.log("count:", count);
+    res.set("X-Total-Count", count);
+    res.setHeader('Content-Range', count);
     res.json(await usersService.get(req.query.page));
   } catch (err) {
     console.error(`Get error `, err.message);
