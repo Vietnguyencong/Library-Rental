@@ -27,7 +27,7 @@ getByFIlter = async (sort, range, filter) => {
 
 async function get(){
   const rows = await db.query(
-    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_number
+    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_name, street_number
     FROM USERS`
   );
 
