@@ -13,6 +13,9 @@ import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneO
 import TransformOutlinedIcon from '@material-ui/icons/TransformOutlined';
 import AttachMoneyOutlinedIcon from '@material-ui/icons/AttachMoneyOutlined';
 import CalendarViewDayOutlinedIcon from '@material-ui/icons/CalendarViewDayOutlined';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+import AlbumIcon from '@material-ui/icons/Album';
+import PrintIcon from '@material-ui/icons/Print';
 
 import Dashboard from './Dashboard';
 
@@ -44,7 +47,11 @@ const App = () => (
         <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} />
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/>
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
-        <Resource name="items" list={ItemList} icon={PostIcon} edit={EditGuesser} />
+        <Resource name="all items" list={ItemList} icon={PostIcon} edit={EditGuesser} />
+        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
+        <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
+        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} />
+
         <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
         <Resource name="employees" list={ListGuesser} icon={SupervisorAccountIcon} edit={EditGuesser} />
