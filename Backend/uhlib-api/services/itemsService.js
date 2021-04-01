@@ -21,9 +21,8 @@ async function getByFilter(sort, range, filter){
   const data = helper.cleanRows(rows);
   console.log(data);
   
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata;
 };
 
 
