@@ -12,7 +12,6 @@ getList = async(req,res) =>{
     res.json(data)
 }
 
-
 // http://localhost:3000/transactions/:id 
 getOne  = async (req,res) =>{
     const id = String(req.params.id)  

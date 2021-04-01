@@ -6,7 +6,9 @@ const itemsRouter = require('./routes/items');
 const transaction_router = require("./routes/transations")
 const usersRouter = require('./routes/users');
 const loanitem_router = require("./routes/loanItem")
+const cors = require("cors")
 
+app.use(cors())
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(
@@ -24,8 +26,8 @@ app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
 
-app.use("/transactions", transaction_router)
-app.use("/loanitem", loanitem_router)
+app.use("/api/transactions", transaction_router)
+app.use("/api/loanitem", loanitem_router)
 app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 
