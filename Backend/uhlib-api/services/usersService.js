@@ -54,9 +54,8 @@ async function getUser(user_id){
   // if (result.affectedRows) {
   //   message = `User received`;
   // }
-
   var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
-  return ndata;
+  return ndata[0];
 }
 
 async function createNoInjection(user){
