@@ -18,7 +18,7 @@ export default {
         var url = `${apiUrl}/users/allusers`;
 
         switch (resource) {
-            case 'all items': {
+            case 'items': {
               url = `${apiUrl}/items/allitems`;
               break;
             }

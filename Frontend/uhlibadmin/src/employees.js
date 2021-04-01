@@ -1,8 +1,17 @@
 import * as React from "react";
-import { List, Datagrid, TextField, ReferenceField, NumberField, DateField, EditButton } from 'react-admin';
+import { List, Datagrid, TextField, EmailField, Filter, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput } from 'react-admin';
+
+const EmployeesFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+        <ReferenceInput label="Employees" source="first_name" reference="employees" allowEmpty>
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+    </Filter>
+);
 
 export const EmployeeList = props => (
-    <List {...props}>
+    <List filters={<EmployeesFilter />} {...props}>
 
 
 <Datagrid rowClick="edit">

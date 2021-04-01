@@ -21,9 +21,9 @@ import PrintIcon from '@material-ui/icons/Print';
 import Dashboard from './Dashboard';
 
 import { UserList, UserCreate } from './users';
-import { ItemList } from './items';
+import { ItemList, ItemCreate } from './items';
 import { LibraryList } from './libraries';
-// import { EmployeeList } from './employees';
+import { EmployeeList } from './employees';
 import dataProvider from './dataProvider';
 
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
@@ -37,16 +37,16 @@ const LoginPage = () => (
 const customTheme = createMuiTheme({
     ...defaultTheme,
     ...{
-      palette: {
-        primary: {
-          main: "#7edcff",
-        },
-        secondary: {
-          main: "#8a1526",
-        },
-      }
+        palette: {
+            primary: {
+                main: "#bd1351",
+            },
+            secondary: {
+                main: "#8a1526",
+            },
+        }
     }
-  });
+});
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={dataProvider}>
@@ -54,14 +54,14 @@ const App = () => (
         <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} />
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/>
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
-        <Resource name="all items" list={ItemList} icon={PostIcon} edit={EditGuesser} />
+        <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
         <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
         <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
         <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} />
 
         <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
-        <Resource name="employees" list={ListGuesser} icon={SupervisorAccountIcon} edit={EditGuesser} />
+        <Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
         <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
         <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
         <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />
