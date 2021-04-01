@@ -27,7 +27,7 @@ getByFIlter = async (sort, range, filter) => {
 
 async function get(){
   const rows = await db.query(
-    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_name, street_number
+    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_number
     FROM USERS`
   );
 
@@ -55,7 +55,8 @@ async function getUser(user_id){
   //   message = `User received`;
   // }
 
-  return data;
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata;
 }
 
 async function createNoInjection(user){
