@@ -18,6 +18,10 @@ export default {
         var url = `${apiUrl}/users/allusers`;
 
         switch (resource) {
+            case 'notifications': {
+                url = `${apiUrl}/notifications`;
+                break;
+            }
             case 'items': {
               url = `${apiUrl}/items/allitems`;
               break;
