@@ -4,14 +4,13 @@ const {v4:uuidv4} = require("uuid")
 
 // GET / 
 getList = async(req,res) =>{
-    console.log(req.query)
+    // console.log(req.query)
     const query = `SELECT * FROM TRANSACTION; ` 
     const rows = await db.query(query) 
     const data = cleanRows(rows) 
     // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
     res.json(data)
 }
-
 
 // http://localhost:3000/transactions/:id 
 getOne  = async (req,res) =>{
@@ -26,13 +25,12 @@ getOne  = async (req,res) =>{
     return res.json(data)
 }
 // GET /posts/many?filter={"id":[123,456,789]}
-getMany = async (req,res) =>{
+getMany  = async (req,res)=>{
     const ids = JSON.parse(req.query.filter).id
     if (ids == null) return res.status(400).send({"message": "cannot find the data"})
-    var condition_tring = create_condition_string(ids.length, "?") // ?,?,?
-    console.log("id is ", condition_tring);
+    var condition_tring = create_condition_string(ids.length, "?")
     const query = `SELECT * FROM  TRANSACTION WHERE transaction_id  in ( ${condition_tring} ) ;`
-    const rows = await db.query(query, ids)
+    const  rows = await db.query(query, ids)
     const data = cleanRows(rows)
     
     return res.json(data)
@@ -108,17 +106,23 @@ removeMany = async(req,res)=>{
 view_items_in_transaction = async (req,res)=>{
     const trans_id = String(req.params.trans_id) 
     console.log(trans_id)
-    // get all the items in transactions 
 
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
     const rows = await db.query(query, [trans_id, ]) 
     const result = cleanRows(rows)
     return res.json(result)
-
-
 }
 
+
+test = async(req,res) =>{
+    const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
+    const rows = await db.query(query, [])
+    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
+    const rows2 = await db.query(query2, [])
+    // console.log(JSON.parse(rows2))
+    return res.json({rows, rows2})
+}
 
 module.exports = { 
     getOne, 
@@ -129,11 +133,11 @@ module.exports = {
     create, 
     removeMany, 
     get_transactions_for_user, 
-    view_items_in_transaction
+    view_items_in_transaction,
+    test
 }
 
 function create_condition_string (length, value){ 
     var array = Array(length).fill(value)
     return array.join()
 }
-//[1,1,1]=> 111

@@ -7,6 +7,7 @@ const itemsRouter = require('./routes/items');
 const transaction_router = require("./routes/transactions")
 const usersRouter = require('./routes/users');
 const employeesRouter = require('./routes/employees.js')
+const loanitem_router = require("./routes/loanItem")
 const libRouter = require('./routes/libraries');
 
 app.use(cors());
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/transactions", transaction_router)
+app.use("/api/loanitem", loanitem_router)
 app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);
