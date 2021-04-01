@@ -9,12 +9,12 @@ getEmployees = async(req,res) =>{
     console.log('id is', req.params.id);
     const rows = await db.query(query) 
     const data = cleanRows(rows) 
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    res.json(data)
+    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"});
+    var ndata = JSON.parse(JSON.stringify(data).split('"employee_id":').join('"id":'));;
+    res.json(ndata)
 }
 
-
-// http://localhost:3000/transactions/:id 
+// http://localhost:3000/api/transactions/:id 
 getOne  = async (req,res) =>{
     console.log("getone");
     const id = String(req.params.id)  
@@ -37,7 +37,6 @@ getMany = async (req,res) =>{
     const query = `SELECT * FROM  EMPLOYEES WHERE employee_id  in ( ${condition_tring} ) ;`
     const rows = await db.query(query, ids)
     const data = cleanRows(rows)
-    
     return res.json(data)
 }
 
@@ -113,10 +112,6 @@ removeMany = async(req,res)=>{
     
     return res.json("message")
 }
-
-
-
-
 
 module.exports = { 
     getEmployees,
