@@ -7,9 +7,21 @@ async function get(){
     FROM ITEMS`
   );
   const data = helper.cleanRows(rows);
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata;
+}
+
+async function getItem(item_id){
+  const user =  await db.query(`Select * from ITEMS where item_id=${item_id}`);
+
+  const data = helper.cleanRows(user);
+  let message = `Error in getting item ${item_id}`;
+
+  // if (result.affectedRows) {
+  //   message = `User received`;
+  // }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata[0];
 }
 
 async function getByFilter(sort, range, filter){
@@ -22,9 +34,8 @@ async function getByFilter(sort, range, filter){
   const data = helper.cleanRows(rows);
   console.log(data);
   
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata;
 };
 
 
@@ -89,6 +100,7 @@ return {message};
 module.exports = {
   get,
   getByFilter,
+  getItem,
   create,
   update,
   remove

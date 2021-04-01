@@ -23,8 +23,8 @@ getOne = async (req,res)=>{
 getAll = async(req,res)=>{
     const query = `SELECT * from LOAN_ITEM; `
     const rows = await db.query(query, []) 
-        const data = cleanRows(rows)
-        return res.json(data)
+    const data = cleanRows(rows)
+    return res.json(data)
 }
 
 // description: update one loan_item in quanitty ONLY 

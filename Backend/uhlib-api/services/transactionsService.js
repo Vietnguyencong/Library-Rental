@@ -4,7 +4,7 @@ const {v4:uuidv4} = require("uuid")
 
 // GET / 
 getList = async(req,res) =>{
-    // console.log(req.query)
+    console.log(req.query)
     const query = `SELECT * FROM TRANSACTION; ` 
     const rows = await db.query(query) 
     const data = cleanRows(rows) 
@@ -25,12 +25,13 @@ getOne  = async (req,res) =>{
     return res.json(data)
 }
 // GET /posts/many?filter={"id":[123,456,789]}
-getMany  = async (req,res)=>{
+getMany = async (req,res) =>{
     const ids = JSON.parse(req.query.filter).id
     if (ids == null) return res.status(400).send({"message": "cannot find the data"})
-    var condition_tring = create_condition_string(ids.length, "?")
+    var condition_tring = create_condition_string(ids.length, "?") // ?,?,?
+    console.log("id is ", condition_tring);
     const query = `SELECT * FROM  TRANSACTION WHERE transaction_id  in ( ${condition_tring} ) ;`
-    const  rows = await db.query(query, ids)
+    const rows = await db.query(query, ids)
     const data = cleanRows(rows)
     
     return res.json(data)
@@ -141,3 +142,4 @@ function create_condition_string (length, value){
     var array = Array(length).fill(value)
     return array.join()
 }
+//[1,1,1]=> 111

@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 3000;
+const cors = require('cors');
+const port = process.env.PORT || 5000;
 const itemsRouter = require('./routes/items');
-const transaction_router = require("./routes/transations")
+const transaction_router = require("./routes/transactions")
 const usersRouter = require('./routes/users');
-const loanitem_router = require("./routes/loanItem")
-const cors = require("cors")
+const employeesRouter = require('./routes/employees.js')
+const libRouter = require('./routes/libraries');
+
+app.use(cors());
 
 app.use(cors())
 app.use(express.json());
@@ -16,7 +19,6 @@ app.use(
     extended: true,
   })
 );
-app.use("/transactions", transaction_router)
 
 app.use((req,res,next)=>{
   console.log("middleware opening")
@@ -28,9 +30,10 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/transactions", transaction_router)
-app.use("/api/loanitem", loanitem_router)
 app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/employees', employeesRouter);
+app.use('/api/libraries', libRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

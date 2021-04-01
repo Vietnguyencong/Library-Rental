@@ -7,12 +7,12 @@ const helper = require('../helper');
 
 // /users?sort= userid 
 
-async function getByFIlter(sort, range, filter){
-  //console.log(sort[1], filter.title);
+getByFIlter = async (sort, range, filter) => {
+  console.log(sort[1], filter.title);
   let pair = Object.keys(filter);
   let key  = pair[0];
-  // console.log('data', key, JSON.stringify(pair));
-  // console.log(key, filter[key]);
+  console.log('data', key, JSON.stringify(pair));
+  console.log(key, filter[key]);
   const rows = await db.query(
     `Select * from USERS where ${key}='${filter[key]}' AND street_number BETWEEN ${range[0]} AND ${range[1]} ORDER BY ${sort[0]} ${sort[1]}`
   );
@@ -23,20 +23,17 @@ async function getByFIlter(sort, range, filter){
   return {
     data
   }
-
-};
+}
 
 async function get(){
   const rows = await db.query(
-    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_number
+    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_name, street_number
     FROM USERS`
   );
 
   const data = helper.cleanRows(rows);
-  
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata;
 }
 
 // /users/?state=TX 
@@ -54,11 +51,11 @@ async function getUser(user_id){
   const data = helper.cleanRows(user);
   let message = `Error in getting user ${user_id}`;
 
-  if (result.affectedRows) {
-    message = `User received`;
-  }
-
-  return {message};
+  // if (result.affectedRows) {
+  //   message = `User received`;
+  // }
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata[0];
 }
 
 async function createNoInjection(user){
@@ -75,14 +72,15 @@ async function createNoInjection(user){
   console.log(user.social_security);
   const result = await db.query(
     `INSERT INTO USERS 
-    (first_name, middle_initial, last_name, street_number, city, state, zip_code, discount_id, is_admin, social_security) 
+    (first_name, middle_initial, last_name, street_number, city, state, zip_code, discount_id, is_admin, 
+      social_security, phone_number, email_address, street_name, user_password) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
     [
       user.first_name, user.middle_initial,
       user.last_name, user.street_number,
       user.city, user.state, user.zip_code,
-      user.discount_id, user.is_admin, user.social_security
+      user.discount_id, user.is_admin, user.social_security, user.phone_number, user.email_address, user.street_name, user.user_password
     ]
   );
 
