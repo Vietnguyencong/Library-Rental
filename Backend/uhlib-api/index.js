@@ -16,7 +16,7 @@ app.use(
     extended: true,
   })
 );
-
+app.use("/transactions", transaction_router)
 app.use((req,res,next)=>{
   console.log("middleware opening")
   res.header("Content-Range","objects 0-10/10" )
