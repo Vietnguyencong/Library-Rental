@@ -25,6 +25,18 @@ router.get('/allitems', async function(req, res, next) {
   }
 });
 
+/* GETITEM BY ID */
+router.get('/:id', async function(req, res, next) {
+  let id  = req.params.id;
+  // console.log('id is ${id}');
+  try {
+    res.json(await itemsService.getItem(id));
+  } catch (err) {
+    console.error(`Get error `, err.message);
+    next(err);
+  }
+});
+
 /* POST ITEMS */
 router.post('/', async function(req, res, next) {
   console.log('Create new item /')

@@ -18,11 +18,18 @@ app.use(
     extended: true,
   })
 );
-app.use("/api/transactions", transaction_router)
+
+
+app.use((req,res,next)=>{
+  console.log("middleware opening")
+  res.header("Content-Range","objects 0-10/10" )
+  next()
+})
 app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
 
+app.use("/api/transactions", transaction_router)
 app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);

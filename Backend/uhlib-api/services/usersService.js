@@ -27,15 +27,13 @@ getByFIlter = async (sort, range, filter) => {
 
 async function get(){
   const rows = await db.query(
-    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_number
+    `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_name, street_number
     FROM USERS`
   );
 
   const data = helper.cleanRows(rows);
-  
-  return {
-    data
-  }
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata;
 }
 
 // /users/?state=TX 
@@ -53,11 +51,11 @@ async function getUser(user_id){
   const data = helper.cleanRows(user);
   let message = `Error in getting user ${user_id}`;
 
-  if (result.affectedRows) {
-    message = `User received`;
-  }
-
-  return {message};
+  // if (result.affectedRows) {
+  //   message = `User received`;
+  // }
+  var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+  return ndata[0];
 }
 
 async function createNoInjection(user){
