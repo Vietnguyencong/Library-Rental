@@ -1,8 +1,9 @@
 import * as React from "react";
 import { defaultTheme } from "react-admin";
 import { createMuiTheme } from '@material-ui/core/styles';
-import { Admin, Resource, ListGuesser, EditGuesser  } from 'react-admin';
+import { Admin, Resource, Login, ListGuesser, EditGuesser  } from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
+import authProvider from './authProvider';
 
 import PostIcon from '@material-ui/icons/Book';
 import UserIcon from '@material-ui/icons/Group';
@@ -27,6 +28,12 @@ import dataProvider from './dataProvider';
 
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 
+const LoginPage = () => (
+    <Login
+        backgroundImage="https://images.unsplash.com/photo-1569407228235-9a744831a150?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80"
+    />
+);
+
 const customTheme = createMuiTheme({
     ...defaultTheme,
     ...{
@@ -42,7 +49,7 @@ const customTheme = createMuiTheme({
   });
 
 const App = () => (
-    <Admin theme={customTheme} dashboard={Dashboard} dataProvider={dataProvider}>
+    <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={dataProvider}>
         {/* <Resource name="users" list={ListGuesser} /> */}
         <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} />
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/>

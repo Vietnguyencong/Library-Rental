@@ -1,7 +1,8 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-const apiUrl = 'http://localhost:5000/api';
+// const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://uhlib.cc/api';
 const httpClient = fetchUtils.fetchJson;
 
 export default {
@@ -17,7 +18,7 @@ export default {
         var url = `${apiUrl}/users/allusers`;
 
         switch (resource) {
-            case 'items': {
+            case 'all items': {
               url = `${apiUrl}/items/allitems`;
               break;
             }
@@ -27,6 +28,18 @@ export default {
             }
             case 'employees': {
                 url = `${apiUrl}/employees/`;
+                break;
+            }
+            case 'books': {
+                url = `${apiUrl}/items?sort=["title","ASC"]&range=[0, 5000]&filter={"item_type":"Book"}`;
+                break;
+            }
+            case 'printer': {
+                url = `${apiUrl}/items?sort=["title","ASC"]&range=[0, 5000]&filter={"item_type":"Printer"}`;
+                break;
+            }
+            case 'media': {
+                url = `${apiUrl}/items?sort=["title","ASC"]&range=[0, 5000]&filter={"item_type":"Media"}`;
                 break;
             }
         }
