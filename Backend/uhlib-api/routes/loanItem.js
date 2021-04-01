@@ -1,15 +1,12 @@
-var db = require("./db")
-var {cleanRows}  = require('../helper')
-const {v4:uuidv4} = require("uuid")
+const  express = require('express')
+const router = express.Router()
+const {getAll, getOne,createOne, editOne, deleteOne} = require("../services/loanItemService")
 
 
-//create loan item 
+router.get("/", getAll )  
+router.get("/:trans_id/:item_id", getOne)
+router.post("/", createOne)
+router.put("/:trans_id/:item_id", editOne)
+router.delete("/:trans_id/:item_id", deleteOne)
 
-
-// change quantity for loan item 
-
-
-// view loan item 
-
-
-// delete loan item 
+module.exports = router
