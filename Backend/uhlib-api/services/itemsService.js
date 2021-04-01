@@ -11,6 +11,19 @@ async function get(){
   return ndata;
 }
 
+async function getItem(item_id){
+  const user =  await db.query(`Select * from ITEMS where item_id=${item_id}`);
+
+  const data = helper.cleanRows(user);
+  let message = `Error in getting item ${item_id}`;
+
+  // if (result.affectedRows) {
+  //   message = `User received`;
+  // }
+  var ndata = JSON.parse(JSON.stringify(data).split('"item_id":').join('"id":'));
+  return ndata[0];
+}
+
 async function getByFilter(sort, range, filter){
   let pair = Object.keys(filter);
   let key  = pair[0];
@@ -87,6 +100,7 @@ return {message};
 module.exports = {
   get,
   getByFilter,
+  getItem,
   create,
   update,
   remove
