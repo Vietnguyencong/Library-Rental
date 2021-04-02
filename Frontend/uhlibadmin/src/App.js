@@ -55,9 +55,9 @@ const App = () => (
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/>
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
         <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
-        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
-        <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
-        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} />
+        <Resource name="books" list={ItemList} icon={LibraryBooksIcon}  />
+        <Resource name="media" list={ItemList} icon={AlbumIcon}  />
+        <Resource name="printer" list={ItemList} icon={PrintIcon}  />
 
         <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />

@@ -13,7 +13,7 @@ export default {
             sort: JSON.stringify([field, order]),
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
-        };
+        };                                                                             
         // const url = `${apiUrl}/${resource}?${stringify(query)}`;
         var url = `${apiUrl}/users/allusers`;
 
@@ -44,6 +44,18 @@ export default {
             }
             case 'media': {
                 url = `${apiUrl}/items?sort=["title","ASC"]&range=[0, 5000]&filter={"item_type":"Media"}`;
+                break;
+            }
+            case 'loans': {
+                url = `${apiUrl}/loans`;
+                break;
+            }
+            case 'transactions': {
+                url = `${apiUrl}/transactions`;
+                break;
+            }
+            case 'paid Fines': {
+                url = `${apiUrl}/transactions`;
                 break;
             }
         }
