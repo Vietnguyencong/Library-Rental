@@ -1,1 +1,9 @@
-get http://localhost:3000/api/users/find/3
+get http://localhost:5000/api/users/allusers
+
+
+### 
+get http://localhost:5000/api/users/many?filter={"id":[1,2]}
+
+
+### 
+get http://localhost:5000/api/users/one/1

@@ -1,21 +1,21 @@
 ### getOne 
-GET http://localhost:3000/api/transactions/one/0d976513-e86f-4347-b153-e7ab63118f11
+GET http://localhost:5000/api/transactions/one/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
 
 
 ###  getList
-GET http://localhost:3000/api/transactions 
+GET http://localhost:5000/api/transactions 
 
 ### get transaction for a user 
-GET http://localhost:3000/api/transactions/refer?filter={"user_id ":1 } 
+GET http://localhost:5000/api/transactions/refer?filter={"user_id ":1 } 
  
 ### getMany 
-GET http://localhost:3000/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}
+GET http://localhost:5000/api/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}
 
 ###  update one 
 PUT http://localhost:3000/api/transactions/1?update={"user_id":1}
 
 
-### create new post for user id = 1 
+### create new post for user id = 1  
 POST http://localhost:3000/api/transactions 
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ DELETE http://localhost:3000/api/transactions/0d976513-e86f-4347-b153-e7ab63118f
 
 ### remove many baseon the filters 
 
-DELETE http://localhost:3000/api/transactions/many?filter={"id":["d8098b78-08bc-4f9b-9956-d670030c8bee"]}
+DELETE http://localhost:5000/api/transactions/many?filter={"id":["d8098b78-08bc-4f9b-9956-d670030c8bee"]}
  
 
 ###
@@ -39,3 +39,12 @@ GET http://localhost:3000/api/transactions/view_all_items/1adfc6ff-8ad7-466b-8c5
 ### testing 
 
 GET http://localhost:3000/api/transactions/testing
+
+### 
+put http://localhost:5000/api/transactions/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
+Content-Type: application/json
+
+{
+    "user_id":1, 
+    "is_commit":0 
+}
