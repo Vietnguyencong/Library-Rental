@@ -2,11 +2,11 @@ import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 
-const apiUrl = 'http://localhost:3000/api';
+const apiUrl = 'http://localhost:5000/api';
 const httpClient = fetchUtils.fetchJson;
 
 export default {
-    getList: async (resource, params) => {
+    getList:  (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -17,14 +17,22 @@ export default {
         // const url = `${apiUrl}/${resource}?${stringify(query)}`;
         const url = `${apiUrl}/${resource}/allusers`;
 
-        const res = await fetch(url)
-        const json = await res.json()
+        // const res = await fetch(url)
+        // const json = await res.json()
   
-        const data = {
-            data: json.data.map(resource => ({ ...resource, id: resource.user_id }) ),
-            total:10
-        } 
-        return data
+        // const data = {
+        //     data: json.data.map(resource => ({ ...resource, id: resource.user_id }) ),
+        //     total:10
+        // return data
+        // 
+        // } 
+
+        return httpClient(url).then(({ headers, json }) => ({
+            data: json,
+            // data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
+            // total: parseInt(headers.get('Content-Range').split('/').pop(), 10),
+            total: 10,
+        }));
     },
 
     getOne: async (resource, params) => {
