@@ -8,6 +8,7 @@ const transaction_router = require("./routes/transactions")
 const usersRouter = require('./routes/users');
 const employeesRouter = require('./routes/employees.js')
 const libRouter = require('./routes/libraries');
+const loan_item_router = require('./routes/loanItem')
 const paidfinesRouter = require('./routes/paidfines');
 const notificationsRouter = require('./routes/notifications');
 
@@ -36,6 +37,7 @@ app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/libraries', libRouter);
+app.use('/api/loanitem',loan_item_router)
 app.use('/api/paidfines', paidfinesRouter);
 app.use('/api/notifications', notificationsRouter);
 
