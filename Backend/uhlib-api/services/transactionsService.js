@@ -16,6 +16,24 @@ getList = async(req,res, next) =>{
     }
     
 }
+get_transactions_for_user = async(req,res) =>{
+    const context = JSON.parse(req.query.filter)
+
+    const key = Object.keys(context)[0]
+    const value = context[key]
+    // if user is not exists return all the transaction 
+    var query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
+    var rows = await db.query(query, [value]) 
+    if (rows.length == 0 ){
+        // return all 
+        var query = `SELECT * from TRANSACTION; `
+        var rows = await db.query(query, [])
+    }
+    const data = cleanRows(rows)
+    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
+    return res.json(data)
+}
+
 
 // http://localhost:3000/transactions/:id 
 getOne  = async (req,res, next) =>{
@@ -95,18 +113,6 @@ create = async(req,res, next) =>{
     }
 }
 //GET  transactiosn/references?filter = {"user_id " : 1 } 
-get_transactions_for_user = async(req,res) =>{
-    const context = JSON.parse(req.query.filter)
-
-    const key = Object.keys(context)[0]
-    const value = context[key]
-
-    const query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
-    const rows = await db.query(query, [value]) 
-    const data = cleanRows(rows)
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    return res.json(data)
-}
 
 //DELETE http://my.api.url/posts/:id 
 remove = async (req,res) =>{ 
@@ -139,7 +145,13 @@ view_items_in_transaction = async (req,res)=>{
     return res.json(result)
 }
 
-
+search_by_user_name  = async (req,res, next)=>{
+    try{
+        const search = req.query.filter
+    }catch(err){
+        next(err)
+    }
+}
 test = async(req,res) =>{
     const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
     const rows = await db.query(query, [])

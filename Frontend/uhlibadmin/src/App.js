@@ -20,7 +20,7 @@ import PrintIcon from '@material-ui/icons/Print';
 import Dashboard from './Dashboard';
 
 import { UserList, UserCreate, UserEdit } from './Resources/users';
-import { TransactionList, TransactionCreate, TransactionEdit } from './Resources/transactions';
+import { TransactionList, TransactionCreate, TransactionEdit, TransactionFilter } from './Resources/transactions';
 import { ItemList, ItemCreate } from './items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
@@ -50,7 +50,9 @@ const customTheme = createMuiTheme({
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={UserEdit}/> 
-        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} icon={TransactionIcon} /> 
+
+        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit}  icon={TransactionIcon} /> 
+
          {/* <Resource name="users" list={ListGuesser} /> */}
         {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}

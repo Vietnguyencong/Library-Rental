@@ -13,7 +13,7 @@ getList:  (resource, params) => {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        const url = `${apiUrl}/${resource}`;
+        const url = `${apiUrl}/${resource}?${stringify(query)}`;
         return httpClient(url).then(({ headers, json }) => ({
             // data: json,
             data: json.map(resource => ({ ...resource, id: resource.transaction_id }) ),
@@ -78,13 +78,14 @@ getList:  (resource, params) => {
         }).then(({ json }) => ({ data: json }));
     },
 
-    create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`, {
+    create: (resource, params) => {
+        return httpClient(`${apiUrl}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
             data: { ...params.data, id: json.id },
-        })),
+        }))
+    },
 
     delete: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
