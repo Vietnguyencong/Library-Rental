@@ -11,6 +11,8 @@ async function get(){
     return ndata;
   }
 
+
+
 module.exports = {
-    get
+    get,
 }

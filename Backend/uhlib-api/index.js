@@ -9,7 +9,7 @@ const usersRouter = require('./routes/users');
 const employeesRouter = require('./routes/employees.js')
 const libRouter = require('./routes/libraries');
 const paidfinesRouter = require('./routes/paidfines');
-
+const notificationsRouter = require('./routes/notifications');
 
 app.use(cors());
 
@@ -37,6 +37,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/libraries', libRouter);
 app.use('/api/paidfines', paidfinesRouter);
+app.use('/api/notifications', notificationsRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
