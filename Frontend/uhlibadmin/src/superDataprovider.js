@@ -15,41 +15,40 @@ const dataProviders = [
     // { dataProvider: employee_dataprovider , resources: "employee"}, 
     // { dataProvider: paidfine_dataprovider , resources: "paidfine"}, 
   ];
-  
 
 export default (type, resource, params) => {
   
-    // console.log(mappingType[type]) 
+    // console.log(type) 
     // console.log(resource)
     // console.log(params)
     const expected_provider = dataProviders.find(dp => dp.resources == resource);
     // console.log(expected_provider.dataProvider)
     switch (type){ 
-        case 'getList':{
+        case 'GET_LIST':{
             return expected_provider.dataProvider.getList(resource, params);
         }
-        case 'getOne':{
+        case 'GET_ONE':{
             return expected_provider.dataProvider.getOne(resource, params);
         }
-        case 'getMany':{
+        case 'GET_MANY':{
             return expected_provider.dataProvider.getMany(resource, params);
         }
-        case 'getManyReference':{
+        case 'GET_MANY_REFERENCE':{
             return expected_provider.dataProvider.getManyReference(resource, params);
         }
-        case 'update':{
+        case 'UPDATE':{
             return expected_provider.dataProvider.update(resource, params);
         }
-        case 'updateMany':{
+        case 'UPDATE_MANY':{
             return expected_provider.dataProvider.updateMany(resource, params);
         }
-        case 'create':{
+        case 'CREATE':{
             return expected_provider.dataProvider.create(resource, params);
         }
-        case 'delete':{
+        case 'DELETE':{
             return expected_provider.dataProvider.delete(resource, params);
         }
-        case 'deleteMany':{
+        case 'DELETE_MANY':{
             return expected_provider.dataProvider.deleteMany(resource, params);
         }
     }
