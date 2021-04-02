@@ -12,7 +12,6 @@ getList = async(req,res) =>{
     res.json(data)
 }
 
-
 // http://localhost:3000/transactions/:id 
 getOne  = async (req,res) =>{
     const id = String(req.params.id)  
@@ -108,17 +107,23 @@ removeMany = async(req,res)=>{
 view_items_in_transaction = async (req,res)=>{
     const trans_id = String(req.params.trans_id) 
     console.log(trans_id)
-    // get all the items in transactions 
 
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
     const rows = await db.query(query, [trans_id, ]) 
     const result = cleanRows(rows)
     return res.json(result)
-
-
 }
 
+
+test = async(req,res) =>{
+    const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
+    const rows = await db.query(query, [])
+    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
+    const rows2 = await db.query(query2, [])
+    // console.log(JSON.parse(rows2))
+    return res.json({rows, rows2})
+}
 
 module.exports = { 
     getOne, 
@@ -129,7 +134,8 @@ module.exports = {
     create, 
     removeMany, 
     get_transactions_for_user, 
-    view_items_in_transaction
+    view_items_in_transaction,
+    test
 }
 
 function create_condition_string (length, value){ 
