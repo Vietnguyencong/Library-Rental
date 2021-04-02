@@ -66,8 +66,6 @@ const App = () => (
         <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
         <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />
 
-        
-
     </Admin>
     
 );

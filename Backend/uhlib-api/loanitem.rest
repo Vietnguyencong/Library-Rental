@@ -1,5 +1,5 @@
 ### get all the loan item 
-get http://localhost:3000/loanitem
+get http://localhost:5000/api/loanitem
 
 
 ### get one loan item 

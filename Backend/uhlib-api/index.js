@@ -8,6 +8,7 @@ const transaction_router = require("./routes/transactions")
 const usersRouter = require('./routes/users');
 const employeesRouter = require('./routes/employees.js')
 const libRouter = require('./routes/libraries');
+const loan_item_router = require('./routes/loanItem')
 
 app.use(cors());
 
@@ -34,6 +35,7 @@ app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/libraries', libRouter);
+app.use('/api/loanitem',loan_item_router)
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
