@@ -46,6 +46,7 @@ get_transactions_for_user = async(req,res, next) =>{
 
 }
 
+
 // http://localhost:3000/transactions/:id 
 getOne  = async (req,res, next) =>{
     try{
@@ -153,7 +154,6 @@ view_items_in_transaction = async (req,res)=>{
     const rows = await db.query(query, [trans_id, ]) 
     const result = cleanRows(rows)
     return res.json(result)
-<<<<<<< HEAD
 }
 
 search_by_user_name  = async (req,res, next)=>{
@@ -172,20 +172,6 @@ test = async(req,res) =>{
     return res.json({rows, rows2})
 }
 
-=======
-}
-
-
-test = async(req,res) =>{
-    const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
-    const rows = await db.query(query, [])
-    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
-    const rows2 = await db.query(query2, [])
-    // console.log(JSON.parse(rows2))
-    return res.json({rows, rows2})
-}
-
->>>>>>> upstream/main
 module.exports = { 
     getOne, 
     getList, 
