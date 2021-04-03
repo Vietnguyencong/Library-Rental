@@ -58,7 +58,7 @@ getList:  (resource, params) => {
     },
 
     update: async (resource, params) =>{
-        // console.log("VIET",params)
+        console.log("VIET",params)
          httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),

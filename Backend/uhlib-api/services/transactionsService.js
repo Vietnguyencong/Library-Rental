@@ -98,7 +98,6 @@ update = async (req,res, next) =>{
     }catch(err){
         next(err)
     }
-   
 }
 // PUT http://my.api.url/posts?filter={"id":[123,124,125]}
 updateMany = async (req,res)=>{

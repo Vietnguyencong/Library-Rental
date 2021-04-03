@@ -21,13 +21,14 @@ export default {
         const url = `${apiUrl}/${resource}/allusers`;
         return  httpClient(url).then(({ headers, json }) => ({
             data: json,
-            total: 10,
+            total: parseInt(headers.get('Content-Range')), // 0-10/10
+            // total: [0,9],
         }));
         
     },
 
     getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/one/${params.id}`
+        let url = `${apiUrl}/${resource}/${params.id}`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}
