@@ -30,6 +30,10 @@ import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
+<<<<<<< HEAD
+=======
+// const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+>>>>>>> upstream/main
 
 const LoginPage = () => (
     <Login
@@ -53,6 +57,7 @@ const customTheme = createMuiTheme({
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
+<<<<<<< HEAD
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={UserEdit}/> 
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
@@ -62,6 +67,11 @@ const App = () => (
 
          {/* <Resource name="users" list={ListGuesser} /> */}
         {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
+=======
+         {/* <Resource name="users" list={ListGuesser} />
+        <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
+        <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/> 
+>>>>>>> upstream/main
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
         {/* <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
         <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
@@ -74,7 +84,10 @@ const App = () => (
         <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
         <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
         <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} /> */}
+<<<<<<< HEAD
         
+=======
+>>>>>>> upstream/main
 
     </Admin>
     
