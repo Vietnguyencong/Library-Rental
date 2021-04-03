@@ -11,7 +11,7 @@ const libRouter = require('./routes/libraries');
 const loan_item_router = require('./routes/loanItem');
 const paidfinesRouter = require('./routes/paidfines');
 const notificationsRouter = require('./routes/notifications');
-const notificationsRouter = require('./routes/waitinglist');
+const waitinglistRouter = require('./routes/waitinglist');
 
 app.use(cors());
 

@@ -3,4 +3,5 @@ const router = express.Router();
 const paidfinesService = require('../services/waitinglistService');
 
 
+
 module.exports = router;

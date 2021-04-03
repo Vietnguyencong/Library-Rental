@@ -39,7 +39,24 @@ async function getSingleUser(user_id){
     return data;
   }
 
-  async function removeUserNotification(id){
+
+  async function removeOneUserNotification(req){
+    let id = req.body.id;
+    let key_id = req.body.key_id;
+    const result = await db.query(`
+    DELETE FROM NOTIFICATIONS where ID= ${key_id} AND user_id=${id}`);
+
+    let message = `Error in deleting user ${id}`;
+
+    if (result.affectedRows) {
+      message = `User ${id} deleted successfully`;
+    }
+
+  return {message};
+}  
+
+  async function removeUserNotification(req){
+    let id = req.body.id;
     const result = await db.query(`
     DELETE FROM NOTIFICATIONS where user_id=${id}`);
 
@@ -52,10 +69,45 @@ async function getSingleUser(user_id){
   return {message};
 }  
 
+
+async function removeOneEmployeeNotification(req){
+  let id = req.body.id;
+  let key_id = req.body.key_id;
+  const result = await db.query(`
+  DELETE FROM EMPLOYEE_NOTIFICATIONS where ID= ${key_id} AND employee_id=${id}`);
+
+  let message = `Error in deleting user ${id}`;
+
+  if (result.affectedRows) {
+    message = `User ${id} deleted successfully`;
+  }
+
+return {message};
+}  
+
+async function removeEmployeeNotification(req){
+  let id = req.body.id;
+  const result = await db.query(`
+  DELETE FROM EMPLOYEE_NOTIFICATIONS where employee_id=${id}`);
+
+  let message = `Error in deleting employee ${id}`;
+
+  if (result.affectedRows) {
+    message = `employee ${id} deleted successfully`;
+  }
+
+return {message};
+}
+
+
+
 module.exports = {
     getUsers,
     getSingleUser,
     getEmployees,
     getSingleEmployee,
-    removeUserNotification
+    removeOneUserNotification,
+    removeUserNotification,
+    removeOneEmployeeNotification,
+    removeEmployeeNotification
 }

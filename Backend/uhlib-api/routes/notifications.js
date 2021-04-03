@@ -41,16 +41,49 @@ router.get('/employee/:id', async function(req, res, next) {
     });
 
 
-
-    //NOT WORKING?
-router.delete('/deleteUserNotification/:id', async function(req, res, next) {
-    id = req.params.id;
+// DELETE ONE NOTIFICATION FOR USER
+router.delete('/deleteOneUserNotification', async function(req, res, next) {
     try {
-        res.json(await notificationsService.removeUserNotification(id));
+        res.json(await notificationsService.removeOneUserNotification(req));
         } catch (err) {
         console.error(`Delete error `, err.message);
         next(err);
         }
     });
+
+
+
+    // DELETE ALL NOTIFICATION OF ONE USER
+router.delete('/deleteUserNotification', async function(req, res, next) {
+    
+    try {
+        res.json(await notificationsService.removeUserNotification(req));
+        } catch (err) {
+        console.error(`Delete error `, err.message);
+        next(err);
+        }
+    });
+
+
+// DELETE ONE NOTIFICATION FOR EMPLOYEE
+router.delete('/deleteOneEmployeeNotification', async function(req, res, next) {
+    try {
+        res.json(await notificationsService.removeOneEmployeeNotification(req));
+        } catch (err) {
+        console.error(`Delete error `, err.message);
+        next(err);
+        }
+    });
+
+// DELETE ALL NOTIFICATION OF ONE EMPLOYEE
+router.delete('/deleteEmployeeNotification', async function(req, res, next) {
+    try {
+        res.json(await notificationsService.removeEmployeeNotification(req));
+        } catch (err) {
+        console.error(`Delete error `, err.message);
+        next(err);
+        }
+    });
+    
 
 module.exports = router;
