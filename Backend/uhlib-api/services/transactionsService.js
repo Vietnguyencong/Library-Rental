@@ -1,6 +1,8 @@
 var db = require("./db")
 var {cleanRows}  = require('../helper')
 const {v4:uuidv4} = require("uuid")
+const { json } = require("express")
+const e = require("express")
 
 // GET / 
 getList = async(req,res, next) =>{
@@ -16,22 +18,32 @@ getList = async(req,res, next) =>{
     }
     
 }
-get_transactions_for_user = async(req,res) =>{
-    const context = JSON.parse(req.query.filter)
-
-    const key = Object.keys(context)[0]
-    const value = context[key]
-    // if user is not exists return all the transaction 
-    var query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
-    var rows = await db.query(query, [value]) 
-    if (rows.length == 0 ){
-        // return all 
-        var query = `SELECT * from TRANSACTION; `
-        var rows = await db.query(query, [])
+get_transactions_for_user = async(req,res, next) =>{
+    try{
+        
+        const context = JSON.parse(req.query.filter)
+        if (JSON.stringify(context) !== "{}"){
+            const key = Object.keys(context)[0]
+            const value = context[key]
+            var query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
+            var rows = await db.query(query, [value]) 
+            if (rows.length == 0 ){
+                var query = `SELECT * from TRANSACTION; `
+                var rows = await db.query(query, [])
+            }
+            const data = cleanRows(rows)
+            return res.json(data)
+        }
+        else{
+            var query = `SELECT * from TRANSACTION; `
+            var rows = await db.query(query, [])
+            const data = cleanRows(rows)
+            return res.json(data)
+        }
+    }catch(err) {
+        next(err)
     }
-    const data = cleanRows(rows)
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    return res.json(data)
+
 }
 
 

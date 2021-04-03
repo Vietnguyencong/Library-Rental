@@ -20,7 +20,9 @@ import PrintIcon from '@material-ui/icons/Print';
 import Dashboard from './Dashboard';
 
 import { UserList, UserCreate, UserEdit } from './Resources/users';
-import { TransactionList, TransactionCreate, TransactionEdit, TransactionFilter } from './Resources/transactions';
+import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
+
+import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate } from './items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
@@ -51,7 +53,10 @@ const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={UserEdit}/> 
 
-        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit}  icon={TransactionIcon} /> 
+        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
+
+        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={AttachMoneyOutlinedIcon} /> 
+
 
          {/* <Resource name="users" list={ListGuesser} /> */}
         {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}

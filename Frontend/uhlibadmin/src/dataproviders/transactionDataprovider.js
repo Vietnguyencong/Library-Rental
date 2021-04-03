@@ -36,7 +36,9 @@ getList:  (resource, params) => {
             filter: JSON.stringify({ id: params.ids }),
         };
         const url = `${apiUrl}/${resource}/many?${stringify(query)}`;
-        return httpClient(url).then(({ json }) => ({ data: json }));
+        return httpClient(url).then(({ json }) => ({ 
+            data: json.map(resource => ({ ...resource, id: resource.transaction_id }) )
+        }));
     },
 
     getManyReference: (resource, params) => {

@@ -1,10 +1,10 @@
 import * as React from "react";
-import { List, Datagrid, TextField, EmailField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput, BooleanField,BooleanInput,DateTimeInput, Create,Filter } from 'react-admin';
+import { List, Datagrid, TextField, EmailField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput, BooleanField,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField } from 'react-admin';
 
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
-        <ReferenceInput label="Search by User" source="user_id" reference="users" alwaysOn>
+        <ReferenceInput label="Search by User" source="user_id" reference="users" allowEmpty>
             <SelectInput optionText="first_name" />
         </ReferenceInput>
     </Filter>
@@ -36,9 +36,18 @@ export const TransactionEdit = props => (
 export const TransactionCreate = props =>(
     <Create {...props}>
         <SimpleForm>
-            <ReferenceInput source="user_id"            reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
+            <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
             <BooleanInput source="is_commit" />
         </SimpleForm>
     </Create>
 )
 
+export const TransactionShow = props =>{
+    return <Show {...props}>
+    <SimpleShowLayout>
+        <ReferenceField source="user_id" reference="users">
+            <TextField source="first_name"></TextField>
+        </ReferenceField>
+    </SimpleShowLayout>
+</Show>
+}
