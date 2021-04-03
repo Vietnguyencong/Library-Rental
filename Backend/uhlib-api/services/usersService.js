@@ -175,6 +175,23 @@ async function remove(req){
   return {message};
 }  
 
+
+getMany = async (req,res,next) =>{
+  try{
+    const ids = JSON.parse(req.query.filter).id
+    if (ids == null) return res.status(400).send({"message": "cannot find the data"})
+    var condition_tring = create_condition_string(ids.length, "?") // ?,?,?
+    const query = `SELECT * FROM  USERS WHERE user_id  in ( ${condition_tring} ) ;`
+    const rows = await db.query(query, ids)
+    const data = helper.cleanRows(rows)
+    
+    return res.json(data)
+  }catch(err){
+    next(err)
+  }
+}
+
+
 module.exports = {
   get,
   getUser,
@@ -185,5 +202,12 @@ module.exports = {
   update,
   updateNoBody,
   remove,
-  
+  getMany
+}
+
+
+
+function create_condition_string (length, value){ 
+  var array = Array(length).fill(value)
+  return array.join()
 }

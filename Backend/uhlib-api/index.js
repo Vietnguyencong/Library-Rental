@@ -7,8 +7,11 @@ const itemsRouter = require('./routes/items');
 const transaction_router = require("./routes/transactions")
 const usersRouter = require('./routes/users');
 const employeesRouter = require('./routes/employees.js')
-const loanitem_router = require("./routes/loanItem")
 const libRouter = require('./routes/libraries');
+const loan_item_router = require('./routes/loanItem')
+const paidfinesRouter = require('./routes/paidfines');
+const notificationsRouter = require('./routes/notifications');
+const waitinglistRouter = require('./routes/waitinglist');
 
 app.use(cors());
 
@@ -20,7 +23,6 @@ app.use(
   })
 );
 
-
 app.use((req,res,next)=>{
   console.log("middleware opening")
   res.header("Content-Range","objects 0-10/10" )
@@ -31,11 +33,14 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/transactions", transaction_router)
-app.use("/api/loanitem", loanitem_router)
 app.use('/api/items', itemsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/employees', employeesRouter);
 app.use('/api/libraries', libRouter);
+app.use('/api/loanitem',loan_item_router)
+app.use('/api/paidfines', paidfinesRouter);
+app.use('/api/notifications', notificationsRouter);
+app.use('/api/waitinglist', waitinglistRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
