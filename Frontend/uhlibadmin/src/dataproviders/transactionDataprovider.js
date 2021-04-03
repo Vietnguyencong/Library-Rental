@@ -104,10 +104,3 @@ getList:  (resource, params) => {
     }
 };
 
-// function rename(obj, oldkey, newkey) { 
-//     capitals = capitals.map(function(obj) {
-//         obj[newkey] = obj[oldkey]; // Assign new key
-//         delete obj[oldkey]; // Delete old key
-//         return obj;
-//     })
-// }
