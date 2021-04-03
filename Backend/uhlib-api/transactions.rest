@@ -12,11 +12,10 @@ GET http://localhost:5000/api/transactions?filter={"user_id":2}
 GET http://localhost:5000/api/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}
 
 ###  update one 
-PUT http://localhost:5000/api/transactions/1?update={"user_id":1}
 
 
 ### create new post for user id = 1  
-POST http://localhost:3000/api/transactions 
+POST http://localhost:5000/api/transactions 
 Content-Type: application/json
 
 {
@@ -24,7 +23,7 @@ Content-Type: application/json
 }
 
 ### remove one 
-DELETE http://localhost:3000/api/transactions/0d976513-e86f-4347-b153-e7ab63118f11
+DELETE http://localhost:5000/api/transactions/0855c22b-a84f-447a-9023-5ecdb287b8a9
 
 
 ### remove many baseon the filters 
@@ -36,9 +35,6 @@ DELETE http://localhost:5000/api/transactions/many?filter={"id":["d8098b78-08bc-
 GET http://localhost:3000/api/transactions/view_all_items/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
 
 
-### testing 
-
-GET http://localhost:3000/api/transactions/testing
 
 ### 
 put http://localhost:5000/api/transactions/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
