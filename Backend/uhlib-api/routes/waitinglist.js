@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const router = express.Router();
 const waitinglistService = require('../services/waitinglistService');
 
@@ -34,6 +35,16 @@ router.get('/waitinglist/user/:id', async function(req, res, next) {
         next(err);
       }
     });
+
+/* POST ITEMS */
+router.post('/', async function(req, res, next) {
+    try {
+      res.json(await waitinglistService.create(req.body));
+    } catch (err) {
+      console.error(`Error while creating item`, err.message);
+      next(err);
+    }
+  });
 
 
 // DELETE ONE 

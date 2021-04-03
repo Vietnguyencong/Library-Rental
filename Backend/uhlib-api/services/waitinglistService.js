@@ -29,6 +29,25 @@ async function getwaitinglist(){
     return data;
   }
 
+  //CREATE NEW INSERT IN WAITING_LIST
+  async function create(waiting_list){
+    const result = await db.query(
+      `INSERT INTO WAITING_LIST 
+      (user_id, item_id) 
+      VALUES 
+      (?, ?)`, 
+      [
+        waiting_list.user_id, waiting_list.item_id
+      ]
+    );
+    let message = 'Error in inserting a new item';
+  
+    if (result.affectedRows) {
+      message = `A new item by user_id ${waiting_list.user_id} was created successfully`;
+    }
+    return {message};
+  }
+
 
   async function removeOne(req){
     let id = req.body.id;
@@ -72,6 +91,7 @@ module.exports = {
     getwaitinglist,
     getBookList,
     getUserList,
+    create,
     removeOne,
     removeUser,
     removeItem,
