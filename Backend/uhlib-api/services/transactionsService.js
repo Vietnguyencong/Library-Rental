@@ -18,7 +18,7 @@ getList = async(req,res, next) =>{
     }
 }
 
-get_transactions_for_user = async(req,res, next) =>{
+get_transactions_for_user = async (req,res, next) =>{
     try{
         
         const context = JSON.parse(req.query.filter)

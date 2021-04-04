@@ -21,7 +21,7 @@ export const LoanitemList = props => (
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
             <DateField source="date_due" />
-             <DateField source="created_at" />
+            <DateField source="created_at" />
             <DateField source="updated_at" />
             {/* <TextField source="created_by" />
             <TextField source="updated_by" /> */}

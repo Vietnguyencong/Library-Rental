@@ -1,8 +1,10 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
+import { string } from 'prop-types';
 
 const apiUrl = 'http://localhost:5000/api';
+// const apiUrl = ''
 const httpClient = fetchUtils.fetchJson;
 
 export default {
@@ -18,17 +20,18 @@ export default {
         // console.log(query)
         // params["sort"]["field"] ="first_name"
         // console.log(params)
-        const url = `${apiUrl}/${resource}/allusers`;
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
-            data: json,
-            total: parseInt(headers.get('Content-Range')), // 0-10/10
+            data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
+            // total: parseInt(headers.get('Content-Range')), // 0-10/10
             // total: [0,9],
+            total:10
         }));
         
     },
 
     getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/${params.id}`
+        let url = `${apiUrl}/${resource}/one/${params.id}`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}
@@ -69,8 +72,8 @@ export default {
         return httpClient(`${apiUrl}/${resource}/${params.id}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json }))
-    },
+        }).then(({ json }) => ({ data: params.data })) // {data: json}
+    }, 
 
     updateMany: (resource, params) => {
         const query = {
@@ -83,7 +86,7 @@ export default {
     },
 
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/createuser`, {
+        httpClient(`${apiUrl}/${resource}`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
@@ -91,8 +94,9 @@ export default {
         })),
 
     delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${apiUrl}/${resource}/deleteuser`, {
             method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
         }).then(({ json }) => ({ data: json })),
 
     deleteMany: (resource, params) => {

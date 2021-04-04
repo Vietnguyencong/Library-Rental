@@ -1,9 +1,21 @@
+### get all users 
 get http://localhost:5000/api/users/allusers
 
 
-### 
+### filter get many users 
 get http://localhost:5000/api/users/many?filter={"id":[1,2]}
 
 
-### 
-get http://localhost:5000/api/users/1
+### get one user 
+get http://localhost:5000/api/users/one/1
+
+### update one user 
+put http://localhost:5000/api/users/1
+Content-Type: application/json
+
+{
+    "city": "Houston"
+}
+
+### get all users by first name 
+get http://localhost:5000/api/users/filter?filter={"first_name":"UPDATED"}

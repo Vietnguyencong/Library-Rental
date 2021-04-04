@@ -41,7 +41,7 @@ router.get('/allusers', async function(req, res, next) {
 });
 
 /* GETUSER BY ID */
-router.get('/:id', async function(req, res, next) {
+router.get('/one/:id', async function(req, res, next) {
     let id  = req.params.id;
     // console.log('id is ${id}');
     try {
@@ -126,5 +126,7 @@ router.delete('/deleteuser', async function(req, res, next) {
     }
 });
 
+router.get("/filter", usersService.getUserByFirstName)
 router.get("/many", usersService.getMany)
+
 module.exports = router;
