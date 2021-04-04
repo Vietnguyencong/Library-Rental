@@ -97,11 +97,56 @@ async function remove(req){
 return {message};
 }  
 
+getMany = async (req,res,next) =>{
+  console.log("viet nguyen cong ")
+  try{
+    const ids = JSON.parse(req.query.filter).id
+    console.log(ids)
+    const condition_tring = helper.create_condition_string(ids.length, "?")
+    const query = `SELECT * from ITEMS where item_id in (${condition_tring});`
+    const rows = await db.query(query, ids)
+    const data = helper.cleanRows(rows)
+    return res.json(data)
+  }catch(err){
+    next(err)
+  }
+}
+
+getItemByTitle = async (req,res, next)=>{ 
+  try{
+    const context = JSON.parse(req.query.filter)
+    // console.log(context)
+    if (JSON.stringify(context) !== "{}"){
+      const key = Object.keys(context)[0]
+      const value = context[key]
+      var query = `SELECT * FROM ITEMS WHERE ${key} LIKE '%${value}%' ; `
+      var rows = await db.query(query, []) 
+      console.log(rows)
+      if (rows.length == 0 ){
+          var query = `SELECT * from ITEMS; `
+          var rows = await db.query(query, [])
+      }
+      const data = helper.cleanRows(rows)
+      return res.json(data)
+      }
+    else{
+        var query = `SELECT * from ITEMS; `
+        var rows = await db.query(query, [])
+        const data = helper.cleanRows(rows)
+        return res.json(data)
+    }
+  }catch(err){
+    next(err)
+  }
+}
+
 module.exports = {
   get,
   getByFilter,
   getItem,
   create,
   update,
-  remove
+  remove,
+  getMany,
+  getItemByTitle
 }

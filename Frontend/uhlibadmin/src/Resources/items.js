@@ -3,10 +3,10 @@ import { Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, Email
 import { Grid, Typography } from '@material-ui/core';
 const ItemsFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
+        <TextInput label="Search by title" source="title" alwaysOn />
+        {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
             <SelectInput optionText="name" />
-        </ReferenceInput>
+        </ReferenceInput> */}
     </Filter>
 );
 
@@ -15,9 +15,7 @@ export const ItemList = props => (
 
 <Datagrid rowClick="edit">
             <TextField source="title" />
-            
             <NumberField source="current_quantity" />
-            <TextField source="title" />
             <NumberField source="stock" />
             <NumberField source="price" />
             <NumberField source="rent_period" />

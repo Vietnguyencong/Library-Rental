@@ -16,10 +16,7 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        // We cna change the sort here 
-        // console.log(query)
-        // params["sort"]["field"] ="first_name"
-        // console.log(params)
+        
         const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
