@@ -39,6 +39,7 @@ export const UserList = props => (
         <TextField source="city" />
         <TextField source="state" />
         <TextField source="zip_code" />
+        <EditButton />
     </Datagrid>
 </List>
 );

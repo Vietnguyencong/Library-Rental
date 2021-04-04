@@ -14,7 +14,7 @@ router.get('/allpaidfines', async function(req, res, next) {
   });
 
 
-/* GET USER BY ID */
+/* GETUSER BY ID */
 router.get('/:id', async function(req, res, next) {
   try {
     res.json(await paidfinesService.getUser(req.params.id));

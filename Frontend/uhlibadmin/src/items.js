@@ -15,9 +15,8 @@ export const ItemList = props => (
 
 <Datagrid rowClick="edit">
             <TextField source="title" />
-            
+            <TextField source="item_type" />
             <NumberField source="current_quantity" />
-            <TextField source="title" />
             <NumberField source="stock" />
             <NumberField source="price" />
             <DateField source="created_by" />
@@ -26,10 +25,11 @@ export const ItemList = props => (
             <DateField source="updated_at" />
             <NumberField source="rent_period" />
             <NumberField source="is_available" />
-            <TextField source="item_type" />
+           
             <TextField source="library_id" />
             {/* <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
             <TextField source="id" />
+            <EditButton />
         </Datagrid>
     </List>
 );

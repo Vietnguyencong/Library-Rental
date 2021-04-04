@@ -1,28 +1,68 @@
 var db = require("./db")
 var {cleanRows}  = require('../helper')
 const {v4:uuidv4} = require("uuid")
+const { json } = require("express")
+const e = require("express")
 
 // GET / 
-getList = async(req,res) =>{
-    console.log(req.query)
-    const query = `SELECT * FROM TRANSACTION; ` 
-    const rows = await db.query(query) 
-    const data = cleanRows(rows) 
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    res.json(data)
+getList = async(req,res, next) =>{
+    try{
+        console.log(req.query)
+        const query = `SELECT * FROM TRANSACTION; ` 
+        const rows = await db.query(query) 
+        const data = cleanRows(rows) 
+        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
+        res.json(data)
+    }catch(err){
+        next(err)
+    }
 }
 
-// http://localhost:3000/transactions/:id 
-getOne  = async (req,res) =>{
-    const id = String(req.params.id)  
-    if (id == null ){
-        return res.status(400).send({"message": "no result"}) 
+get_transactions_for_user = async (req,res, next) =>{
+    try{
+        
+        const context = JSON.parse(req.query.filter)
+        if (JSON.stringify(context) !== "{}"){
+            const key = Object.keys(context)[0]
+            const value = context[key]
+            var query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
+            var rows = await db.query(query, [value]) 
+            if (rows.length == 0 ){
+                var query = `SELECT * from TRANSACTION; `
+                var rows = await db.query(query, [])
+            }
+            const data = cleanRows(rows)
+            return res.json(data)
+        }
+        else{
+            var query = `SELECT * from TRANSACTION; `
+            var rows = await db.query(query, [])
+            const data = cleanRows(rows)
+            return res.json(data)
+        }
+    }catch(err) {
+        next(err)
     }
-    const query = `SELECT *  FROM TRANSACTION WHERE transaction_id = ? ; `
-    const row = await db.query(query, [id])
-    const data = cleanRows(row) 
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    return res.json(data)
+
+}
+
+
+// http://localhost:3000/transactions/:id 
+getOne  = async (req,res, next) =>{
+    try{
+        const id = String(req.params.id)  
+        if (id == null ){
+            return res.status(400).send({"message": "no result"}) 
+        }
+        const query = `SELECT *  FROM TRANSACTION WHERE transaction_id = ? ; `
+        const row = await db.query(query, [id])
+        const data = cleanRows(row) 
+        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
+        return res.json(data)
+    }catch(err){
+        next(err)
+    }
+   
 }
 // GET /posts/many?filter={"id":[123,456,789]}
 getMany = async (req,res) =>{
@@ -37,18 +77,28 @@ getMany = async (req,res) =>{
     return res.json(data)
 }
 // PUT /posts/123 
-update = async (req,res) =>{
-    const id = String(req.params.id)
-    if (id == null) return res.status(400).send({"message": "cannot find the data"})
-    const updated_data = JSON.parse(req.query.update)
+update = async (req,res, next) =>{
+    try{
+        const id = (req.params.id)
+        console.log(id)
+        if (id == null) return res.status(400).send({"message": "cannot find the data"})
     
-    const query = `UPDATE TRANSACTION
-    SET user_id = ?
-    WHERE transaction_id = ?; `
-    const data =[ updated_data.user_id , id ] 
+        const user_id = req.body.user_id 
+        const is_commit = req.body.is_commit
+        // const date_created =  req.body.date_created
+        // const updated_at = req.body.updated_at
 
-    const message = await db.query(query, data)
-    return res.json(message)
+        const query = `UPDATE TRANSACTION
+        SET user_id = ?, is_commit =?
+        WHERE transaction_id = ?; `
+        const data =[ user_id , is_commit, id ] 
+    
+        const message = await db.query(query, data)
+        return res.json(message)
+        
+    }catch(err){
+        next(err)
+    }
 }
 // PUT http://my.api.url/posts?filter={"id":[123,124,125]}
 updateMany = async (req,res)=>{
@@ -62,27 +112,19 @@ updateMany = async (req,res)=>{
 }
 
 // POST  /transactions // need user_id and create user transaction_id // date_created auto fill 
-create = async(req,res) =>{
-    const user_id = req.body.user_id
-    const newId = uuidv4() 
-    const query = `INSERT INTO TRANSACTION (transaction_id, user_id ) VALUES ( ?, ? ) ;` 
-    const data = [newId, user_id] 
-    const message = await db.query(query, data)
-    return res.json(message)
+create = async(req,res, next) =>{
+    try{
+        const user_id = req.body.user_id
+        const newId = uuidv4() 
+        const query = `INSERT INTO TRANSACTION (transaction_id, user_id ) VALUES ( ?, ? ) ;` 
+        const data = [newId, user_id] 
+        const message = await db.query(query, data)
+        return res.json(message)
+    }catch(err){
+        next(err)
+    }
 }
 //GET  transactiosn/references?filter = {"user_id " : 1 } 
-get_transactions_for_user = async(req,res) =>{
-    const context = JSON.parse(req.query.filter)
-
-    const key = Object.keys(context)[0]
-    const value = context[key]
-
-    const query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
-    const rows = await db.query(query, [value]) 
-    const data = cleanRows(rows)
-    // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
-    return res.json(data)
-}
 
 //DELETE http://my.api.url/posts/:id 
 remove = async (req,res) =>{ 
@@ -106,8 +148,6 @@ removeMany = async(req,res)=>{
 // need transaction_id  
 view_items_in_transaction = async (req,res)=>{
     const trans_id = String(req.params.trans_id) 
-    console.log(trans_id)
-
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
     const rows = await db.query(query, [trans_id, ]) 
@@ -115,15 +155,14 @@ view_items_in_transaction = async (req,res)=>{
     return res.json(result)
 }
 
-
-test = async(req,res) =>{
-    const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
-    const rows = await db.query(query, [])
-    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
-    const rows2 = await db.query(query2, [])
-    // console.log(JSON.parse(rows2))
-    return res.json({rows, rows2})
+search_by_user_name  = async (req,res, next)=>{
+    try{
+        const search = req.query.filter
+    }catch(err){
+        next(err)
+    }
 }
+
 
 module.exports = { 
     getOne, 
@@ -135,11 +174,9 @@ module.exports = {
     removeMany, 
     get_transactions_for_user, 
     view_items_in_transaction,
-    test
 }
 
 function create_condition_string (length, value){ 
     var array = Array(length).fill(value)
     return array.join()
 }
-//[1,1,1]=> 111

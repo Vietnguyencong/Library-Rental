@@ -14,7 +14,7 @@ router.get('/allwaitinglist', async function(req, res, next) {
     });
 
 // GET WAITING LIST FROM A ITEM ID
-router.get('/book/:id', async function(req, res, next) {
+router.get('/waitinglist/book/:id', async function(req, res, next) {
     let id  = req.params.id;
      try {
         res.json(await waitinglistService.getBookList(id));
@@ -26,7 +26,7 @@ router.get('/book/:id', async function(req, res, next) {
 
 
 // GET WAITING LIST FROM A USER ID
-router.get('/user/:id', async function(req, res, next) {
+router.get('/waitinglist/user/:id', async function(req, res, next) {
     let id  = req.params.id;
      try {
         res.json(await waitinglistService.getUserList(id));

@@ -1,12 +1,14 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
+import { string } from 'prop-types';
 
 const apiUrl = 'http://localhost:5000/api';
+// const apiUrl = ''
 const httpClient = fetchUtils.fetchJson;
 
 export default {
-    getList:  (resource, params) => {
+    getList:  async (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -14,51 +16,33 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        // const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        const url = `${apiUrl}/${resource}/allusers`;
-
-        // const res = await fetch(url)
-        // const json = await res.json()
-  
-        // const data = {
-        //     data: json.data.map(resource => ({ ...resource, id: resource.user_id }) ),
-        //     total:10
-        // return data
-        // 
-        // } 
-
-        return httpClient(url).then(({ headers, json }) => ({
-            data: json,
-            // data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
-            // total: parseInt(headers.get('Content-Range').split('/').pop(), 10),
-            total: 10,
+        // We cna change the sort here 
+        // console.log(query)
+        // params["sort"]["field"] ="first_name"
+        // console.log(params)
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
+        return  httpClient(url).then(({ headers, json }) => ({
+            data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
+            // total: parseInt(headers.get('Content-Range')), // 0-10/10
+            // total: [0,9],
+            total:10
         }));
+        
     },
 
     getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/find/${params.id}`
-        // let token = ""
-        // if (localStorage.getItem("username")){
-        //     token =   JSON.parse(localStorage.getItem("username")).token
-        // }
-        const response = await fetch (url, {
-            method:"GET",
-            // headers :{
-            //     'Authorization': "bearer " + token
-            // }, 
-        })  
+        let url = `${apiUrl}/${resource}/one/${params.id}`
+        const response = await fetch (url)
         const json = await response.json()
-        console.log(json.data)
-        return {data: json.data}
-      
+        return {data: json}
     },
 
     getMany: (resource, params) => {
         const query = {
-            filter: JSON.stringify({ user_id: params.ids }),
+            filter: JSON.stringify({ id: params.ids }),
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        return httpClient(url).then(({ json }) => ({ data: json }));
+        const url = `${apiUrl}/${resource}/many?${stringify(query)}`;
+        return httpClient(url).then(({ json }) => ({ data: json.map(resource => ({ ...resource, id: resource.user_id }) ), }));
     },
 
     getManyReference: (resource, params) => {
@@ -72,35 +56,24 @@ export default {
                 [params.target]: params.id,
             }),
         };
+        // console.log("query", query)
+        // const url = `${apiUrl}/${resource}/${params.id}`;
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
-
+        console.log(url)
         return httpClient(url).then(({ headers, json }) => ({
-            data: json,
+            data: [json],
             total:10
         }));
     },
 
     update: async(resource, params) =>{
         let url = `${apiUrl}/${resource}/${params.id}`
-        let token = ""
-        if (localStorage.getItem("username")){
-            token =   JSON.parse(localStorage.getItem("username")).token
-        }
-        const response = await fetch (url, {
-            method:"PUT",
-            headers :{
-                'Authorization': "bearer " + token
-            }, 
+        console.log(params.data)
+        return httpClient(`${apiUrl}/${resource}/${params.id}`, {
+            method: 'PUT',
             body: JSON.stringify(params.data),
-        })  
-        const json = await response.json()
-        return {data: json}
-
-        // httpClient(`${apiUrl}/${resource}/${params.id}`, {
-        //     method: 'PUT',
-        //     body: JSON.stringify(params.data),
-        // }).then(({ json }) => ({ data: json }))
-    },
+        }).then(({ json }) => ({ data: params.data })) // {data: json}
+    }, 
 
     updateMany: (resource, params) => {
         const query = {
@@ -113,7 +86,7 @@ export default {
     },
 
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`, {
+        httpClient(`${apiUrl}/${resource}/createuser`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
@@ -121,8 +94,9 @@ export default {
         })),
 
     delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${apiUrl}/${resource}/deleteuser`, {
             method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
         }).then(({ json }) => ({ data: json })),
 
     deleteMany: (resource, params) => {
