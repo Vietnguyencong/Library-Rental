@@ -317,6 +317,188 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Libraries",
+			"item": [
+				{
+					"name": "/libraries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "uhlib.cc/api/libraries/all_libraries",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"all_libraries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/id/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/id/1",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/name/MD%20Anderson%20Library",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"name",
+								"MD%20Anderson%20Library"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/Location/Houston,%20TX",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"Location",
+								"Houston,%20TX"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/createlibrary",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Test\",\r\n    \"opening_hours\" : \"4:00-5:00\",\r\n    \"location\" : \"Somewhere\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/createlibrary",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"createlibrary"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/updatelibrary",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Test2\",\r\n    \"opening_hours\" : \"4:05-5:05\",\r\n    \"location\" : \"Nowhere\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/updatelibrary/7",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"updatelibrary",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/libraries/deletelibrary",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 7\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://uhlib.cc/api/libraries/deletelibrary",
+							"protocol": "https",
+							"host": [
+								"uhlib",
+								"cc"
+							],
+							"path": [
+								"api",
+								"libraries",
+								"deletelibrary"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
