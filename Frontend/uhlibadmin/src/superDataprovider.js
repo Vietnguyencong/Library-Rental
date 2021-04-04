@@ -10,6 +10,7 @@ const dataProviders = [
     { dataProvider: items_dataprovider, resources: "items"},
     { dataProvider: transaction_dataprovider, resources: "transactions"},
     { dataProvider: loanitem_dataprovider, resources: "loanitem"}, 
+    { dataProvider: items_dataprovider, resources: "items"}, 
     // { dataProvider: library_Dataprovider, resources: "library"}, 
     // { dataProvider: employee_dataprovider , resources: "employee"}, 
     // { dataProvider: paidfine_dataprovider , resources: "paidfine"}, 

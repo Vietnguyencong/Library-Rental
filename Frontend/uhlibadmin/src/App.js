@@ -23,7 +23,7 @@ import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
 import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
-import { ItemList, ItemCreate } from './items';
+import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
 // import dataProvider from './dataProvider';
@@ -57,6 +57,7 @@ const App = () => (
 
         <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={AttachMoneyOutlinedIcon} /> 
 
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={AttachMoneyOutlinedIcon} /> 
 
          {/* <Resource name="users" list={ListGuesser} /> */}
         {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
