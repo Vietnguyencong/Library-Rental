@@ -45,7 +45,11 @@ export const TransactionCreate = props =>(
 export const TransactionShow = props =>{
     return <Show {...props}>
     <SimpleShowLayout>
+<<<<<<< HEAD
         <ReferenceField source="id" reference="users">
+=======
+        <ReferenceField source="user_id" reference="users">
+>>>>>>> viet/main
             <TextField source="first_name"></TextField>
         </ReferenceField>
     </SimpleShowLayout>

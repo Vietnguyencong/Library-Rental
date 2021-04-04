@@ -16,9 +16,9 @@ getList = async(req,res, next) =>{
     }catch(err){
         next(err)
     }
-    
 }
-get_transactions_for_user = async(req,res, next) =>{
+
+get_transactions_for_user = async (req,res, next) =>{
     try{
         
         const context = JSON.parse(req.query.filter)
@@ -95,6 +95,7 @@ update = async (req,res, next) =>{
     
         const message = await db.query(query, data)
         return res.json(message)
+        
     }catch(err){
         next(err)
     }
@@ -147,8 +148,6 @@ removeMany = async(req,res)=>{
 // need transaction_id  
 view_items_in_transaction = async (req,res)=>{
     const trans_id = String(req.params.trans_id) 
-    console.log(trans_id)
-
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
     const rows = await db.query(query, [trans_id, ]) 
@@ -163,14 +162,7 @@ search_by_user_name  = async (req,res, next)=>{
         next(err)
     }
 }
-test = async(req,res) =>{
-    const query =  `select date_diff('2011-08-17', '2011-08-08') as date_diff;  `
-    const rows = await db.query(query, [])
-    const query2 = `select compute_duedate('2011-08-17', 31) as duedate;`
-    const rows2 = await db.query(query2, [])
-    // console.log(JSON.parse(rows2))
-    return res.json({rows, rows2})
-}
+
 
 module.exports = { 
     getOne, 
@@ -182,7 +174,6 @@ module.exports = {
     removeMany, 
     get_transactions_for_user, 
     view_items_in_transaction,
-    test
 }
 
 function create_condition_string (length, value){ 

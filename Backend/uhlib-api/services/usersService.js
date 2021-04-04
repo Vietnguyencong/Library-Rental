@@ -191,6 +191,32 @@ getMany = async (req,res,next) =>{
   }
 }
 
+getUserByFirstName = async (req,res, next)=>{ 
+  try{
+    const context = JSON.parse(req.query.filter)
+    if (JSON.stringify(context) !== "{}"){
+      const key = Object.keys(context)[0]
+      const value = context[key]
+      var query = `SELECT * FROM USERS WHERE ${key} LIKE '%${value}%' ; `
+      var rows = await db.query(query, []) 
+      console.log(rows)
+      if (rows.length == 0 ){
+          var query = `SELECT * from USERS; `
+          var rows = await db.query(query, [])
+      }
+      const data = helper.cleanRows(rows)
+      return res.json(data)
+      }
+    else{
+        var query = `SELECT * from USERS; `
+        var rows = await db.query(query, [])
+        const data = helper.cleanRows(rows)
+        return res.json(data)
+    }
+  }catch(err){
+    next(err)
+  }
+}
 
 module.exports = {
   get,
@@ -202,7 +228,8 @@ module.exports = {
   update,
   updateNoBody,
   remove,
-  getMany
+  getMany,
+  getUserByFirstName
 }
 
 

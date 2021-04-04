@@ -1,11 +1,9 @@
 import * as React from "react";
-import { defaultTheme } from "react-admin";
+import { defaultTheme, ShowGuesser } from "react-admin";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { Admin, Resource, Login, ListGuesser, EditGuesser  } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
 import authProvider from './authProvider';
 
-import PostIcon from '@material-ui/icons/Book';
 import UserIcon from '@material-ui/icons/Group';
 import TransactionIcon from '@material-ui/icons/AccountBalance';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
@@ -21,7 +19,7 @@ import PrintIcon from '@material-ui/icons/Print';
 
 import Dashboard from './Dashboard';
 
-import { UserList, UserCreate, UserEdit } from './Resources/users';
+import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
 import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
@@ -53,7 +51,7 @@ const customTheme = createMuiTheme({
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
-        <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={UserEdit}/> 
+        <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
 

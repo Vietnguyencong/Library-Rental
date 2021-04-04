@@ -11,7 +11,6 @@ router.post("/", create)
 router.get("/",get_transactions_for_user )
 router.delete("/many",removeMany)
 router.get("/view_all_items/:trans_id", view_items_in_transaction)
-router.get("/testing",test )
 
 module.exports = router 
 

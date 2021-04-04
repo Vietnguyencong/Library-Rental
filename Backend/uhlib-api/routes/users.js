@@ -126,4 +126,7 @@ router.delete('/deleteuser', async function(req, res, next) {
     }
 });
 
+router.get("/filter", usersService.getUserByFirstName)
+router.get("/many", usersService.getMany)
+
 module.exports = router;
