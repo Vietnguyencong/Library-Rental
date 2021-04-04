@@ -3,8 +3,8 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-const apiUrl = 'https://uhlib.cc/api';
-// const apiUrl = 'http://localhost:5000/api';
+// const apiUrl = 'https://uhlib.cc/api';
+const apiUrl = 'http://localhost:5000/api';
 const httpClient = fetchUtils.fetchJson;
 
 export default {
@@ -83,7 +83,7 @@ export default {
     },
 
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/createuser`, {
+        httpClient(`${apiUrl}/${resource}/`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({

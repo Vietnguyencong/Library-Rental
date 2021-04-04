@@ -51,16 +51,17 @@ const customTheme = createMuiTheme({
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
-        <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
+
+        <Resource name="users" list={UserList} show={UserShow} create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
 
-        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={AttachMoneyOutlinedIcon} /> 
+        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
 
         <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={AttachMoneyOutlinedIcon} /> 
 
          {/* <Resource name="users" list={ListGuesser} /> */}
-        {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
+        <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} />
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
         {/* <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
         <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
