@@ -18,9 +18,10 @@ export default {
         };
    
         // const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
-        const url = `${apiUrl}/${resource}/allitems`
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`
         return  httpClient(url).then(({ headers, json }) => ({
-            data:json,
+            data: json.map(resource => ({ ...resource, id: resource.item_id }) ),
+            //data:json
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
             // total: [0,9],
             total:10
@@ -29,7 +30,7 @@ export default {
     },
 
     getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/${params.id}`
+        let url = `${apiUrl}/${resource}/one/${params.id}`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}
@@ -39,8 +40,8 @@ export default {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        return httpClient(url).then(({ json }) => ({ data: json.map(resource => ({ ...resource, id: resource.user_id }) ), }));
+        const url = `${apiUrl}/${resource}/many?${stringify(query)}`;
+        return httpClient(url).then(({ json }) => ({ data: json }));
     },
 
     getManyReference: (resource, params) => {
@@ -92,7 +93,7 @@ export default {
         })),
 
     delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/deleteuser`, {
+        httpClient(`${apiUrl}/${resource}/deleteitem`, {
             method: 'DELETE',
             body: JSON.stringify({"id": params.id})
         }).then(({ json }) => ({ data: json })),
