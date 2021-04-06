@@ -26,6 +26,7 @@ import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resour
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
+import{ paidList/*, FinesShow*/ } from './Resources/paidfines';
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 
@@ -66,7 +67,7 @@ const App = () => (
         <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
         <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
         <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
-
+        <Resource name="paidfines" list={paidList} /*show={FinesShow}*/ icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
         {/* <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
         <Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />

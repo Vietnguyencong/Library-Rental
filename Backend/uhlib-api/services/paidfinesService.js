@@ -8,8 +8,8 @@ async function getAll(){
       FROM PAID_FINES`
     );
     const data = helper.cleanRows(rows);
-    var ndata = JSON.parse(JSON.stringify(data).split('"users_id":').join('"item_id":'));
-    return ndata;
+   // var ndata = JSON.parse(JSON.stringify(data).split('"users_id":').join('"user_id":'));
+    return data;
   }
 
   async function getUser(users_id){

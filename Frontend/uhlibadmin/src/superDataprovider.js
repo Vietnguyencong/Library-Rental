@@ -4,16 +4,17 @@ import transaction_dataprovider from './dataproviders/transactionDataprovider'
 import loanitem_dataprovider from './dataproviders/loanitemDataprovider'
 // import library_Dataprovider from './dataproviders/transactionDataprovider'
 // import employee_dataprovider from './dataproviders/transactionDataprovider'
+import paidfine_dataprovider from './dataproviders/paidfinesDataprovider'
 
 const dataProviders = [
     { dataProvider: user_dataprovider, resources: "users"},
     { dataProvider: items_dataprovider, resources: "items"},
     { dataProvider: transaction_dataprovider, resources: "transactions"},
     { dataProvider: loanitem_dataprovider, resources: "loanitem"}, 
-    { dataProvider: items_dataprovider, resources: "items"}, 
+    // { dataProvider: items_dataprovider, resources: "items"}, 
     // { dataProvider: library_Dataprovider, resources: "library"}, 
     // { dataProvider: employee_dataprovider , resources: "employee"}, 
-    // { dataProvider: paidfine_dataprovider , resources: "paidfine"}, 
+     { dataProvider: paidfine_dataprovider , resources: "paidfines"}, 
   ];
 
 export default (type, resource, params) => {
