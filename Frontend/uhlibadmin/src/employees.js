@@ -14,9 +14,9 @@ export const EmployeeList = props => (
     <List filters={<EmployeesFilter />} {...props}>
 
 
-<Datagrid rowClick="edit">
-            <TextField source="id" />
-            <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField>
+<Datagrid rowClick="show">
+            <TextField source="employee_id" />
+            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField>*/}
             <TextField source="job_title" />
             <TextField source="first_name" />
             <TextField source="middle_initial" />

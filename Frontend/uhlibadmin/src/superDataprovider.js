@@ -3,7 +3,7 @@ import items_dataprovider from './dataproviders/itemDataprovider'
 import transaction_dataprovider from './dataproviders/transactionDataprovider'
 import loanitem_dataprovider from './dataproviders/loanitemDataprovider'
 import libraries_Dataprovider from './dataproviders/libraryDataprovider'
-// import employee_dataprovider from './dataproviders/transactionDataprovider'
+import employee_dataprovider from './dataproviders/transactionDataprovider'
 import paidfine_dataprovider from './dataproviders/paidfinesDataprovider'
 import waitinglist_dataprovider from './dataproviders/waitinglistDataprovider'
 import notifications_dataprovider from './dataproviders/notificationsDataprovider'
@@ -15,7 +15,7 @@ const dataProviders = [
     { dataProvider: loanitem_dataprovider, resources: "loanitem"}, 
     // { dataProvider: items_dataprovider, resources: "items"}, 
     { dataProvider: libraries_Dataprovider, resources: "libraries"}, 
-    // { dataProvider: employee_dataprovider , resources: "employee"}, 
+    { dataProvider: employee_dataprovider , resources: "employees"}, 
     { dataProvider: paidfine_dataprovider , resources: "paidfines"}, 
     { dataProvider: waitinglist_dataprovider , resources: "waitinglist"}, 
     { dataProvider: notifications_dataprovider , resources: "notifications"},
