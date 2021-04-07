@@ -5,7 +5,7 @@ const EmployeesFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="Employees" source="first_name" reference="employees" allowEmpty>
-            <SelectInput optionText="name" />
+            <SelectInput optionText="name" /> 
         </ReferenceInput>
     </Filter>
 );
@@ -13,10 +13,10 @@ const EmployeesFilter = (props) => (
 export const EmployeeList = props => (
     <List filters={<EmployeesFilter />} {...props}>
 
-
-<Datagrid rowClick="show">
-            <TextField source="employee_id" />
-            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField>*/}
+        <Datagrid rowClick="show">
+            <NumberField source="id" />
+            <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> 
+            <NumberField source="library_id" />
             <TextField source="job_title" />
             <TextField source="first_name" />
             <TextField source="middle_initial" />
