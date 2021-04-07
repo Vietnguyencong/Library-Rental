@@ -26,7 +26,12 @@ import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resour
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
-import{ paidList/*, FinesShow*/ } from './Resources/paidfines';
+import { paidList/*, FinesShow*/ } from './Resources/paidfines';
+import { waitList } from './Resources/waitinglist';
+import { notificationList } from './Resources/notifications';
+
+
+
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 
@@ -53,27 +58,28 @@ const customTheme = createMuiTheme({
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
         <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
+        
+        <Resource name="notifications" list={notificationList}  icon={NotificationsNoneOutlinedIcon} /> 
 
-        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} /> 
+        
+        { /* <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />*/}
 
-        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={AttachMoneyOutlinedIcon} /> 
+        { /* <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />*/}
 
-        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={AttachMoneyOutlinedIcon} /> 
+        { /* <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
 
-         {/* <Resource name="users" list={ListGuesser} /> */}
-        {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
-        {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
-        {/* <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
-        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
-        <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
-        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
-        <Resource name="paidfines" list={paidList} /*show={FinesShow}*/ icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
-        {/* <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
+        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
+        
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
-        <Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
-        <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
-        <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
-        <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} /> */}
+
+        {/*<Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />*/}
+
+        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
+
+        {<Resource name="paidfines" list={paidList} /*show={FinesShow}*/ icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />}
+        
+        {<Resource name="waitinglist" list={waitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
         
 
     </Admin>

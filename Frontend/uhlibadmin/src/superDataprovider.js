@@ -2,9 +2,11 @@ import user_dataprovider from './dataproviders/userDataprovider'
 import items_dataprovider from './dataproviders/itemDataprovider'
 import transaction_dataprovider from './dataproviders/transactionDataprovider'
 import loanitem_dataprovider from './dataproviders/loanitemDataprovider'
-// import library_Dataprovider from './dataproviders/transactionDataprovider'
+import libraries_Dataprovider from './dataproviders/libraryDataprovider'
 // import employee_dataprovider from './dataproviders/transactionDataprovider'
 import paidfine_dataprovider from './dataproviders/paidfinesDataprovider'
+import waitinglist_dataprovider from './dataproviders/waitinglistDataprovider'
+import notifications_dataprovider from './dataproviders/notificationsDataprovider'
 
 const dataProviders = [
     { dataProvider: user_dataprovider, resources: "users"},
@@ -12,9 +14,11 @@ const dataProviders = [
     { dataProvider: transaction_dataprovider, resources: "transactions"},
     { dataProvider: loanitem_dataprovider, resources: "loanitem"}, 
     // { dataProvider: items_dataprovider, resources: "items"}, 
-    // { dataProvider: library_Dataprovider, resources: "library"}, 
+    { dataProvider: libraries_Dataprovider, resources: "libraries"}, 
     // { dataProvider: employee_dataprovider , resources: "employee"}, 
-     { dataProvider: paidfine_dataprovider , resources: "paidfines"}, 
+    { dataProvider: paidfine_dataprovider , resources: "paidfines"}, 
+    { dataProvider: waitinglist_dataprovider , resources: "waitinglist"}, 
+    { dataProvider: notifications_dataprovider , resources: "notifications"},
   ];
 
 export default (type, resource, params) => {
