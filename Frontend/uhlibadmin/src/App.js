@@ -26,6 +26,12 @@ import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resour
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
+import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
+import { WaitList } from './Resources/waitinglist';
+import { NotificationList, NotificationShow } from './Resources/notifications';
+
+
+
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 
@@ -52,27 +58,28 @@ const customTheme = createMuiTheme({
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
         <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
+        
+        <Resource name="notifications" list={NotificationList} show={NotificationShow} icon={NotificationsNoneOutlinedIcon} /> 
 
-        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransactionIcon} /> 
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} /> 
+        
+        { /* <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />*/}
 
-        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={AttachMoneyOutlinedIcon} /> 
+        { /* <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />*/}
 
-        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={AttachMoneyOutlinedIcon} /> 
+        { /* <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
 
-         {/* <Resource name="users" list={ListGuesser} /> */}
-        {/* <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
-        {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
-        {/* <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
-        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
-        <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
-        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
-
-        {/* <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
+        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
+        
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
-        <Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
-        <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
-        <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
-        <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} /> */}
+
+        {/*<Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} /> */}
+
+        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
+
+        {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon}create={FinesCreate}  edit={FinesEdit}  />}
+        
+        {<Resource name="waitinglist" list={WaitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
         
 
     </Admin>

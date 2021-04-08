@@ -17,14 +17,22 @@ export default {
             filter: JSON.stringify(params.filter),
         };
         
-        const url = `${apiUrl}/${resource}/all_libraries?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/allemployeesnotifications?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
-            data: json.map(resource => ({ ...resource, id: resource.id }) ),
+            data: json.map(resource => ({ ...resource, id: resource.ID}) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
             // total: [0,9],
             total:10
         }));
         
     },
+
+    getOne: async (resource, params) => {
+        let url = `${apiUrl}/${resource}/OneEmployee/${params.id}`
+        const response = await fetch (url)
+        const json = await response.json()
+        return {data: json}
+    },
+
 
 };

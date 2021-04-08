@@ -40,6 +40,17 @@ router.get('/employee/:id', async function(req, res, next) {
         }
     });
 
+    router.get('/OneEmployee/:id', async function(req, res, next) {
+        let id  = req.params.id;
+        try {
+            res.json(await notificationsService.getOneEmployeeNotification(id));
+            } catch (err) {
+            console.error(`Get error `, err.message);
+            next(err);
+            }
+        });
+
+
 
 // DELETE ONE NOTIFICATION FOR USER
 router.delete('/deleteOneUserNotification', async function(req, res, next) {
@@ -85,5 +96,16 @@ router.delete('/deleteEmployeeNotification', async function(req, res, next) {
         }
     });
     
+    router.get('/', async function(req, res, next) {
+        try {
+          res.json(await notificationsService.FilterE(
+            JSON.parse(req.query.filter)));
+        } catch (err) {
+          console.error(`Get error `, err.message);
+          next(err);
+        }
+      });
+
+
 
 module.exports = router;
