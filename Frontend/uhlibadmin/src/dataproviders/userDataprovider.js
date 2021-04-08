@@ -17,7 +17,7 @@ export default {
             filter: JSON.stringify(params.filter),
         };
         
-        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`; // get all empoloyee 
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10

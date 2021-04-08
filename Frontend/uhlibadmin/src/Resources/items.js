@@ -15,7 +15,7 @@ export const ItemList = props => (
 
 <Datagrid rowClick="edit">
             <TextField source="title" />
-            <NumberField source="current_quantity" />
+            <NumberField source="current_quantity" />owrk
             <NumberField source="stock" />
             <NumberField source="price" />
             <NumberField source="rent_period" />
