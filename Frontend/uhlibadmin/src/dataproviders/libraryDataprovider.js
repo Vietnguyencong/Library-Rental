@@ -13,11 +13,10 @@ getList:  (resource, params) => {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        //const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/all_libraries`;
         return httpClient(url).then(({ headers, json }) => ({
-            // data: json,
-            data: json.map(resource => ({ ...resource, id: resource.transaction_id }) ),
-            // total: parseInt(headers.get('content-range').split('/').pop(), 10),
+            data: json,//.map(resource => ({ ...resource, id: resource.library_id }) ),
             total:10
         }));
     },
@@ -26,9 +25,8 @@ getList:  (resource, params) => {
         const url = `${apiUrl}/${resource}/one/${params.id}`
         const res  = await fetch(url)
         var json = await res.json()
-        // json[0]["id"] = json[0]["transaction_id"]
         console.log("data", json[0])
-        var json = json.map(resource => ({ ...resource, id: resource.transaction_id }) ) 
+        var json = json.map(resource => ({ ...resource, id: resource.library_id }) ) 
         return {data:json[0]}
     }, 
     getMany: (resource, params) => {
@@ -37,7 +35,7 @@ getList:  (resource, params) => {
         };
         const url = `${apiUrl}/${resource}/many?${stringify(query)}`;
         return httpClient(url).then(({ json }) => ({ 
-            data: json.map(resource => ({ ...resource, id: resource.transaction_id }) )
+            data: json.map(resource => ({ ...resource, id: resource.library_id }) )
         }));
     },
 
@@ -56,7 +54,6 @@ getList:  (resource, params) => {
 
         return httpClient(url).then(({ headers, json }) => ({
             data: json,
-            // total: parseInt(headers.get('content-range').split('/').pop(), 10),
             total:10
         }));
     },
@@ -81,7 +78,7 @@ getList:  (resource, params) => {
     },
 
     create: (resource, params) => {
-        return httpClient(`${apiUrl}/${resource}`, {
+        return httpClient(`${apiUrl}/${resource}/createlibrary`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
@@ -90,9 +87,10 @@ getList:  (resource, params) => {
     },
 
     delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${apiUrl}/${resource}/deletelibrary`, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json })),
+            body: JSON.stringify(params.data),
+        }).then(({ json }) => ({...params.data, data: json })),
 
     deleteMany: (resource, params) => {
         const query = {
