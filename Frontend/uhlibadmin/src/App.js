@@ -26,9 +26,9 @@ import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resour
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList } from './employees';
-import { paidList/*, FinesShow*/ } from './Resources/paidfines';
-import { waitList } from './Resources/waitinglist';
-import { notificationList } from './Resources/notifications';
+import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
+import { WaitList } from './Resources/waitinglist';
+import { NotificationList, NotificationShow } from './Resources/notifications';
 
 
 
@@ -59,7 +59,7 @@ const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
         <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
         
-        <Resource name="notifications" list={notificationList}  icon={NotificationsNoneOutlinedIcon} /> 
+        <Resource name="notifications" list={NotificationList} show={NotificationShow} icon={NotificationsNoneOutlinedIcon} /> 
 
         <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} /> 
         
@@ -77,9 +77,9 @@ const App = () => (
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
 
-        {<Resource name="paidfines" list={paidList} /*show={FinesShow}*/ icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />}
+        {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon}create={FinesCreate}  edit={FinesEdit}  />}
         
-        {<Resource name="waitinglist" list={waitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
+        {<Resource name="waitinglist" list={WaitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
         
 
     </Admin>

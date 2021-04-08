@@ -27,4 +27,12 @@ export default {
         
     },
 
+    getOne: async (resource, params) => {
+        let url = `${apiUrl}/${resource}/OneEmployee/${params.id}`
+        const response = await fetch (url)
+        const json = await response.json()
+        return {data: json}
+    },
+
+
 };

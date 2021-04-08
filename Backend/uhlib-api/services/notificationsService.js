@@ -33,11 +33,23 @@ async function getSingleUser(user_id){
   async function getSingleEmployee(employee_id){
     const rows = await db.query(
       `SELECT *
-      FROM EMPLOYEE_NOTIFICATIONS WHERE employee_id = '${employee_id}'`
+      FROM EMPLOYEE_NOTIFICATIONS WHERE employee_id =${employee_id}`
     );
     const data = helper.cleanRows(rows);
     return data;
   }
+
+
+  async function getOneEmployeeNotification(ID){
+    const rows = await db.query(
+      `SELECT *
+      FROM EMPLOYEE_NOTIFICATIONS WHERE ID =${ID}`
+    );
+    const data = helper.cleanRows(rows);
+    var ndata = JSON.parse(JSON.stringify(data).split('"employee_id":').join('"id":'));
+    return ndata[0];
+  }
+
 
 
   async function removeOneUserNotification(req){
@@ -99,15 +111,30 @@ async function removeEmployeeNotification(req){
 return {message};
 }
 
+//ONE FILTER, EMPLOYEE VIEW?
+FilterE = async(filter) =>{
+  let pair = Object.keys(filter);
+  let key  = pair[0];
+  const rows = await db.query(
+    `Select * from EMPLOYEE_NOTIFICATIONS where ${key}=${filter[key]}`
+  );
 
+  const data = helper.cleanRows(rows);
+  console.log(data);
+  return {
+    data
+  }
+}
 
 module.exports = {
     getUsers,
     getSingleUser,
     getEmployees,
     getSingleEmployee,
+    getOneEmployeeNotification,
     removeOneUserNotification,
     removeUserNotification,
     removeOneEmployeeNotification,
-    removeEmployeeNotification
+    removeEmployeeNotification,
+    FilterE
 }

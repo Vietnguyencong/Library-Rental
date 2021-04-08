@@ -4,7 +4,7 @@ import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from '
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
-const waitFilter = (props) => (
+const WaitFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Search by user ID" source="user_id" alwaysOn />
         {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
@@ -13,8 +13,8 @@ const waitFilter = (props) => (
     </Filter>
 );
 
-export const waitList = props => (
-    <List filters={<waitFilter/>} {...props}>
+export const WaitList = props => (
+    <List filters={<WaitFilter/>} {...props}>
         <Datagrid rowClick="show">
             <NumberField source="user_id" />
             <NumberField source="item_id" />
