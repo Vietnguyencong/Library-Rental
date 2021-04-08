@@ -92,7 +92,7 @@ async function update(id, req){
 
 
   if (user.affectedRows) {
-    message = `Library ${id}  updated successfully`;
+    message = `Library ${id} updated successfully`;
   }
   return {message};
 }

@@ -13,9 +13,8 @@ const LoanitemFilter = (props) => (
 export const LoanitemList = props => (
     <List filters={<LoanitemFilter/>} {...props}>
         <Datagrid rowClick="show">
-            {/* <ReferenceField source
-            ="item_id" reference="items"><TextField source="id" /></ReferenceField> */}
-            <NumberField source="id"/>
+            {/* <NumberField source="id"/> */}
+            <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
             <NumberField source="item_id"/>
             <NumberField source="quantity" />
             <TextField source="transaction_id" />
@@ -73,7 +72,7 @@ export const LoanitemShow = props =>{
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
             <DateField source="date_due" />
-             <DateField source="created_at" />
+            <DateField source="created_at" />
             <DateField source="updated_at" />
     </SimpleShowLayout>
 </Show>
