@@ -13,11 +13,11 @@ const LibrariesFilter = (props) => (
 export const LibraryList = props => (
     <List filters={<LibrariesFilter />} {...props}>
 
-    <Datagrid rowClick="edit">
+    <Datagrid rowClick="show">
             <TextField source="name" />
             <TextField source="opening_hours" />
             <TextField source="location" />
-            <TextField source="id" />
+            <NumberField source="id" />
         </Datagrid>
     </List>
 );
