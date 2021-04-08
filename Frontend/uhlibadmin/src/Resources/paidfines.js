@@ -64,13 +64,13 @@ export const FinesEdit = (props) =>(
 
 
 const FinesTitle = ({ record }) => {
-    return <span>PaidFines {record ? `${record.users_id}` : ''}</span>;
+    return <span>PaidFines {record ? `${record.id}` : ''}</span>;
 };
 
 export const FinesShow = (props) => (    
     <Show  title={<FinesTitle/>}{...props} >
         <SimpleForm>
-        <NumberField source="users_id" />
+        <NumberField source="id" />
             <NumberField source="item_id" />
             <TextField source="description" />
             <NumberField source="final_amount" />

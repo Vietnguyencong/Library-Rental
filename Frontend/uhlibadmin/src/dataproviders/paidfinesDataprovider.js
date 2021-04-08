@@ -28,7 +28,8 @@ export default {
     },
 
     getOne: async (resource, params) => { //NEEDS TO TAKE IN USER AND ITEM TO GET ONE THING
-        let url = `${apiUrl}/${resource}/${params.users_id}/${params.item_id}`
+        let item  = resource.item;
+        let url = `${apiUrl}/${resource}/get/${params.id}/${item}`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}

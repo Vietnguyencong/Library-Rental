@@ -20,6 +20,15 @@ async function getAll(){
     return ndata;
   }
 
+  async function getOneUser(users_id, item_id){
+    const user =  await db.query(`Select * from PAID_FINES where users_id=${users_id} AND item_id=${item_id}`);
+    const data = helper.cleanRows(user);
+    let message = `Error in getting user ${users_id}`;
+    var ndata = JSON.parse(JSON.stringify(data).split('"users_id":').join('"id":'));
+    return ndata[0];
+  }
+
+
   //CREATE A NEW FINE, ONLY EMPLOYEES
   async function create(paid_fines){
     const result = await db.query(
@@ -89,6 +98,7 @@ async function getAll(){
 module.exports = {
     getAll,
     getUser,
+    getOneUser,
     create,
     update,
     remove,

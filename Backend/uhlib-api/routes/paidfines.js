@@ -29,6 +29,18 @@ router.get('/:id', async function(req, res, next) {
   }
 });
 
+/* GET BY USER AND ITEM */
+router.get('/get/:id/:item', async function(req, res, next) {
+  let id  = req.params.id;
+  let item  = req.params.item;
+  try {
+    res.json(await paidfinesService.getOneUser(id,item));
+  } catch (err) {
+    console.error(`Get error `, err.message);
+    next(err);
+  }
+});
+
 
 
 /* POST ITEMS */
