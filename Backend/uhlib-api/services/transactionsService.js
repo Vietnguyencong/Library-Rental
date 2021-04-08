@@ -11,16 +11,14 @@ getList = async(req,res, next) =>{
         const query = `SELECT * FROM TRANSACTION; ` 
         const rows = await db.query(query) 
         const data = cleanRows(rows) 
-        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
         res.json(data)
     }catch(err){
         next(err)
     }
 }
-
+// main get list function 
 get_transactions_for_user = async (req,res, next) =>{
     try{
-        
         const context = JSON.parse(req.query.filter)
         if (JSON.stringify(context) !== "{}"){
             const key = Object.keys(context)[0]
@@ -43,7 +41,6 @@ get_transactions_for_user = async (req,res, next) =>{
     }catch(err) {
         next(err)
     }
-
 }
 
 
@@ -57,12 +54,10 @@ getOne  = async (req,res, next) =>{
         const query = `SELECT *  FROM TRANSACTION WHERE transaction_id = ? ; `
         const row = await db.query(query, [id])
         const data = cleanRows(row) 
-        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
         return res.json(data)
     }catch(err){
         next(err)
     }
-   
 }
 // GET /posts/many?filter={"id":[123,456,789]}
 getMany = async (req,res) =>{
@@ -175,6 +170,9 @@ module.exports = {
     get_transactions_for_user, 
     view_items_in_transaction,
 }
+
+
+
 
 function create_condition_string (length, value){ 
     var array = Array(length).fill(value)

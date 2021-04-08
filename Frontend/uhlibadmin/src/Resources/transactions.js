@@ -16,6 +16,7 @@ const MyBooleanfield = ({ record={}, source}) =>{
     }
    
 }
+
 // const MyDatefield = ({record={}, resource}) =>{
 //     console.log(record[resource])
 //     console.log(typeof(record[resource]))
@@ -59,17 +60,21 @@ export const TransactionEdit = props => (
                 <Grid item xs={6}>
                     <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
                     <BooleanInput source="is_commit" />
+                    <NumberInput disabled source="total_price"></NumberInput>
+                    <NumberInput disabled source="total_quantity"></NumberInput>
                     <TextInput disabled source="transaction_id" fullWidth ></TextInput>
                     <DateTimeInput disabled source="date_created" fullWidth />
                     <DateTimeInput disabled source="updated_at" fullWidth/>
                 </Grid>
                 <Grid item xs={6}>
                 <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
-                <Datagrid>
-                    <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-                    <NumberField source="quantity"/>
-                </Datagrid>
-            </ReferenceManyField>
+                    <Datagrid>
+                        <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
+                        <NumberField source="quantity"/>
+                        <ReferenceField source="item_id" reference="items"><NumberField source="price"  options={{ style: 'currency', currency: 'USD' }} /></ReferenceField>
+                         
+                    </Datagrid>
+                </ReferenceManyField>
                 </Grid>
            </Grid>
             
