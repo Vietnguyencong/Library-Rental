@@ -19,11 +19,16 @@ import AlbumIcon from '@material-ui/icons/Album';
 import PrintIcon from '@material-ui/icons/Print';
 
 import Dashboard from './Dashboard';
+import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
+//import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
 
-import { UserList, UserCreate } from './users';
-import { ItemList, ItemCreate } from './items';
-import { LibraryList, LibraryCreate } from './libraries';
-import { EmployeeList } from './employees';
+//import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
+import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
+import { LibraryList, LibraryCreate } from './Resources/libraries';
+import { EmployeeList } from './Resources/employees';
+//import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
+//import { WaitList } from './Resources/waitinglist';
+//import { NotificationList, NotificationShow } from './Resources/notifications';
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
@@ -54,11 +59,12 @@ const App = () => (
         <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> */}
         <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/> 
         {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
-        {/* <Resource name="items" list={ItemList} create={ItemCreate} icon={PostIcon} edit={EditGuesser} />
-        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
+        
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} />
+        {/*<Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
         <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
-        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
-
+        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> 
+        */}
         {//<Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
         <Resource name="libraries" list={LibraryList} create={LibraryCreate} icon={LocalLibraryIcon} edit={EditGuesser} />
         /*<Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
