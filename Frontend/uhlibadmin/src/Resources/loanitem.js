@@ -72,7 +72,7 @@ export const LoanitemShow = props =>{
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
             <DateField source="date_due" />
-             <DateField source="created_at" />
+            <DateField source="created_at" />
             <DateField source="updated_at" />
     </SimpleShowLayout>
 </Show>

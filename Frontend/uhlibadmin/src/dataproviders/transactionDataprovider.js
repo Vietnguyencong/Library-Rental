@@ -53,6 +53,10 @@ getList:  (resource, params) => {
                 [params.target]: params.id,
             }),
         };
+        console.log(params)
+        // get the loan item title from  
+        // get the item id from loan item first 
+        // GET http://my.api.url/posts?filter={"author_id":345}
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => ({
