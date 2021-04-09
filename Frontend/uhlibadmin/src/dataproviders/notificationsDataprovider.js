@@ -47,5 +47,9 @@ export default {
         data: json
     })),
 
-
+    delete: (resource, params) =>
+        httpClient(`${apiUrl}/${resource}/deleteOneEmployeeNotification`, {
+            method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
+        }).then(({ json }) => ({ data: json })),
 };

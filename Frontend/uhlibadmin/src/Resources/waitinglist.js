@@ -15,9 +15,54 @@ const WaitFilter = (props) => (
 
 export const WaitList = props => (
     <List filters={<WaitFilter/>} {...props}>
-        <Datagrid rowClick="show">
+        <Datagrid rowClick="edit">
             <NumberField source="user_id" />
             <NumberField source="item_id" />
         </Datagrid>
     </List>
+);
+
+
+export const WaitCreate = (props) => (
+    <Create {...props}>
+        <SimpleForm>
+            <Grid container spacing={1} style={{ width: "100%" }}>
+                <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom>New waitlist item</Typography>
+                    <NumberInput source="user_id" />
+                    <NumberInput source="item_id" />
+                </Grid>
+            </Grid>
+        </SimpleForm>
+    </Create>
+);
+
+
+
+export const WaitEdit = (props) =>(
+     <Edit {...props}>
+        <SimpleForm>
+            <Grid container spacing={1} style={{ width: "100%" }}>
+                <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom>Edit waitlist item</Typography>
+                    <NumberInput source="user_id" />
+                    <NumberInput source="item_id" />
+                </Grid>
+            </Grid>
+        </SimpleForm>
+    </Edit>
+)
+
+
+const WaitTitle = ({ record }) => {
+    return <span>Waitlist item {record ? `${record.id}` : ''}</span>;
+};
+
+export const WaitShow = (props) => (    
+    <Show  title={<WaitTitle/>}{...props} >
+        <SimpleForm>
+            <NumberField source="user_id" />
+            <NumberField source="item_id" />
+        </SimpleForm>
+    </Show>
 );
