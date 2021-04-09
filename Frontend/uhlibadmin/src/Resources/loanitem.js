@@ -1,6 +1,8 @@
 import * as React from "react";
 import { List, Datagrid, TextField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, NumberInput, SelectInput, BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, AutocompleteInput } from 'react-admin';
 import { TopToolbar, ShowButton, ListButton} from 'react-admin';
+import TrueIcon from '@material-ui/icons/Done'
+import FalseIcon from '@material-ui/icons/Clear'
 
 const LoanitemFilter = (props) => (
     <Filter {...props}>
@@ -11,6 +13,16 @@ const LoanitemFilter = (props) => (
         <NumberInput label="search by item_id" source="item_id" alwaysOn/>
     </Filter>
 );
+const MyBooleanfield = ({ record={}, source}) =>{
+    if (record[source] === 1 ){
+        return <div>
+            <TrueIcon/> 
+        </div>
+    }
+    else{
+        return <div><FalseIcon/></div>
+    }
+}
 
 
 const Actions = ({ basePath, data, resource }) => (
@@ -25,10 +37,9 @@ export const LoanitemList = props => (
         <Datagrid rowClick="show">
             {/* <NumberField source="id"/> */}
             <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-            <NumberField source="item_id"/>
             <NumberField source="quantity" />
             <TextField source="transaction_id" />
-            <NumberField source="is_due" />
+            <MyBooleanfield source="is_due" />
             <DateField source="date_due" />
             <DateField source="created_at" />
             <DateField source="updated_at" />

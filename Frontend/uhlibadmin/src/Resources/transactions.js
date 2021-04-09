@@ -4,10 +4,7 @@ import TrueIcon from '@material-ui/icons/Done'
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
 import { TopToolbar, ShowButton, ListButton} from 'react-admin';
-// import { Link } from 'react-router-dom';
-// import Button from '@material-ui/core/Button';
 
-// custom boolean field 
 const MyBooleanfield = ({ record={}, source}) =>{
     if (record[source] === 1 ){
         return <div>
@@ -25,28 +22,7 @@ const Actions = ({ basePath, data, resource }) => (
         <ListButton basePath={basePath} label="Back"  />
     </TopToolbar>
 );
-// const MyDatefield = ({record={}, resource}) =>{
-//     console.log(record[resource])
-//     console.log(typeof(record[resource]))
-//     if (record[resource] === "undefined"){
-//         return <div>not yet</div>
-//     }else{
-//         return <div>{record[resource]}</div>
-//     }
-// }
 
-// const CreateRelatedButton = ({record}) => {
-//     // console.log("VIET NGUYEN CONG",record.transaction_id)
-//     return <Button
-//         component={Link}
-//         to={{
-//             pathname: '/loanitem/create',
-//             state: { record: { item_id: 1 } },
-//         }}
-//     >
-//         Add more item to cart
-//     </Button>
-// };
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}

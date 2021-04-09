@@ -2,7 +2,7 @@
 get http://localhost:5000/api/loanitem?filter={"item_id":}
 
 ### 
-get http://localhost:5000/api/loanitem?filter={}
+get http://localhost:5000/api/loanitem?filter={"quantity":1, "item_id":0}
 ### get one loan item 
 get http://localhost:5000/api/loanitem/4
 
