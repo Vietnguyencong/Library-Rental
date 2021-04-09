@@ -1,12 +1,15 @@
 import * as React from "react";
-import { defaultTheme } from "react-admin";
+import { Route } from 'react-router-dom';
+// import customRoutes from './customRoutes';
+
+
+import { defaultTheme, ShowGuesser } from "react-admin";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { Admin, Resource, Login, ListGuesser, EditGuesser  } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
 import authProvider from './authProvider';
 
-import PostIcon from '@material-ui/icons/Book';
 import UserIcon from '@material-ui/icons/Group';
+import TransactionIcon from '@material-ui/icons/AccountBalance';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
@@ -19,19 +22,25 @@ import AlbumIcon from '@material-ui/icons/Album';
 import PrintIcon from '@material-ui/icons/Print';
 
 import Dashboard from './Dashboard';
+
 import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
 import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
-import { LibraryList, LibraryCreate, LibraryEdit, LibraryShow } from './Resources/libraries';
-import { EmployeeList } from './Resources/employees';
+import { LibraryList } from './libraries';
+import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
-import { WaitList } from './Resources/waitinglist';
+import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglist';
 import { NotificationList, NotificationShow } from './Resources/notifications';
+
+
+
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
-// const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+import Report from './Report.js'
+
 
 const LoginPage = () => (
     <Login
@@ -55,24 +64,36 @@ const customTheme = createMuiTheme({
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
-          <Resource name="users" list={ListGuesser} />
-        <Resource name="notifications" list={ListGuesser} icon={NotificationsNoneOutlinedIcon} /> 
-        <Resource name="users" list={UserList} create={UserCreate} icon={UserIcon} edit={EditGuesser}/> 
-        {/* <Resource name="items" list={ListGuesser} icon={PostIcon} edit={EditGuesser} /> */}
+        <Resource name="users" list={UserList} show={UserShow} create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
         
-        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} />
-        <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />
-        <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />
-        <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> 
+        <Resource name="notifications" list={NotificationList} show={NotificationShow} icon={NotificationsNoneOutlinedIcon} /> 
+
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} /> 
         
-        <Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
-        <Resource name="libraries" list={LibraryList} create={LibraryCreate} icon={LocalLibraryIcon} edit={LibraryEdit} show={LibraryShow} />
-        <Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
-        <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
-        <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />
-        <Resource name="waiting List" list={ListGuesser} icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} /> 
+        { /* <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />*/}
+
+        { /* <Resource name="media" list={ItemList} icon={AlbumIcon} edit={EditGuesser} />*/}
+
+        { /* <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> */}
+
+        <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
+        
+        <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
+
+        <Resource name="employees" list={EmployeeList} show={EmployeeShow}create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
+
+        <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
+
+        {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon} create={FinesCreate}  edit={FinesEdit}  />}
+        
+        {<Resource name="waitinglist" list={WaitList} show={WaitShow} icon={CalendarViewDayOutlinedIcon} edit={WaitEdit} create={WaitCreate}/>}
+        
+        <Resource name="Report" list={Report} icon={LocalLibraryIcon} />
+
 
     </Admin>
     
 );
+
+
 export default App;

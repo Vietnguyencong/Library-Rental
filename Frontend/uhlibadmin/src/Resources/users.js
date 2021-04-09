@@ -68,7 +68,6 @@ export const UserEdit = (props) =>(
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom>New User</Typography>
                     <TextInput source="first_name" fullWidth />
                     <TextInput source="middle_initial" fullWidth />
                     <TextInput source="last_name" fullWidth />
