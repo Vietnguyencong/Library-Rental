@@ -32,11 +32,11 @@ export const FinesCreate = (props) => (
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>New Fine</Typography>
-                    <NumberField source="users_id" fullWidth/>
-                    <NumberField source="item_id" fullWidth/>
-                    <TextField source="description" fullWidth/>
-                    <NumberField source="final_amount" fullWidth/>
-                    <NumberField source="is_paid" fullWidth/>
+                    <NumberInput source="users_id" fullWidth/>
+                    <NumberInput source="item_id" fullWidth/>
+                    <TextInput source="description" fullWidth/>
+                    <NumberInput source="final_amount" fullWidth/>
+                    <NumberInput source="is_paid" fullWidth/>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -51,11 +51,11 @@ export const FinesEdit = (props) =>(
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>Edit Fine</Typography>
-                    <NumberField source="users_id" fullWidth/>
-                    <NumberField source="item_id" fullWidth/>
-                    <TextField source="description" fullWidth/>
-                    <NumberField source="final_amount" fullWidth/>
-                    <NumberField source="is_paid" fullWidth/>
+                    <NumberInput source="users_id" fullWidth/>
+                    <NumberInput source="item_id" fullWidth/>
+                    <TextInput source="description" fullWidth/>
+                    <NumberInput source="final_amount" fullWidth/>
+                    <NumberInput source="is_paid" fullWidth/>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -70,7 +70,7 @@ const FinesTitle = ({ record }) => {
 export const FinesShow = (props) => (    
     <Show  title={<FinesTitle/>}{...props} >
         <SimpleForm>
-        <NumberField source="id" />
+        <NumberField source="users_id" />
             <NumberField source="item_id" />
             <TextField source="description" />
             <NumberField source="final_amount" />

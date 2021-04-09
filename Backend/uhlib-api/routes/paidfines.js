@@ -30,11 +30,10 @@ router.get('/:id', async function(req, res, next) {
 });
 
 /* GET BY USER AND ITEM */
-router.get('/get/:id/:item', async function(req, res, next) {
+router.get('/get/:id', async function(req, res, next) {
   let id  = req.params.id;
-  let item  = req.params.item;
   try {
-    res.json(await paidfinesService.getOneUser(id,item));
+    res.json(await paidfinesService.getOneUser(id));
   } catch (err) {
     console.error(`Get error `, err.message);
     next(err);
@@ -55,9 +54,9 @@ router.post('/', async function(req, res, next) {
 });
 
 /* UPDATE ITEM BY ID */
-router.put('/:id/:item_id', async function(req, res, next) {
+router.put('/:id', async function(req, res, next) {
   try {
-    res.json(await paidfinesService.update(req.params.id, req.params.item_id, req.body));
+    res.json(await paidfinesService.update(req.params.id, req.body));
   } catch (err) {
     console.error(`Update error `, err.message);
     next(err);

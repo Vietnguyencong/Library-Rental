@@ -16,7 +16,6 @@ const NotificationFilter = (props) => (
 export const NotificationList = props => (
     <List filters={<NotificationFilter/>} {...props}>
         <Datagrid rowClick="show">
-            <NumberField source="id" />
             <NumberField source="employee_id" />
             <TextField source="title" fullWidth />
             <TextField source="body" fullWidth />
@@ -32,7 +31,6 @@ export const NotificationShow = props => (
     <Show  title={<NotificationTitle/>}{...props} > 
         <SimpleForm>
             <Typography variant="h6" gutterBottom>Notifcation</Typography>
-            <NumberField source="id" fullWidth/>
             <NumberField source="employee_id" fullWidth/>
             <TextField source="title" fullWidth />
             <TextField source="body" fullWidth />

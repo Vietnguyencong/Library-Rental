@@ -27,7 +27,7 @@ import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
 import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
-import { WaitList } from './Resources/waitinglist';
+import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglist';
 import { NotificationList, NotificationShow } from './Resources/notifications';
 
 
@@ -79,7 +79,7 @@ const App = () => (
 
         {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon}create={FinesCreate}  edit={FinesEdit}  />}
         
-        {<Resource name="waitinglist" list={WaitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
+        {<Resource name="waitinglist" list={WaitList} show={WaitShow} icon={CalendarViewDayOutlinedIcon} edit={WaitEdit} create={WaitCreate}/>}
         
 
     </Admin>

@@ -66,7 +66,7 @@ async function create(employee){
 
 //purge employee
 async function remove(req){
-    let id = req.params.id;
+    let id = req.body.id;
 
     const delete_employee = await db.query(
         `DELETE FROM EMPLOYEES WHERE employee_id=${id}`);

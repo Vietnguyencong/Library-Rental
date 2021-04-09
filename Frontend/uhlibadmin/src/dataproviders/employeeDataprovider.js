@@ -51,4 +51,10 @@ export default {
         data: { ...params.data, id: json.id },
     })),
 
+    delete: (resource, params) =>
+        httpClient(`${apiUrl}/${resource}/delete_employee`, {
+            method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
+        }).then(({ json }) => ({ data: json })),
+
 };

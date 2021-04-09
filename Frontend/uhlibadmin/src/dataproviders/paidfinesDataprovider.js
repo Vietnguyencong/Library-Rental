@@ -19,7 +19,7 @@ export default {
         
         const url = `${apiUrl}/${resource}/allpaidfines?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
-            data: json.map(resource => ({ ...resource, id: resource.users_id }) ),
+            data: json.map(resource => ({ ...resource, id: resource.id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
             // total: [0,9],
             total:10
@@ -27,9 +27,9 @@ export default {
         
     },
 
-    getOne: async (resource, params) => { //NEEDS TO TAKE IN USER AND ITEM TO GET ONE THING
+    getOne: async (resource, params) => { 
         let item  = resource.item;
-        let url = `${apiUrl}/${resource}/get/${params.id}/${item}`
+        let url = `${apiUrl}/${resource}/get/${params.id}/`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}
@@ -52,6 +52,10 @@ export default {
             data: { ...params.data, id: json.id },
         })),
 
-
+        delete: (resource, params) =>
+        httpClient(`${apiUrl}/${resource}/deletepaidfines`, {
+            method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
+        }).then(({ json }) => ({ data: json })),
 
 };

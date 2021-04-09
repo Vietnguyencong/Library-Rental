@@ -36,7 +36,7 @@ router.put("/update_employee/:id", async function (req, res, next){
     next(err);}
 });
 
-router.delete("/delete_employee/:id", async function (req, res, next)
+router.delete("/delete_employee", async function (req, res, next)
 {
     try { res.json(await employeesService.remove(req));}
     catch (err) {
