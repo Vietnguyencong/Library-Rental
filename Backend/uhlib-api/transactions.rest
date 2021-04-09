@@ -1,10 +1,10 @@
 ### getOne 
 GET http://localhost:5000/api/transactions/one/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTc5OTI0MzcsImV4cCI6MTYxNzk5NjAzN30.2da7c3Xnv42XgNVgzYxevw2GdDiGCcOL7mi-SoOvO1U
 
 ###  getList
 GET http://localhost:5000/api/transactions?filter={}
-
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTc5OTI0MzcsImV4cCI6MTYxNzk5NjAzN30.2da7c3Xnv42XgNVgzYxevw2GdDiGCcOL7mi-SoOvO1U
 ### get transaction for a user 
 GET http://localhost:5000/api/transactions?filter={"user_id":2} 
  

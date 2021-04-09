@@ -12,7 +12,7 @@ const loan_item_router = require('./routes/loanItem')
 const paidfinesRouter = require('./routes/paidfines');
 const notificationsRouter = require('./routes/notifications');
 const waitinglistRouter = require('./routes/waitinglist');
-
+const authenticationRouter = require("./routes/authentication")
 app.use(cors());
 
 app.use(express.json());
@@ -41,6 +41,7 @@ app.use('/api/loanitem',loan_item_router)
 app.use('/api/paidfines', paidfinesRouter);
 app.use('/api/notifications', notificationsRouter);
 app.use('/api/waitinglist', waitinglistRouter);
+app.use("/api/aut", authenticationRouter )
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
