@@ -14,7 +14,7 @@ export default {
         const query = {
             sort: JSON.stringify([field, order]),
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-            filter: JSON.stringify(params.filter),
+            filter: JSON.stringify(params.filter), 
         };
    
         // const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;

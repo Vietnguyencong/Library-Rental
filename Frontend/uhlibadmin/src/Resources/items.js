@@ -3,7 +3,13 @@ import { Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, Email
 import { Grid, Typography } from '@material-ui/core';
 const ItemsFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search by title" source="title" alwaysOn />
+        {/* <TextInput label="Search by title" source="item_type" alwaysOn /> */}
+        <RadioButtonGroupInput source="item_type" choices={[
+            { id: "", name:"All"},
+            { id: 'Book', name: 'Book' },
+            { id: 'Media', name: 'Media' },
+            { id: 'Printer', name: 'Printer' }
+        ]} alwaysOn/>    
         {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput> */}
