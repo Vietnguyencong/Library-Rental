@@ -1,5 +1,27 @@
 import * as React from "react";
-import { List, Datagrid, TextField, EmailField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput, BooleanField,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField } from 'react-admin';
+import { List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList } from 'react-admin';
+import TrueIcon from '@material-ui/icons/Done'
+import FalseIcon from '@material-ui/icons/Clear'
+import {Grid} from '@material-ui/core'
+import { TopToolbar, ShowButton, ListButton} from 'react-admin';
+
+const MyBooleanfield = ({ record={}, source}) =>{
+    if (record[source] === 1 ){
+        return <div>
+            <TrueIcon/> 
+        </div>
+    }
+    else{
+        return <div><FalseIcon/></div>
+    }
+}
+
+const Actions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
 
 const TransactionFilter = (props) => (
     <Filter {...props}>
@@ -13,21 +35,48 @@ export const TransactionList = props => (
     <List filters={<TransactionFilter/>} {...props}>
         <Datagrid rowClick="edit">
             <ReferenceField source="user_id" reference="users"><TextField source="first_name" /></ReferenceField>
-            <NumberField source="is_commit" />
+            
+            <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
+                <SingleFieldList>
+                    <ChipField source="item_id"></ChipField>
+                </SingleFieldList>
+            </ReferenceManyField>
+            <TextField source="transaction_id" ></TextField>
+            {/* <NumberField source="is_commit" /> */}
+            <MyBooleanfield source="is_commit" />
             <DateField source="date_created" />
             <DateField source="updated_at" />
+            {/* <CreateRelatedButton/> */}
         </Datagrid>
     </List>
 );
 
-
 export const TransactionEdit = props => (
-    <Edit {...props}>
+    <Edit actions={<Actions/>} {...props}>
         <SimpleForm>
-            <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
-            <BooleanInput source="is_commit" />
-            <DateTimeInput disabled source="date_created" />
-            <DateTimeInput disabled source="updated_at" />
+           <Grid container spacing={1} style={{width:"100%"}}>
+                <Grid item xs={6}>
+                    <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
+                    <BooleanInput source="is_commit" />
+                    <NumberInput disabled source="total_price"></NumberInput>
+                    <NumberInput disabled source="total_quantity"></NumberInput>
+                    <TextInput disabled source="transaction_id" fullWidth ></TextInput>
+                    <DateTimeInput disabled source="date_created" fullWidth />
+                    <DateTimeInput disabled source="updated_at" fullWidth/>
+                </Grid>
+                <Grid item xs={6}>
+                <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
+                    <Datagrid>
+                        <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
+                        <NumberField source="quantity"/>
+                        <ReferenceField source="item_id" reference="items"><NumberField source="price"  options={{ style: 'currency', currency: 'USD' }} /></ReferenceField>
+                    </Datagrid>
+                </ReferenceManyField>
+                {/* <CreateRelatedButton/> */}
+                </Grid>
+           </Grid>
+            
+            
         </SimpleForm>
     </Edit>
 );
@@ -44,10 +93,27 @@ export const TransactionCreate = props =>(
 
 export const TransactionShow = props =>{
     return <Show {...props}>
-    <SimpleShowLayout>
+        <SimpleShowLayout>
+    <Grid container spacing={1} style={{width:"100%"}}>
+        <Grid item xs={6}>
         <ReferenceField source="user_id" reference="users">
             <TextField source="first_name"></TextField>
         </ReferenceField>
+        <MyBooleanfield source="is_commit" />
+        <TextField disabled source="transaction_id" ></TextField>
+        <DateField disabled source="date_created" />
+        <DateField disabled source="updated_at" />
+        </Grid>
+        <Grid item xs={6}>
+        <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
+            <Datagrid>
+                <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
+                <NumberField source="quantity"/>
+            </Datagrid>
+        </ReferenceManyField>
+        </Grid>
+    </Grid>
     </SimpleShowLayout>
+        
 </Show>
 }

@@ -1,5 +1,8 @@
 import * as React from "react";
-import { List, Datagrid, TextField, EmailField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput, BooleanField,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, AutocompleteInput } from 'react-admin';
+import { List, Datagrid, TextField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, NumberInput, SelectInput, BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, AutocompleteInput } from 'react-admin';
+import { TopToolbar, ShowButton, ListButton} from 'react-admin';
+import TrueIcon from '@material-ui/icons/Done'
+import FalseIcon from '@material-ui/icons/Clear'
 
 const LoanitemFilter = (props) => (
     <Filter {...props}>
@@ -10,16 +13,33 @@ const LoanitemFilter = (props) => (
         <NumberInput label="search by item_id" source="item_id" alwaysOn/>
     </Filter>
 );
+const MyBooleanfield = ({ record={}, source}) =>{
+    if (record[source] === 1 ){
+        return <div>
+            <TrueIcon/> 
+        </div>
+    }
+    else{
+        return <div><FalseIcon/></div>
+    }
+}
+
+
+const Actions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const LoanitemList = props => (
     <List filters={<LoanitemFilter/>} {...props}>
         <Datagrid rowClick="show">
-            {/* <ReferenceField source
-            ="item_id" reference="items"><TextField source="id" /></ReferenceField> */}
-            <NumberField source="id"/>
-            <NumberField source="item_id"/>
+            {/* <NumberField source="id"/> */}
+            <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
             <NumberField source="quantity" />
             <TextField source="transaction_id" />
-            <NumberField source="is_due" />
+            <MyBooleanfield source="is_due" />
             <DateField source="date_due" />
             <DateField source="created_at" />
             <DateField source="updated_at" />
@@ -32,12 +52,14 @@ export const LoanitemList = props => (
 
 
 export const LoanitemEdit = props => (
-    <Edit {...props}>
-        <SimpleForm>
+    <Edit actions={<Actions/>} {...props}>
+        <SimpleForm >
             <ReferenceInput  source="transaction_id" reference="transactions">
                 <AutocompleteInput  optionText="transaction_id" />
             </ReferenceInput >
-
+            <ReferenceInput source="item_id" reference="items" >
+                <AutocompleteInput optionText="title"/>
+            </ReferenceInput>
             <BooleanInput source="is_due" />
             <NumberInput source="quantity" />
             <DateTimeInput disabled source="date_created" />
@@ -54,7 +76,9 @@ export const LoanitemCreate = props => (
             <ReferenceInput  source="transaction_id" reference="transactions">
                 <AutocompleteInput  optionText="transaction_id" />
             </ReferenceInput >
-            <NumberInput source="item_id"/>
+            <ReferenceInput source="item_id" reference="items" >
+                <AutocompleteInput optionText="title"/>
+            </ReferenceInput>
             <BooleanInput source="is_due" />
             <NumberInput source="quantity" />
             <DateTimeInput disabled source="date_created" />
@@ -73,7 +97,7 @@ export const LoanitemShow = props =>{
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
             <DateField source="date_due" />
-             <DateField source="created_at" />
+            <DateField source="created_at" />
             <DateField source="updated_at" />
     </SimpleShowLayout>
 </Show>

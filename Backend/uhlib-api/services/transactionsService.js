@@ -9,45 +9,42 @@ getList = async(req,res, next) =>{
     try{
         console.log(req.query)
         const query = `SELECT * FROM TRANSACTION; ` 
-        const rows = await db.query(query) 
+        const rows = await db.promisePool.query(query) 
         const data = cleanRows(rows) 
-        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
         res.json(data)
     }catch(err){
         next(err)
     }
 }
-
+// main get list function 
 get_transactions_for_user = async (req,res, next) =>{
     try{
-        
         const context = JSON.parse(req.query.filter)
         if (JSON.stringify(context) !== "{}"){
             const key = Object.keys(context)[0]
             const value = context[key]
             var query = `SELECT *  FROM   TRANSACTION  where ${key}  = ? ;  `
-            var rows = await db.query(query, [value]) 
+            var rows = await db.promisePool.query(query, [value]) 
             if (rows.length == 0 ){
                 var query = `SELECT * from TRANSACTION; `
-                var rows = await db.query(query, [])
+                var rows = await db.promisePool.query(query, [])
             }
             const data = cleanRows(rows)
             return res.json(data)
         }
         else{
             var query = `SELECT * from TRANSACTION; `
-            var rows = await db.query(query, [])
-            const data = cleanRows(rows)
+            var rows = await db.promisePool.query(query, [])
+            const data = cleanRows(rows[0])
             return res.json(data)
         }
     }catch(err) {
         next(err)
     }
-
 }
 
 
-// http://localhost:3000/transactions/:id 
+// http://localhost:3000/transactions/one/:id 
 getOne  = async (req,res, next) =>{
     try{
         const id = String(req.params.id)  
@@ -55,14 +52,12 @@ getOne  = async (req,res, next) =>{
             return res.status(400).send({"message": "no result"}) 
         }
         const query = `SELECT *  FROM TRANSACTION WHERE transaction_id = ? ; `
-        const row = await db.query(query, [id])
-        const data = cleanRows(row) 
-        // if ((data).length==0) return res.status(400).send({"message": "not found the instance"})
+        const row = await db.promisePool.query(query, [id])
+        const data = cleanRows(row[0]) 
         return res.json(data)
     }catch(err){
         next(err)
     }
-   
 }
 // GET /posts/many?filter={"id":[123,456,789]}
 getMany = async (req,res) =>{
@@ -71,8 +66,8 @@ getMany = async (req,res) =>{
     var condition_tring = create_condition_string(ids.length, "?") // ?,?,?
     console.log("id is ", condition_tring);
     const query = `SELECT * FROM  TRANSACTION WHERE transaction_id  in ( ${condition_tring} ) ;`
-    const rows = await db.query(query, ids)
-    const data = cleanRows(rows)
+    const rows = await db.promisePool.query(query, ids)
+    const data = cleanRows(rows[0])
     
     return res.json(data)
 }
@@ -93,7 +88,7 @@ update = async (req,res, next) =>{
         WHERE transaction_id = ?; `
         const data =[ user_id , is_commit, id ] 
     
-        const message = await db.query(query, data)
+        const message = await db.promisePool.query(query, data)
         return res.json(message)
         
     }catch(err){
@@ -106,7 +101,7 @@ updateMany = async (req,res)=>{
     if (ids == null) return res.status(400).send({"message": "cannot find the data"})
     
     const query = `UPDATE TRANSACTION SET user_id WHERE transaction_id  in (${create_condition_string(ids.length,"?")}} ) ;`
-    const  message = await db.query(query, ids)
+    const  message = await db.promisePool.query(query, ids)
     
     return res.json(message)
 }
@@ -118,7 +113,7 @@ create = async(req,res, next) =>{
         const newId = uuidv4() 
         const query = `INSERT INTO TRANSACTION (transaction_id, user_id ) VALUES ( ?, ? ) ;` 
         const data = [newId, user_id] 
-        const message = await db.query(query, data)
+        const message = await db.promisePool.query(query, data)
         return res.json(message)
     }catch(err){
         next(err)
@@ -131,7 +126,7 @@ remove = async (req,res) =>{
     const id = req.params.id 
     if (id == null) return res.status(400).send({"message": "cannot find the data to update"})
     const query = `DELETE  FROM TRANSACTION WHERE transaction_id = ? ; `
-    const message = await db.query(query, [id])
+    const message = await db.promisePool.query(query, [id])
     return res.json(message)
 }
 // DELETE http://my.api.url/posts/many?filter={"id":[123,124,125]}
@@ -139,7 +134,7 @@ removeMany = async(req,res)=>{
     const ids = JSON.parse(req.query.filter).id 
     if (ids == null) return res.status(400).send({"message": "cannot find the data to delete"})
     const query = `DELETE FROM TRANSACTION  WHERE transaction_id  IN (${create_condition_string(ids.length, "?")}) ;`
-    const  message = await db.query(query, ids)
+    const  message = await db.promisePool.query(query, ids)
     
     return res.json(message)
 }
@@ -150,7 +145,7 @@ view_items_in_transaction = async (req,res)=>{
     const trans_id = String(req.params.trans_id) 
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
-    const rows = await db.query(query, [trans_id, ]) 
+    const rows = await db.promisePool.query(query, [trans_id, ]) 
     const result = cleanRows(rows)
     return res.json(result)
 }
@@ -175,6 +170,9 @@ module.exports = {
     get_transactions_for_user, 
     view_items_in_transaction,
 }
+
+
+
 
 function create_condition_string (length, value){ 
     var array = Array(length).fill(value)

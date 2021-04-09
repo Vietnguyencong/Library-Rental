@@ -3,9 +3,17 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-//const apiUrl = 'https://uhlib.cc/api';
- const apiUrl = 'http://localhost:5000/api';
-const httpClient = fetchUtils.fetchJson;
+// const apiUrl = 'https://uhlib.cc/api';
+const apiUrl = 'http://localhost:5000/api';
+// const httpClient = fetchUtils.fetchJson;
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const { token } = JSON.parse(localStorage.getItem('access_token'));
+    options.headers.set('Authorization', `Bearer ${token}`);
+    return fetchUtils.fetchJson(url, options);
+};
 
 export default {
     getList:  async (resource, params) => {
@@ -17,7 +25,7 @@ export default {
             filter: JSON.stringify(params.filter),
         };
         
-        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`; // get all empoloyee 
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
@@ -27,12 +35,17 @@ export default {
         
     },
 
-    getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/one/${params.id}`
-        const response = await fetch (url)
-        const json = await response.json()
-        return {data: json}
-    },
+    // getOne: async (resource, params) => {
+    //     let url = `${apiUrl}/${resource}/one/${params.id}`
+    //     const response = await fetch (url)
+    //     const json = await response.json()
+    //     return {data: json}
+    // },
+
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
 
     getMany: (resource, params) => {
         const query = {
@@ -81,9 +94,8 @@ export default {
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }));
     },
-
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/createuser`, {
+        httpClient(`${apiUrl}/${resource}/`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
