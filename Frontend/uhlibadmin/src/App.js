@@ -1,4 +1,8 @@
 import * as React from "react";
+import { Route } from 'react-router-dom';
+// import customRoutes from './customRoutes';
+
+
 import { defaultTheme, ShowGuesser } from "react-admin";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { Admin, Resource, Login, ListGuesser, EditGuesser  } from 'react-admin';
@@ -34,6 +38,9 @@ import { NotificationList, NotificationShow } from './Resources/notifications';
 
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
+
+import Report from './Report.js'
+
 
 const LoginPage = () => (
     <Login
@@ -77,12 +84,16 @@ const App = () => (
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
 
-        {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon}create={FinesCreate}  edit={FinesEdit}  />}
+        {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon} create={FinesCreate}  edit={FinesEdit}  />}
         
         {<Resource name="waitinglist" list={WaitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
         
+        <Resource name="Report" list={Report} icon={LocalLibraryIcon} />
+
 
     </Admin>
     
 );
+
+
 export default App;
