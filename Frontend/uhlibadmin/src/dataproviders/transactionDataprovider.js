@@ -3,7 +3,6 @@ import { stringify } from 'query-string';
 
 // const apiUrl = 'https://uhlib.cc/api';
 const apiUrl = 'http://localhost:5000/api';
-
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
@@ -12,6 +11,7 @@ const httpClient = (url, options = {}) => {
     options.headers.set('Authorization', `Bearer ${token}`);
     return fetchUtils.fetchJson(url, options);
 };
+
 export default {
 getList:  (resource, params) => {
         const { page, perPage } = params.pagination;
@@ -30,15 +30,20 @@ getList:  (resource, params) => {
         }));
     },
 
-    getOne: async (resource, params) => {
-        const url = `${apiUrl}/${resource}/one/${params.id}`
-        const res  = await fetch(url)
-        var json = await res.json()
-        // json[0]["id"] = json[0]["transaction_id"]
-        console.log("data", json[0])
-        var json = json.map(resource => ({ ...resource, id: resource.transaction_id }) ) 
-        return {data:json[0]}
-    }, 
+    // getOne:  (resource, params) => {
+    //     const url = `${apiUrl}/${resource}/one/${params.id}`
+    //     var json = await res.json()
+    //     // json[0]["id"] = json[0]["transaction_id"]
+    //     console.log("data", json[0])
+    //     var json = json.map(resource => ({ ...resource, id: resource.transaction_id }) ) 
+    //     return {data:json[0]}
+    // }, 
+    //     
+    getOne: (resource, params) =>
+        httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+            data: json.map(resource => ({ ...resource, id: resource.transaction_id }))[0],
+    })),
+
     getMany: (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
