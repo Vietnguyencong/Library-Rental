@@ -96,7 +96,7 @@ export default {
     },
 
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/createuser`, {
+        httpClient(`${apiUrl}/${resource}/`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
