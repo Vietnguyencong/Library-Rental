@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Create, SimpleForm, List, Datagrid, TextField, EmailField, Filter, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput } from 'react-admin';
+import { Show, Edit, Create, SimpleForm, List, Datagrid, TextField, EmailField, Filter, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 const LibrariesFilter = (props) => (
     <Filter {...props}>
@@ -36,4 +36,30 @@ export const LibraryCreate = (props) => (
             </Grid>
         </SimpleForm>
     </Create>
+);
+
+export const LibraryEdit = (props) =>(
+    <Edit {...props}>
+       <SimpleForm>
+           <Grid container spacing={1} style={{ width: "100%" }}>
+                <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom>Library</Typography>
+                    <TextInput source="name" fullWidth />  
+                    <TextInput source="opening_hours" fullWidth />
+                    <TextInput source="location" fullWidth />    
+                </Grid>
+           </Grid>
+       </SimpleForm>
+   </Edit>
+);
+
+export const LibraryShow = (props) => (    
+    <Show {...props} >
+        <SimpleForm>
+            <Typography variant="h6" gutterBottom>Library</Typography>
+            <TextInput source="name" fullWidth />  
+            <TextInput source="opening_hours" fullWidth />
+            <TextInput source="location" fullWidth />   
+        </SimpleForm>
+    </Show>
 );

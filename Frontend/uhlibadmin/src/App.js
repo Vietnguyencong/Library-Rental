@@ -24,7 +24,7 @@ import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
 
 //import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
-import { LibraryList, LibraryCreate } from './Resources/libraries';
+import { LibraryList, LibraryCreate, LibraryEdit, LibraryShow } from './Resources/libraries';
 import { EmployeeList } from './Resources/employees';
 //import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
 //import { WaitList } from './Resources/waitinglist';
@@ -66,7 +66,7 @@ const App = () => (
         <Resource name="printer" list={ItemList} icon={PrintIcon} edit={EditGuesser} /> 
         */}
         {//<Resource name="loans" list={ListGuesser} icon={TableChartOutlinedIcon} edit={EditGuesser} />
-        <Resource name="libraries" list={LibraryList} create={LibraryCreate} icon={LocalLibraryIcon} edit={EditGuesser} />
+        <Resource name="libraries" list={LibraryList} create={LibraryCreate} icon={LocalLibraryIcon} edit={LibraryEdit} show={LibraryShow} />
         /*<Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} />
         <Resource name="transactions" list={ListGuesser} icon={TransformOutlinedIcon} edit={EditGuesser} />
         <Resource name="paid Fines" list={ListGuesser} icon={AttachMoneyOutlinedIcon} edit={EditGuesser} />

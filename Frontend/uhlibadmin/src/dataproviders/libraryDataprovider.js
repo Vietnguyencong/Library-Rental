@@ -22,12 +22,20 @@ getList:  (resource, params) => {
     },
 
     getOne: async (resource, params) => {
-        const url = `${apiUrl}/${resource}/one/${params.id}`
+        const url = `${apiUrl}/${resource}/id/${params.id}`
         const res  = await fetch(url)
         var json = await res.json()
-        console.log("data", json[0])
-        var json = json.map(resource => ({ ...resource, id: resource.library_id }) ) 
-        return {data:json[0]}
+        var arr = [{id:json.data[0].library_id,
+            location:json.data[0].location,
+            name:json.data[0].name,
+            opening_hours:json.data[0].opening_hours}];
+        console.log(arr)
+        /*const newJson = arr.map(({ 
+            library_id: id, ...rest}) => ({
+                id,
+                ...rest
+            })); */
+        return {data:arr[0]}
     }, 
     getMany: (resource, params) => {
         const query = {
@@ -60,11 +68,13 @@ getList:  (resource, params) => {
 
     update: async (resource, params) =>{
         console.log(params)
-         httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        //var arr = params.data
+         httpClient(`${apiUrl}/${resource}/updatelibrary`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }))
         return {data: params}
+        ///${params.id}
     },
 
     updateMany: (resource, params) => {
@@ -86,19 +96,19 @@ getList:  (resource, params) => {
         }))
     },
 
-    delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/deletelibrary`, {
+    delete: (resource, params) =>{
+        console.log(params)
+        return httpClient(`${apiUrl}/${resource}/deletelibrary/${params.id}`, {
             method: 'DELETE',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({...params.data, data: json })),
-
+        }).then((value) => {console.log(value) })
+    },
     deleteMany: (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids}),
         };
         return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json }));
+        }).then(({ json }) => ({ data: {json} }));
     }
 };
 

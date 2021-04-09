@@ -78,27 +78,27 @@ async function create(library){
   return {message};
 }
 
-async function update(id, req){
+async function update(req){
 
   const user = await db.query(`
   UPDATE LIBRARIES SET name=?, opening_hours=?, location=?
    WHERE library_id=?`,
    [
-    req.name, req.opening_hours, req.location, id
+     req.name, req.opening_hours, req.location, req.id
    ]
    );
   
-  let message = `Error in updating library ${id}`;
+  let message = `Error in updating library ${req.id}`;
 
 
   if (user.affectedRows) {
-    message = `Library ${id} updated successfully`;
+    message = `Library ${req.id} updated successfully`;
   }
   return {message};
 }
 
-async function remove(req){
-  let id = req.body.id;
+async function remove(id){
+  
 
   const result = await db.query(`
   DELETE FROM LIBRARIES WHERE library_id=${id}`);

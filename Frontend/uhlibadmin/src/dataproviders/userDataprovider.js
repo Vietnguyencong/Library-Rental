@@ -36,7 +36,7 @@ export default {
     },
 
     getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/find/${params.id}`
+        let url = `${apiUrl}/${resource}/${params.id}`
         // let token = ""
         // if (localStorage.getItem("username")){
         //     token =   JSON.parse(localStorage.getItem("username")).token
