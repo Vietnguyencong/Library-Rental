@@ -4,6 +4,10 @@ const employeesService = require("../services/employeesService");
 
 //Get all Employees
 router.get("/all_employees", async function(req, res, next){
+    res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+    count = Object.keys( await employeesService.getEmployees(req.query.page) ).length;
+    res.set("X-Total-Count", count);
+    res.setHeader('Content-Range', count);
     try {
         res.json(await employeesService.getEmployees(req.query.page));
     }
@@ -32,7 +36,7 @@ router.put("/update_employee/:id", async function (req, res, next){
     next(err);}
 });
 
-router.delete("/delete_employee/:id", async function (req, res, next)
+router.delete("/delete_employee", async function (req, res, next)
 {
     try { res.json(await employeesService.remove(req));}
     catch (err) {

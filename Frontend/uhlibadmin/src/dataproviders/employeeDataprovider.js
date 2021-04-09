@@ -19,12 +19,42 @@ export default {
         
         const url = `${apiUrl}/${resource}/all_employees?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
-            data: json.map(resource => ({ ...resource, id: resource.id }) ),
+            data: json.map(resource => ({ ...resource, id: resource.employee_id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
             // total: [0,9],
             total:10
         }));
         
     },
+
+    getOne: async (resource, params) => {
+        let url = `${apiUrl}/${resource}/one/${params.id}`
+        const response = await fetch (url)
+        const json = await response.json()
+        return {data: json}
+    },
+
+    update: async(resource, params) =>{
+        let url = `${apiUrl}/${resource}/update_employee/${params.id}`
+        console.log(params.data)
+        return httpClient(`${apiUrl}/${resource}/update_employee/${params.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(params.data),
+        }).then(({ json }) => ({ data: params.data })) // {data: json}
+    }, 
+
+    create: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/create_employee`, {
+        method: 'POST',
+        body: JSON.stringify(params.data),
+    }).then(({ json }) => ({
+        data: { ...params.data, id: json.id },
+    })),
+
+    delete: (resource, params) =>
+        httpClient(`${apiUrl}/${resource}/delete_employee`, {
+            method: 'DELETE',
+            body: JSON.stringify({"id": params.id})
+        }).then(({ json }) => ({ data: json })),
 
 };

@@ -84,14 +84,13 @@ async function getSingleUser(user_id){
 
 async function removeOneEmployeeNotification(req){
   let id = req.body.id;
-  let key_id = req.body.key_id;
   const result = await db.query(`
-  DELETE FROM EMPLOYEE_NOTIFICATIONS where ID= ${key_id} AND employee_id=${id}`);
+  DELETE FROM EMPLOYEE_NOTIFICATIONS where ID= ${id}`);
 
-  let message = `Error in deleting user ${id}`;
+  let message = `Error in deleting ${id}`;
 
   if (result.affectedRows) {
-    message = `User ${id} deleted successfully`;
+    message = `${id} deleted successfully`;
   }
 
 return {message};

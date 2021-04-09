@@ -11,6 +11,16 @@ async function getwaitinglist(){
     return data;
   }
 
+  async function getOne(id){
+    const rows = await db.query(
+      `SELECT *
+      FROM WAITING_LIST WHERE id = '${id}'`
+    );
+    const data = helper.cleanRows(rows);
+    return data[0];
+  }
+
+
   async function getBookList(id){
     const rows = await db.query(
       `SELECT *
@@ -48,16 +58,32 @@ async function getwaitinglist(){
     return {message};
   }
 
+   //UPDATE EXISTING FINES BY ID
+   async function update(id,req){
+    const user = await db.query(`
+    UPDATE WAITING_LIST SET user_id= ?, item_id=?
+     WHERE id=?`,
+     [
+      req.user_id, req.item_id,
+      id,
+     ]
+     );
+    
+    let message = `Error in updating fine ${id}`;
+    if (user.affectedRows) {
+      message = `Waiting list ${id}  updated successfully`;
+    }
+    return {message};
+  }
 
   async function removeOne(req){
     let id = req.body.id;
-    let item_id = req.body.item_id;
     const result = await db.query(`
-    DELETE FROM WAITING_LIST where item_id= ${item_id} AND user_id=${id}`);
+    DELETE FROM WAITING_LIST where id=${id}`);
     let message = `Error in deleting user ${id}`;
       
     if (result.affectedRows) {
-        message = `User ${id} deleted successfully`;
+        message = `Wait list ${id} deleted successfully`;
     }
       
     return {message};
@@ -89,9 +115,11 @@ async function getwaitinglist(){
 
 module.exports = {
     getwaitinglist,
+    getOne,
     getBookList,
     getUserList,
     create,
+    update,
     removeOne,
     removeUser,
     removeItem,

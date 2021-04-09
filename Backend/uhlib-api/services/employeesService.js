@@ -8,7 +8,7 @@ async function getEmployees(){
         `SELECT * FROM EMPLOYEES;`
     );
     const data = helper.cleanRows(rows);
-    return { data }
+    return data ;
 }
    
 // http://localhost:3000/transactions/:id 
@@ -18,7 +18,8 @@ async function getOne(employeeID){
         `SELECT * FROM EMPLOYEES WHERE employee_id = ${employeeID}`
     );
     const data = helper.cleanRows(rows);
-    return { data }
+    var ndata = JSON.parse(JSON.stringify(data).split('"employee_id":').join('"id":'));
+    return ndata[0]; 
 }
 
 
@@ -26,8 +27,10 @@ async function getOne(employeeID){
 //Update employee
 async function update(id, req){
     const employee = await db.query(
-        `UPDATE EMPLOYEES SET email_address = ?, salary = ?, password = ?, job_title = ? WHERE employee_id = ?`,
-    [req.email_address, req.salary, req.password, req.job_title, id]
+        `UPDATE EMPLOYEES SET first_name = ?, middle_initial=?, last_name=?, email_address = ?, salary = ?, street_number=?, street_name=?, city=?, state=?, zipcode=?, hourly_rate=?, password = ?, job_title = ? WHERE employee_id = ?`,
+    [req.first_name, req.middle_initial, req.last_name, req.email_address, req.salary, req.street_number,
+    req.street_name, req.city, req.state, req.zipcode, req.hourly_rate, 
+     req.password, req.job_title, id]
     );
 
     let message = `Error updating user ${id}`;
@@ -63,7 +66,7 @@ async function create(employee){
 
 //purge employee
 async function remove(req){
-    let id = req.params.id;
+    let id = req.body.id;
 
     const delete_employee = await db.query(
         `DELETE FROM EMPLOYEES WHERE employee_id=${id}`);
