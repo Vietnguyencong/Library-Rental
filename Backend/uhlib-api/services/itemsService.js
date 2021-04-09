@@ -98,10 +98,8 @@ return {message};
 }  
 
 getMany = async (req,res,next) =>{
-  console.log("viet nguyen cong ")
   try{
     const ids = JSON.parse(req.query.filter).id
-    console.log(ids)
     const condition_tring = helper.create_condition_string(ids.length, "?")
     const query = `SELECT * from ITEMS where item_id in (${condition_tring});`
     const rows = await db.query(query, ids)
