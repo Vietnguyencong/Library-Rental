@@ -3,8 +3,8 @@ import { List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateFi
 import TrueIcon from '@material-ui/icons/Done'
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
+import { TopToolbar, ShowButton, ListButton} from 'react-admin';
 
-// custom boolean field 
 const MyBooleanfield = ({ record={}, source}) =>{
     if (record[source] === 1 ){
         return <div>
@@ -14,18 +14,15 @@ const MyBooleanfield = ({ record={}, source}) =>{
     else{
         return <div><FalseIcon/></div>
     }
-   
 }
 
-// const MyDatefield = ({record={}, resource}) =>{
-//     console.log(record[resource])
-//     console.log(typeof(record[resource]))
-//     if (record[resource] === "undefined"){
-//         return <div>not yet</div>
-//     }else{
-//         return <div>{record[resource]}</div>
-//     }
-// }
+const Actions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
@@ -49,12 +46,13 @@ export const TransactionList = props => (
             <MyBooleanfield source="is_commit" />
             <DateField source="date_created" />
             <DateField source="updated_at" />
+            {/* <CreateRelatedButton/> */}
         </Datagrid>
     </List>
 );
 
 export const TransactionEdit = props => (
-    <Edit {...props}>
+    <Edit actions={<Actions/>} {...props}>
         <SimpleForm>
            <Grid container spacing={1} style={{width:"100%"}}>
                 <Grid item xs={6}>
@@ -72,9 +70,9 @@ export const TransactionEdit = props => (
                         <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
                         <NumberField source="quantity"/>
                         <ReferenceField source="item_id" reference="items"><NumberField source="price"  options={{ style: 'currency', currency: 'USD' }} /></ReferenceField>
-                         
                     </Datagrid>
                 </ReferenceManyField>
+                {/* <CreateRelatedButton/> */}
                 </Grid>
            </Grid>
             

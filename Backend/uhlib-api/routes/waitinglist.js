@@ -13,8 +13,20 @@ router.get('/allwaitinglist', async function(req, res, next) {
       }
     });
 
+// GET WAITING LIST FROM PK id
+router.get('/:id', async function(req, res, next) {
+  let id  = req.params.id;
+   try {
+      res.json(await waitinglistService.getOne(id));
+    } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+    }
+  });
+
+
 // GET WAITING LIST FROM A ITEM ID
-router.get('/waitinglist/book/:id', async function(req, res, next) {
+router.get('/book/:id', async function(req, res, next) {
     let id  = req.params.id;
      try {
         res.json(await waitinglistService.getBookList(id));
@@ -26,7 +38,7 @@ router.get('/waitinglist/book/:id', async function(req, res, next) {
 
 
 // GET WAITING LIST FROM A USER ID
-router.get('/waitinglist/user/:id', async function(req, res, next) {
+router.get('/user/:id', async function(req, res, next) {
     let id  = req.params.id;
      try {
         res.json(await waitinglistService.getUserList(id));
@@ -46,6 +58,16 @@ router.post('/', async function(req, res, next) {
     }
   });
 
+
+  /* UPDATE ITEM BY ID */
+router.put('/:id', async function(req, res, next) {
+  try {
+    res.json(await waitinglistService.update(req.params.id, req.body));
+  } catch (err) {
+    console.error(`Update error `, err.message);
+    next(err);
+  }
+});
 
 // DELETE ONE 
 router.delete('/deleteOne', async function(req, res, next) {

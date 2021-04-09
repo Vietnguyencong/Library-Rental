@@ -20,7 +20,16 @@ async function getAll(){
     return ndata;
   }
 
-  //CREATE A NEW FINE, ONLY EMPLOYEES
+  async function getOneUser(id){
+    const user =  await db.query(`Select * from PAID_FINES where id=${id}`);
+    const data = helper.cleanRows(user);
+    let message = `Error in getting ${id}`;
+    //var ndata = JSON.parse(JSON.stringify(data).split('"id":').join('"id":'));
+    return data[0];
+  }
+
+
+  //CREATE A NEW FINE
   async function create(paid_fines){
     const result = await db.query(
       `INSERT INTO PAID_FINES 
@@ -35,23 +44,23 @@ async function getAll(){
     let message = 'Error in inserting a new item';
   
     if (result.affectedRows) {
-      message = `A new fine by user_id ${paid_fines.users_id} was created successfully`;
+      message = `A new fine by user_id ${paid_fines.id} was created successfully`;
     }
     return {message};
   }
 
-  //UPDATE EXISTING FINES BY GET USER_ID AND ITEM_ID
-  async function update(id, item_id,req){
+  //UPDATE EXISTING FINES BY ID
+  async function update(id,req){
     const user = await db.query(`
-    UPDATE PAID_FINES SET description=?, final_amount=?, is_paid=?
-     WHERE users_id=? AND item_id=?`,
+    UPDATE PAID_FINES SET users_id= ?, item_id=?, description=?, final_amount=?, is_paid=?
+     WHERE id=?`,
      [
-      req.description, req.final_amount, req.is_paid,
-      id, item_id
+      req.users_id, req.item_id, req.description, req.final_amount, req.is_paid,
+      id, 
      ]
      );
     
-    let message = `Error in updating item ${id}`;
+    let message = `Error in updating fine ${id}`;
     if (user.affectedRows) {
       message = `Paid fines ${id}  updated successfully`;
     }
@@ -73,14 +82,14 @@ async function getAll(){
     }
   }
 
-  /* REMOVE A ALL OF ONE USER'S PAID FINE*/
+  /* REMOVE ONE PAID FINE BY ID*/
   async function remove(req){
     let id = req.body.id;
     const result = await db.query(`
-    DELETE FROM PAID_FINES where users_id=${id}`);
-    let message = `Error in deleting user ${id} fines`;
+    DELETE FROM PAID_FINES where id=${id}`);
+    let message = `Error in deleting ${id} fines`;
     if (result.affectedRows) {
-      message = `User ${id} deleted successfully`;
+      message = `${id} deleted successfully`;
     }
   return {message};
   }  
@@ -89,6 +98,7 @@ async function getAll(){
 module.exports = {
     getAll,
     getUser,
+    getOneUser,
     create,
     update,
     remove,

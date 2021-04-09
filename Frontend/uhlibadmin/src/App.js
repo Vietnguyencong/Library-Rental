@@ -29,9 +29,9 @@ import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow }
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
 import { LibraryList } from './libraries';
-import { EmployeeList } from './employees';
+import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
-import { WaitList } from './Resources/waitinglist';
+import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglist';
 import { NotificationList, NotificationShow } from './Resources/notifications';
 
 
@@ -64,7 +64,7 @@ const customTheme = createMuiTheme({
 
 const App = () => (
     <Admin theme={customTheme} loginPage={LoginPage} authProvider={authProvider} dashboard={Dashboard} dataProvider={superDataprovider}>
-        <Resource name="users" list={UserList} show={UserShow}create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
+        <Resource name="users" list={UserList} show={UserShow} create={UserCreate}  edit={UserEdit} icon={UserIcon}/> 
         
         <Resource name="notifications" list={NotificationList} show={NotificationShow} icon={NotificationsNoneOutlinedIcon} /> 
 
@@ -80,13 +80,13 @@ const App = () => (
         
         <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
 
-        {/*<Resource name="employees" list={EmployeeList} icon={SupervisorAccountIcon} edit={EditGuesser} /> */}
+        <Resource name="employees" list={EmployeeList} show={EmployeeShow}create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
 
         {<Resource name="paidfines" list={PaidList} show={FinesShow} icon={AttachMoneyOutlinedIcon} create={FinesCreate}  edit={FinesEdit}  />}
         
-        {<Resource name="waitinglist" list={WaitList} /*show={FinesShow}*/ icon={CalendarViewDayOutlinedIcon} edit={EditGuesser} />}
+        {<Resource name="waitinglist" list={WaitList} show={WaitShow} icon={CalendarViewDayOutlinedIcon} edit={WaitEdit} create={WaitCreate}/>}
         
         <Resource name="Report" list={Report} icon={LocalLibraryIcon} />
 

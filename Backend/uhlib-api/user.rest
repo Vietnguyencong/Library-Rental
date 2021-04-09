@@ -8,6 +8,7 @@ get http://localhost:5000/api/users/many?filter={"id":[1,2]}
 
 ### get one user 
 get http://localhost:5000/api/users/one/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgwMDIxMDQsImV4cCI6MTYxODAwNTcwNH0.m8Q8CxZ_4iurJm26f5omcloR1ZJkD9E_l-3nRgDK8Ro
 
 ### update one user 
 put http://localhost:5000/api/users/1

@@ -12,6 +12,8 @@ const loan_item_router = require('./routes/loanItem')
 const paidfinesRouter = require('./routes/paidfines');
 const notificationsRouter = require('./routes/notifications');
 const waitinglistRouter = require('./routes/waitinglist');
+const authenticationRouter = require("./routes/authentication")
+const {authenticate_user} = require("./helper")
 const reportsRouter = require('./routes/reports');
 
 app.use(cors());
@@ -32,6 +34,10 @@ app.use((req,res,next)=>{
 app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
+
+app.use("/api/aut", authenticationRouter )
+
+app.use(authenticate_user)
 
 app.use("/api/transactions", transaction_router)
 app.use('/api/items', itemsRouter);

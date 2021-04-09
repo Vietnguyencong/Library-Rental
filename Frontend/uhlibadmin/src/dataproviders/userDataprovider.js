@@ -5,7 +5,15 @@ import { string } from 'prop-types';
 
 // const apiUrl = 'https://uhlib.cc/api';
 const apiUrl = 'http://localhost:5000/api';
-const httpClient = fetchUtils.fetchJson;
+// const httpClient = fetchUtils.fetchJson;
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const { token } = JSON.parse(localStorage.getItem('access_token'));
+    options.headers.set('Authorization', `Bearer ${token}`);
+    return fetchUtils.fetchJson(url, options);
+};
 
 export default {
     getList:  async (resource, params) => {
@@ -27,12 +35,17 @@ export default {
         
     },
 
-    getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/one/${params.id}`
-        const response = await fetch (url)
-        const json = await response.json()
-        return {data: json}
-    },
+    // getOne: async (resource, params) => {
+    //     let url = `${apiUrl}/${resource}/one/${params.id}`
+    //     const response = await fetch (url)
+    //     const json = await response.json()
+    //     return {data: json}
+    // },
+
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
 
     getMany: (resource, params) => {
         const query = {
@@ -81,7 +94,6 @@ export default {
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }));
     },
-
     create: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/`, {
             method: 'POST',

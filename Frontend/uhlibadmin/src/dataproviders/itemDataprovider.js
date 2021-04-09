@@ -5,7 +5,15 @@ import { string } from 'prop-types';
 
 const apiUrl = 'http://localhost:5000/api';
 // const apiUrl = ''
-const httpClient = fetchUtils.fetchJson;
+// const httpClient = fetchUtils.fetchJson;
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const { token } = JSON.parse(localStorage.getItem('access_token'));
+    options.headers.set('Authorization', `Bearer ${token}`);
+    return fetchUtils.fetchJson(url, options);
+};
 
 export default {
     getList:  async (resource, params) => {
@@ -14,7 +22,7 @@ export default {
         const query = {
             sort: JSON.stringify([field, order]),
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-            filter: JSON.stringify(params.filter),
+            filter: JSON.stringify(params.filter), 
         };
    
         // const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
@@ -29,12 +37,17 @@ export default {
         
     },
 
-    getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/one/${params.id}`
-        const response = await fetch (url)
-        const json = await response.json()
-        return {data: json}
-    },
+    // getOne: async (resource, params) => {
+    //     let url = `${apiUrl}/${resource}/one/${params.id}`
+    //     const response = await fetch (url)
+    //     const json = await response.json()
+    //     return {data: json}
+    // },
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
+    
 
     getMany: (resource, params) => {
         const query = {
