@@ -3,7 +3,7 @@ GET http://localhost:5000/api/transactions/one/1adfc6ff-8ad7-466b-8c5d-b3cfb266f
 
 
 ###  getList
-GET http://localhost:5000/api/transactions 
+GET http://localhost:5000/api/transactions?filter={}
 
 ### get transaction for a user 
 GET http://localhost:5000/api/transactions?filter={"user_id":2} 

@@ -88,7 +88,7 @@ getList:  (resource, params) => {
     },
 
     delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${apiUrl}/${resource}/one/${params.id}`, {
             method: 'DELETE',
         }).then(({ json }) => ({ data: json })),
 
@@ -96,9 +96,9 @@ getList:  (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids}),
         };
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(`${apiUrl}/${resource}/many?${stringify(query)}`, {
             method: 'DELETE',
-        }).then(({ json }) => ({ data: json }));
+        }).then(({ json }) => ({ data: params.ids }));
     }
 };
 

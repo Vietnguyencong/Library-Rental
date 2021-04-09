@@ -115,7 +115,7 @@ deleteOne  = async (req,res, next) =>{
 }
 
 // description: create one item in loan item table 
-// route: delelete loan_item/one/:trans_id/:item_id/:quantity  
+// route: delelete loan_item/one/
 // params: transaction_id, item_id and quantity 
 createOne = async (req,res, next) =>{
     try{
@@ -133,13 +133,29 @@ createOne = async (req,res, next) =>{
     }
 }
 
+// description: delete one item inn loanitem taale 
+// route: delelete loan_item/many?filter={ids: [1,2,4]}
+// params: transaction_id, item_id and quantity 
+deleteMany = async (req,res,next)=>{
+    try{
+        const ids = JSON.parse(req.query.filter).id
+        const condition_tring = create_condition_string(ids.length, "?")
+        const query = `delete from LOAN_ITEM where id in (${condition_tring});`
+        const rows = await db.query(query, ids)
+        const data = cleanRows(rows)
+        return res.json(data)
+    }catch(err){
+        next(err)
+    }
+}
 module.exports = {
     getOne, 
     getAll,
     editOne, 
     deleteOne, 
     createOne, 
-    getMany
+    getMany,
+    deleteMany
 }
 
 
