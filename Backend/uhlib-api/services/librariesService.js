@@ -21,9 +21,9 @@ async function getID(libraryID){
 
   const data = helper.cleanRows(rows);
   
-  return {
-    data
-  }
+  return 
+    data[0]
+  
 }
 
 async function getName(name){
