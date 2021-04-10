@@ -28,7 +28,7 @@ import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow }
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
-import { LibraryList } from './libraries';
+import { LibraryList, LibraryCreate, LibraryShow, LibraryEdit } from './libraries';
 import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
 import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglist';
