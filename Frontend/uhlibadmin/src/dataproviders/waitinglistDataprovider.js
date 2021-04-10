@@ -5,7 +5,7 @@ import { string } from 'prop-types';
 
 const apiUrl = 'https://uhlib.cc/api';
 //  const apiUrl = 'http://localhost:5000/api';
-const httpClient = fetchUtils.fetchJson;
+//const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
