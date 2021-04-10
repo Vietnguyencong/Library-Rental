@@ -35,12 +35,17 @@ export default {
         
     },
 
-    getOne: async (resource, params) => { 
-        let url = `${apiUrl}/${resource}/${params.id}`
-        const response = await fetch (url)
-        const json = await response.json()
-        return {data: json}
-    },
+    // getOne: async (resource, params) => { 
+    //     let url = `${apiUrl}/${resource}/${params.id}`
+    //     const response = await fetch (url)
+    //     const json = await response.json()
+    //     return {data: json}
+    // },
+    
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
 
     update: async(resource, params) =>{ 
         let url = `${apiUrl}/${resource}/${params.id}`
