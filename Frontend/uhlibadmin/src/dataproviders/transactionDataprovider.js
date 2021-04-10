@@ -3,6 +3,7 @@ import { stringify } from 'query-string';
 
 const apiUrl = 'https://uhlib.cc/api';
 // const apiUrl = 'http://localhost:5000/api';
+const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
