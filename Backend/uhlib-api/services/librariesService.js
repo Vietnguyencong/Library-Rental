@@ -22,7 +22,7 @@ async function getID(libraryID){
   const data = helper.cleanRows(rows);
   
   return 
-    data[0]
+    data[0];
   
 }
 
