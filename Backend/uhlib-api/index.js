@@ -35,7 +35,8 @@ app.get('/', (req, res) => {
   res.json({'message': 'api ok'});
 })
 
-app.use("/api/aut", authenticationRouter )
+app.use('/api/reports', reportsRouter);
+app.use("/api/aut", authenticationRouter)
 
 app.use(authenticate_user)
 
@@ -48,7 +49,7 @@ app.use('/api/loanitem',loan_item_router)
 app.use('/api/paidfines', paidfinesRouter);
 app.use('/api/notifications', notificationsRouter);
 app.use('/api/waitinglist', waitinglistRouter);
-app.use('/api/reports', reportsRouter);
+
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
