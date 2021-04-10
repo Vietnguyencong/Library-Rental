@@ -1,6 +1,7 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
+
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
@@ -25,7 +26,6 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-
         //const url = `${apiUrl}/${resource}?${stringify(query)}`;
         const url = `${apiUrl}/${resource}/all_libraries`;
         return httpClient(url).then(({ headers, json }) => ({
@@ -124,5 +124,4 @@ export default {
         }).then(({ json }) => ({ data: {json} }));
     }
 };
-
 
