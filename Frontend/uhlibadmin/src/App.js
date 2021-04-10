@@ -35,7 +35,7 @@ import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglis
 import { NotificationList, NotificationShow } from './Resources/notifications';
 
 
-
+//
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 
