@@ -52,20 +52,20 @@ router.post('/createlibrary', async function(req, res, next) {
   }
 });
   // UPDATE
-  router.put('/updatelibrary/:id', async function(req, res, next) {
+  router.put('/updatelibrary', async function(req, res, next) {
     
   try {
-    res.json(await librariesService.update(req.params.id, req.body));
+    res.json(await librariesService.update(req.body));
   } catch (err) {
     console.error(`Update error `, err.message);
     next(err);
   }
   });
   // DELETE
-router.delete('/deletelibrary', async function(req, res, next) {
-  
+router.delete('/deletelibrary/:id', async function(req, res, next) {
+  var id = req.params.id;
   try {
-    res.json(await librariesService.remove(req));
+    res.json(await librariesService.remove(id));
   } catch (err) {
     console.error(`Delete error `, err.message);
     next(err);
