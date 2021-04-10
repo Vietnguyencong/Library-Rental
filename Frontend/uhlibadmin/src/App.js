@@ -28,14 +28,14 @@ import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow }
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
 import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
-import { LibraryList, LibraryCreate, LibraryShow, LibraryEdit } from './Resources/libraries';
+import { LibraryList } from './Resources/libraries';
 import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './Resources/employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
 import { WaitList, WaitShow, WaitCreate , WaitEdit} from './Resources/waitinglist';
 import { NotificationList, NotificationShow } from './Resources/notifications';
 
 
-
+//
 // import dataProvider from './dataProvider';
 import superDataprovider from './superDataprovider'
 
@@ -78,7 +78,7 @@ const App = () => (
 
         <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
         
-        <Resource name="libraries" list={LibraryList} show={LibraryShow} create={LibraryCreate} edit={LibraryEdit} icon={LocalLibraryIcon} />
+        <Resource name="libraries" list={LibraryList} icon={LocalLibraryIcon} edit={EditGuesser} />
 
         <Resource name="employees" list={EmployeeList} show={EmployeeShow}create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
 
