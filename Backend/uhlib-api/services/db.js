@@ -9,19 +9,11 @@ async function query(sql, params) {
   return results;
 }
 
-function edit_update_remove_helper(query, data){
-  const con = mysql2.createConnection(config.db)
-  con.execute(query, data, (err, results, fields)=>{
-    if (err){
-      return {"message": "sql syntax"}
-    }
-    return {"rowsaffected updated: ": results.affectedRows}
-  })
-  con.end()
-}
 
-
+const pool = mysql2.createPool(config.db);
+const promisePool = pool.promise();
 module.exports = {
   query,
-  edit_update_remove_helper
+  promisePool, 
+  
 }

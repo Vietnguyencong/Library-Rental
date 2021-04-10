@@ -1,0 +1,12 @@
+### 
+post http://localhost:5000/api/aut/logout
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTc5NTA1NTUsImV4cCI6MTYxNzk1NDE1NX0.fgy8o8mykkHM5iAu0179fqNNrvOX-uV8ycp2DiTiGo0
+
+###
+post http://localhost:5000/api/aut/login
+Content-Type: application/json
+
+{
+    "email":"atram@gmail.copm", 
+    "password": "test"
+}

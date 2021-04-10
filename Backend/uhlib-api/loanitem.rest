@@ -1,30 +1,39 @@
 ### get all the loan item 
-get http://localhost:5000/api/loanitem
+get http://localhost:5000/api/loanitem?filter={"item_id":}
 
-
+### 
+get http://localhost:5000/api/loanitem?filter={"quantity":1, "item_id":0}
 ### get one loan item 
-get http://localhost:3000/loanitem/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba/1
+get http://localhost:5000/api/loanitem/4
+
+###
+get http://localhost:5000/api/loanitem/many?filter={"id":[5,6]}
 
 
 ### delete one loan item 
 
-delete http://localhost:3000/loanitem/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba/1
+delete http://localhost:5000/api/loanitem/one/6
 
-
+### delete many loanitems
+delete http://localhost:5000/api/loanitem/many?filter={"id":[8,9]}
 ### create one loan item with quantity and item_id and trans_id 
-post http://localhost:3000/loanitem
+post http://localhost:5000/api/loanitem
 Content-Type: application/json
 
 {
-    "trans_id": "1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba",
+    "transaction_id": "1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba",
     "item_id":5,
-    "quantity":3
+    "quantity":10
 }
 
 ### edit the quantity in the loan item 
-put http://localhost:3000/loanitem/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba/5
+put http://localhost:5000/api/loanitem/1
 Content-Type: application/json
 
 {
-    "quantity":5
+    "quantity":10, 
+    "is_due": 0 
 }
+
+
+### 

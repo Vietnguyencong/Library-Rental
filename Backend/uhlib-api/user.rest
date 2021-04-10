@@ -1,1 +1,22 @@
-get http://localhost:3000/api/users/find/3
+### get all users 
+get http://localhost:5000/api/users/allusers
+
+
+### filter get many users 
+get http://localhost:5000/api/users/many?filter={"id":[1,2]}
+
+
+### get one user 
+get http://localhost:5000/api/users/one/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgwMDIxMDQsImV4cCI6MTYxODAwNTcwNH0.m8Q8CxZ_4iurJm26f5omcloR1ZJkD9E_l-3nRgDK8Ro
+
+### update one user 
+put http://localhost:5000/api/users/1
+Content-Type: application/json
+
+{
+    "city": "Houston"
+}
+
+### get all users by first name 
+get http://localhost:5000/api/users/filter?filter={"first_name":"UPDATED"}

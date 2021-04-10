@@ -26,7 +26,7 @@ router.get('/allitems', async function(req, res, next) {
 });
 
 /* GETITEM BY ID */
-router.get('/:id', async function(req, res, next) {
+router.get('/one/:id', async function(req, res, next) {
   let id  = req.params.id;
   // console.log('id is ${id}');
   try {
@@ -70,4 +70,7 @@ router.delete('/deleteitem', async function(req, res, next) {
   }
 });
 
+router.get("/filter",itemsService.getItemByTitle)
+
+router.get('/many',itemsService.getMany )
 module.exports = router;

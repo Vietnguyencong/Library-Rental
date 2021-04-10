@@ -25,7 +25,7 @@ export default {
             filter: JSON.stringify(params.filter),
         };
         
-        const url = `${apiUrl}/${resource}/allpaidfines?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/allwaitinglist?${stringify(query)}`;
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
@@ -36,14 +36,13 @@ export default {
     },
 
     getOne: async (resource, params) => { 
-        let item  = resource.item;
-        let url = `${apiUrl}/${resource}/get/${params.id}/`
+        let url = `${apiUrl}/${resource}/${params.id}`
         const response = await fetch (url)
         const json = await response.json()
         return {data: json}
     },
 
-    update: async(resource, params) =>{ ///NEEDS WORK DONE
+    update: async(resource, params) =>{ 
         let url = `${apiUrl}/${resource}/${params.id}`
         console.log(params.data)
         return httpClient(`${apiUrl}/${resource}/${params.id}`, {
@@ -61,7 +60,7 @@ export default {
         })),
 
         delete: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/deletepaidfines`, {
+        httpClient(`${apiUrl}/${resource}/deleteOne`, {
             method: 'DELETE',
             body: JSON.stringify({"id": params.id})
         }).then(({ json }) => ({ data: json })),

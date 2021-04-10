@@ -1,0 +1,13 @@
+get http://localhost:5000/api/items/2
+
+### get all 
+get http://localhost:5000/api/items/allitems
+
+### delete work  
+
+
+### get many items with filter 
+get http://localhost:5000/api/items/many?filter={"id":[1,2]}
+
+### get items by typing the title 
+get http://localhost:5000/api/items/filter?filter={"title":""}
