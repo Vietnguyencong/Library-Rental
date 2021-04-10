@@ -50,6 +50,11 @@ export default {
             })); */
         return {data:arr[0]}
     }, 
+
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/id/${params.id}`).then(({ json }) => ({
+        data: json[0]
+    })),
     getMany: (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),

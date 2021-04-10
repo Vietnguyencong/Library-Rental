@@ -14,11 +14,11 @@ export default function Report(){
     }, [])
 
     function fetchData(){
-        fetch('http://localhost:5000/api/reports/fetchusers')
+        fetch('https://uhlib.cc/api/reports/fetchusers')
         .then( response => response.json() ).then(res => setNoOfUser(res));
-        fetch('http://localhost:5000/api/reports/fetchusersloans')
+        fetch('https://uhlib.cc/api/reports/fetchusersloans')
         .then( response => response.json() ).then(res => setNoOfLoans(res));
-        fetch('http://localhost:5000/api/reports/fetchpieitems')
+        fetch('https://uhlib.cc/api/reports/fetchpieitems')
         .then( response => response.json() ).then(res => setpiedata(res));
         //setpiedata(piedatArray)
     }
