@@ -3,8 +3,8 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-//const apiUrl = 'https://uhlib.cc/api';
- const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://uhlib.cc/api';
+//  const apiUrl = 'http://localhost:5000/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -34,12 +34,17 @@ export default {
         
     },
 
-    getOne: async (resource, params) => {
-        let url = `${apiUrl}/${resource}/one/${params.id}`
-        const response = await fetch (url)
-        const json = await response.json()
-        return {data: json}
-    },
+    // getOne: async (resource, params) => {
+    //     let url = `${apiUrl}/${resource}/one/${params.id}`
+    //     const response = await fetch (url)
+    //     const json = await response.json()
+    //     return {data: json}
+    // },
+
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
 
     update: async(resource, params) =>{
         let url = `${apiUrl}/${resource}/update_employee/${params.id}`
