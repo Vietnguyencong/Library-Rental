@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReferenceManyField, DateField, NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import {ReferenceField,ReferenceManyField, DateField, NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput } from 'react-admin';
@@ -8,7 +8,11 @@ import { TabbedShowLayout, Tab } from 'react-admin'
 
 const UserFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Serch by first name" source="first_name" alwaysOn />
+        <TextInput label="Serch by first name" source="first_name"  />
+        <TextInput label="Serch by last name" source="last_name"  />
+        <TextInput label="Serch by email_address name" source="email_address"  />
+        <TextInput label="Serch by city" source="city" alwaysOn />
+        <TextInput label="Serch by state" source="state" alwaysOn />
         {/* <ReferenceInput label="User" source="id" reference="users" allowEmpty>
             <SelectInput optionText="first_name" />
         </ReferenceInput> */}
@@ -162,7 +166,9 @@ export const UserShow = (props) => (
             <Tab label="Transactions" >
                 <ReferenceManyField Label="User transactions" reference="transactions" target="user_id" addLabel={false}>
                     <Datagrid>
-                        <TextField source="transaction_id" />
+                        <ReferenceField source="transaction_id" reference="transactions">
+                            <TextField source="transaction_id" />
+                        </ReferenceField>
                         <DateField source="date_created" />
                         <DateField source="updated_at" />
                         <NumberField disabled source="total_price"></NumberField>
