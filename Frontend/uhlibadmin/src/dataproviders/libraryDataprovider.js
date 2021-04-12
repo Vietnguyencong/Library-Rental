@@ -34,7 +34,7 @@ export default {
         }));
     },
 
-    getOne: async (resource, params) => {
+    /*getOne: async (resource, params) => {
         const url = `${apiUrl}/${resource}/id/${params.id}`
         const res  = await fetch(url)
         var json = await res.json()
@@ -43,13 +43,18 @@ export default {
             name:json.data[0].name,
             opening_hours:json.data[0].opening_hours}];
         console.log(arr)
-        /*const newJson = arr.map(({ 
+        const newJson = arr.map(({ 
             library_id: id, ...rest}) => ({
                 id,
                 ...rest
-            })); */
+            })); 
         return {data:arr[0]}
     }, 
+    */
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
     getMany: (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
