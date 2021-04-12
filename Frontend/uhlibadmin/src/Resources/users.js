@@ -3,7 +3,7 @@ import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from '
 // import RichTextInput from 'ra-input-rich-text';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
-
+import {Actions, MyBooleanfield} from './helper'
 const UserFilter = (props) => (
     <Filter {...props}>
         <TextInput label="Serch by first name" source="first_name" alwaysOn />
@@ -13,9 +13,11 @@ const UserFilter = (props) => (
     </Filter>
 );
 
+
+
 export const UserList = props => (
     <List filters={<UserFilter/>} {...props}>
-        <Datagrid rowClick="show">
+        <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="first_name" />
             <TextField source="middle_initial" />
@@ -36,7 +38,7 @@ export const UserCreate = (props) => (
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom>New User</Typography>
+                    <Typography variant="h6" gutterBottom>New User Information </Typography>
                     <TextInput source="first_name" fullWidth />
                     <TextInput source="middle_initial" fullWidth />
                     <TextInput source="last_name" fullWidth />
@@ -44,10 +46,9 @@ export const UserCreate = (props) => (
                     <NumberInput source="phone_number" fullWidth />
                     <TextInput source="social_security" fullWidth />
                     <PasswordInput source="user_password" fullWidth />
-
                 </Grid>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom> &nbsp; </Typography>
+                    <Typography variant="h6" gutterBottom> &nbsp;  </Typography>
                     <NumberInput source="street_number" fullWidth />
                     <TextInput source="street_name" fullWidth />
                     <TextInput source="city" fullWidth />
@@ -64,17 +65,19 @@ export const UserCreate = (props) => (
 
 
 export const UserEdit = (props) =>(
-     <Edit {...props}>
+     <Edit {...props} actions={<Actions/>}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
+                <Typography variant="h6" gutterBottom> User Information </Typography>
+
                     <TextInput source="first_name" fullWidth />
                     <TextInput source="middle_initial" fullWidth />
                     <TextInput source="last_name" fullWidth />
-                    {/* <TextInput source="email_address" fullWidth /> */}
-                    {/* <NumberInput source="phone_number" fullWidth /> */}
-                    {/* <TextInput source="social_security" fullWidth /> */}
-                    {/* <PasswordInput source="user_password" fullWidth /> */}
+                    <TextInput source="email_address" fullWidth />
+                    <NumberInput source="phone_number" fullWidth />
+                    <TextInput source="social_security" fullWidth />
+                    <PasswordInput disabled source="user_password" fullWidth />
 
                 </Grid>
                 <Grid item xs={6}>
@@ -84,8 +87,8 @@ export const UserEdit = (props) =>(
                     <TextInput source="city" fullWidth />
                     <TextInput source="state" fullWidth />
                     <NumberInput source="zip_code" fullWidth />
-                    {/* <TextInput source="discount_id" defaultValue="1" fullWidth /> */}
-                    {/* <TextInput source="is_admin" defaultValue="1" fullWidth /> */}
+                    <TextInput source="discount_id" defaultValue="1" fullWidth />
+                    <TextInput source="is_admin" defaultValue="1" fullWidth />
                 </Grid>
             </Grid>
         </SimpleForm>
