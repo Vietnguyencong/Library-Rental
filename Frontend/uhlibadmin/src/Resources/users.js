@@ -1,9 +1,9 @@
 import * as React from "react";
 import {ReferenceManyField, DateField, NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
+import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
-import {Actions} from './helper'
 import { TabbedShowLayout, Tab } from 'react-admin'
 
 const UserFilter = (props) => (
@@ -16,6 +16,19 @@ const UserFilter = (props) => (
 );
 
 
+const EditActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
+const ShowActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <EditButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
 
 export const UserList = props => (
     <List filters={<UserFilter/>} {...props}>
@@ -67,7 +80,7 @@ export const UserCreate = (props) => (
 
 
 export const UserEdit = (props) =>(
-     <Edit {...props} actions={<Actions/>}>
+    <Edit actions={<EditActions/>} {...props}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
@@ -97,9 +110,9 @@ export const UserEdit = (props) =>(
     </Edit>
 )
 
-const UserTitle = ({ record }) => {
-    return <span>User {record ? `${record.last_name}` : ''}</span>;
-};
+// const UserTitle = ({ record }) => {
+//     return <span>User {record ? `${record.last_name}` : ''}</span>;
+// };
 
 // export const UserShow = (props) => (    
 //     <Show  title={<UserTitle/>}{...props} >
@@ -125,7 +138,7 @@ const UserTitle = ({ record }) => {
 // );
 
 export const UserShow = (props) => (
-    <Show {...props}>
+    <Show actions={<ShowActions/>} {...props}>
         <TabbedShowLayout syncWithLocation={false}>
             <Tab label="summary">
                 <TextField label="First Name" source="first_name" />

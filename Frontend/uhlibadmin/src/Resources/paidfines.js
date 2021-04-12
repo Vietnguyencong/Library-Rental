@@ -1,6 +1,7 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show, BooleanField, NullableBooleanInput } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
+import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
@@ -11,6 +12,20 @@ const PaidFilter = (props) => (
             <SelectInput optionText="name" />
         </ReferenceInput> }
     </Filter>
+);
+
+const EditActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
+const ShowActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <EditButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
 );
 
 export const PaidList = props => (
@@ -29,15 +44,16 @@ export const PaidList = props => (
 export const FinesCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
-            <Grid container spacing={1} style={{ width: "100%" }}>
+        <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom>New Fine</Typography>
-                    <NumberInput source="users_id" fullWidth/>
-                    <NumberInput source="item_id" fullWidth/>
+                    <NumberInput source="users_id"  min={0} fullWidth/>
                     <TextInput source="description" fullWidth/>
-                    <NumberInput source="final_amount" fullWidth/>
-                    <NumberInput source="is_paid" fullWidth/>
-                </Grid>
+                    <BooleanInput source="is_paid" fullWidth/>
+                    </Grid>
+                    <Grid item xs={6}>
+                    <NumberInput source="item_id"  min={0} fullWidth/>
+                    <NumberInput source="final_amount"  min={0} fullWidth/>
+                    </Grid>
             </Grid>
         </SimpleForm>
     </Create>
@@ -46,35 +62,51 @@ export const FinesCreate = (props) => (
 
 
 export const FinesEdit = (props) =>(
-     <Edit {...props}>
+    <Edit actions={<EditActions/>} {...props}>
         <SimpleForm>
+        <Typography variant="h6" gutterBottom>Edit Fine</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom>Edit Fine</Typography>
-                    <NumberInput source="users_id" fullWidth/>
-                    <NumberInput source="item_id" fullWidth/>
+                    <NumberInput source="users_id"  min={0} fullWidth/>
                     <TextInput source="description" fullWidth/>
-                    <NumberInput source="final_amount" fullWidth/>
-                    <NumberInput source="is_paid" fullWidth/>
-                </Grid>
+                    <BooleanInput source="is_paid" fullWidth/>
+                    </Grid>
+                    <Grid item xs={6}>
+                    <NumberInput source="item_id"  min={0} fullWidth/>
+                    <NumberInput source="final_amount"  min={0} fullWidth/>
+                    </Grid>
             </Grid>
         </SimpleForm>
     </Edit>
 )
 
 
-const FinesTitle = ({ record }) => {
+{/*const FinesTitle = ({ record }) => {
     return <span>PaidFines {record ? `${record.id}` : ''}</span>;
-};
+};*/}
 
 export const FinesShow = (props) => (    
-    <Show  title={<FinesTitle/>}{...props} >
+    <Edit actions={<ShowActions/>} {...props}>
         <SimpleForm>
-        <NumberField source="users_id" />
-            <NumberField source="item_id" />
-            <TextField source="description" />
-            <NumberField source="final_amount" />
-            <NumberField source="is_paid" />
+        <Typography variant="h6" gutterBottom>Fine Information</Typography>
+            <Grid container spacing={3} style={{ width: "100%" }}>
+                <Grid item xs={12} sm= {6}>
+                    User: <NumberField source="users_id"  min={0} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12} sm= {6}>
+                    Loan Id: <NumberField source="loan_id"  min={0} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12} sm= {6}>
+                    Description: <TextField source="description" fullWidth/>
+                    </Grid>
+                    <Grid item xs={12} sm= {6}>
+                    Final Amount: <NumberField source="final_amount"  min={0} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12} sm= {6}>
+                    Paid: <TextField source="is_paid" fullWidth/>
+                    </Grid>
+                    
+            </Grid>
         </SimpleForm>
-    </Show>
+    </Edit>
 );
