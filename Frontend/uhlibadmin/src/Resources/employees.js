@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm,ReferenceField, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -32,7 +32,7 @@ export const EmployeeList = props => (
     <List filters={<EmployeesFilter />} {...props}>
         <Datagrid rowClick="show">
             <NumberField source="id" fullWidth/>
-            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
+            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="name" /></ReferenceField>*/} 
             <NumberField source="library_id" fullWidth/>
             <TextField source="first_name" fullWidth/>
             <TextField source="middle_initial" fullWidth/>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show, BooleanField, NullableBooleanInput } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, ReferenceField,  Show, BooleanField, NullableBooleanInput } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -31,7 +31,7 @@ const ShowActions = ({ basePath, data, resource }) => (
 export const PaidList = props => (
     <List filters={<PaidFilter/>} {...props}>
         <Datagrid rowClick="show">
-            <NumberField source="users_id" />
+        <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
             <NumberField source="item_id" />
             <TextField source="description" />
             <NumberField source="final_amount" />

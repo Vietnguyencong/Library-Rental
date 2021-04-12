@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -31,8 +31,8 @@ const ShowActions = ({ basePath, data, resource }) => (
 export const WaitList = props => (
     <List filters={<WaitFilter/>} {...props}>
         <Datagrid rowClick="show">
-            <NumberField source="user_id" />
-            <NumberField source="item_id" />
+        <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
+        <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
         </Datagrid>
     </List>
 );
