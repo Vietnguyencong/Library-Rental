@@ -1,6 +1,6 @@
 const db = require('./db');
 const helper = require('../helper');
-
+const {create_condition_string} = require("../helper")
 
 // GET http://my.api.url/posts?sort=["title","ASC"]&range=[0, 24]&filter={"title":"bar"}
 
@@ -218,6 +218,40 @@ getUserByFirstName = async (req,res, next)=>{
   }
 }
 
+getAll = async(req,res,next)=>{
+  try{
+      var context = JSON.parse(req.query.filter)
+      if ( JSON.stringify(context) !== "{}" ){
+          const keys = Object.keys(context)
+          var conditions = []
+          var params = []
+          // console.log(keys)
+          for (var i=0; i<keys.length; i++){
+              conditions.push(`${[keys[i]]} like "%${context[keys[i]]}%"`) 
+              params.push(context[keys[i]])
+          }
+          var condition_tring = conditions.join(" and ")
+          // console.log(condition_tring)
+          var query = `SELECT * from USERS where ${condition_tring} ;` 
+          // console.log(query)
+          const rows = await db.query(query, [])
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+          
+      }else{
+          const query = `SELECT * from USERS; `
+          const rows = await db.query(query, []) 
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+      }
+      
+  }catch(err){
+      next(err)
+  }
+ 
+}
+
+
 module.exports = {
   get,
   getUser,
@@ -229,12 +263,8 @@ module.exports = {
   updateNoBody,
   remove,
   getMany,
-  getUserByFirstName
+  getUserByFirstName, 
+  getAll
 }
 
 
-
-function create_condition_string (length, value){ 
-  var array = Array(length).fill(value)
-  return array.join()
-}

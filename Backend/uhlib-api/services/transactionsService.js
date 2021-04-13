@@ -29,7 +29,7 @@ get_transactions_for_user = async (req,res, next) =>{
                 var query = `SELECT * from TRANSACTION; `
                 var rows = await db.promisePool.query(query, [])
             }
-            const data = cleanRows(rows)
+            const data = cleanRows(rows[0])
             return res.json(data)
         }
         else{

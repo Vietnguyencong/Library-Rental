@@ -3,7 +3,7 @@ import { List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateFi
 import TrueIcon from '@material-ui/icons/Done'
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
-import { TopToolbar, ShowButton, ListButton} from 'react-admin';
+import {Actions} from "./helper"
 
 const MyBooleanfield = ({ record={}, source}) =>{
     if (record[source] === 1 ){
@@ -16,12 +16,7 @@ const MyBooleanfield = ({ record={}, source}) =>{
     }
 }
 
-const Actions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ShowButton basePath={basePath} record={data} />
-        <ListButton basePath={basePath} label="Back"  />
-    </TopToolbar>
-);
+
 
 const TransactionFilter = (props) => (
     <Filter {...props}>
