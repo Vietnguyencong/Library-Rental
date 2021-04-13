@@ -5,8 +5,8 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-const apiUrl = 'https://uhlib.cc/api';
-//  const apiUrl = 'http://localhost:5000/api';
+//const apiUrl = 'https://uhlib.cc/api';
+const apiUrl = 'http://localhost:5000/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -26,15 +26,15 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        //const url = `${apiUrl}/${resource}?${stringify(query)}`;
-        const url = `${apiUrl}/${resource}/all_libraries`;
+        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
+        //const url = `${apiUrl}/${resource}/all_libraries`;
         return httpClient(url).then(({ headers, json }) => ({
-            data: json,//.map(resource => ({ ...resource, id: resource.library_id }) ),
+            data: json.map(resource => ({ ...resource, id: resource.library_id }) ),
             total:10
         }));
     },
 
-    getOne: async (resource, params) => {
+    /*getOne: async (resource, params) => {
         const url = `${apiUrl}/${resource}/id/${params.id}`
         const res  = await fetch(url)
         var json = await res.json()
@@ -43,17 +43,17 @@ export default {
             name:json.data[0].name,
             opening_hours:json.data[0].opening_hours}];
         console.log(arr)
-        /*const newJson = arr.map(({ 
+        const newJson = arr.map(({ 
             library_id: id, ...rest}) => ({
                 id,
                 ...rest
-            })); */
+            })); 
         return {data:arr[0]}
     }, 
-
+*/
     getOne: (resource, params) =>
     httpClient(`${apiUrl}/${resource}/id/${params.id}`).then(({ json }) => ({
-        data: json[0]
+        data: json
     })),
     getMany: (resource, params) => {
         const query = {
