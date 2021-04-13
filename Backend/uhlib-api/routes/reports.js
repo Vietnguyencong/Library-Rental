@@ -16,6 +16,22 @@ router.get('/fetchusers', async function(req, res, next) {
     }
   });
 
+router.get('/fetchusers', async function(req, res, next) {
+    try {
+        let date = req.query.date1;
+        let date2 = req.query.date2;
+      res.header('Access-Control-Expose-Headers', 'X-Total-Count');
+      count = Object.keys( await reportService.get(req.query.page) ).length;
+      res.set("X-Total-Count", count);
+      res.setHeader('Content-Range', count);
+      res.json({count});
+    } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+    }
+  });
+
+
 router.get('/fetchusersloans', async function(req, res, next) {
 try {
     count = await reportService.getloans();
@@ -24,6 +40,16 @@ try {
     console.error(`Get error `, err.message);
     next(err);
 }
+});
+
+router.get('/totalfinespaid', async function(req, res, next) {
+    try {
+        count = await reportService.getfinespaid();
+        res.json(count);
+    } catch (err) {
+        console.error(`Get error `, err.message);
+        next(err);
+    }
 });
 
 router.get('/fetchpieitems', async function(req, res, next) {
