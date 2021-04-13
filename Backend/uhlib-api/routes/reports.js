@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const router = express.Router();
 const reportService = require('../services/reportService');
+const moment = require('moment');
 
 router.get('/fetchusers', async function(req, res, next) {
     try {
@@ -16,12 +17,13 @@ router.get('/fetchusers', async function(req, res, next) {
     }
   });
 
-router.get('/fetchusers', async function(req, res, next) {
+router.get('/fetchusersdate', async function(req, res, next) {
     try {
-        let date = req.query.date1;
-        let date2 = req.query.date2;
+        let date1 = moment(new Date(req.query.date1)).format("yyyy-MM-DD");
+        let date2 = moment(new Date(req.query.date2)).format("yyyy-MM-DD");
+        console.log('date  date2 ',date1,date2);
       res.header('Access-Control-Expose-Headers', 'X-Total-Count');
-      count = Object.keys( await reportService.get(req.query.page) ).length;
+      count = Object.keys( await reportService.get(date1, date2)).length;
       res.set("X-Total-Count", count);
       res.setHeader('Content-Range', count);
       res.json({count});

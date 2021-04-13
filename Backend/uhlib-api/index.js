@@ -15,6 +15,7 @@ const waitinglistRouter = require('./routes/waitinglist');
 const authenticationRouter = require("./routes/authentication")
 const {authenticate_user} = require("./helper")
 const reportsRouter = require('./routes/reports');
+const moment = require('moment');
 
 app.use(cors());
 

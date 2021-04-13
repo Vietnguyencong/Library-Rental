@@ -1,14 +1,14 @@
 const db = require('./db');
 const helper = require('../helper');
 
-async function get(){
+async function get(date1, date2){
     const rows = await db.query(
-      `SELECT user_id, city, first_name, last_name, middle_initial, phone_number, email_address, zip_code, state, city, street_name, street_number
-      FROM USERS`
+      `SELECT * FROM USERS where created_at >= '${date1}' and created_at <= '${date2}'; `
     );
-  
+    console.log(`SELECT * FROM USERS where created_at >= '${date1} and created_at <= ${date2};`);
     const data = helper.cleanRows(rows);
     var ndata = JSON.parse(JSON.stringify(data).split('"user_id":').join('"id":'));
+    console.log('num users', ndata);
     return ndata;
 }
 
@@ -46,8 +46,6 @@ async function getpieitems(){
     );
     console.log(JSON.parse(JSON.stringify(rows)))
     
-
-
     var result = [];
     result.push(['A','B']);
 
@@ -65,10 +63,6 @@ async function getpieitems(){
     console.log(result);
 
     return result;  
-  
-    // const data = JSON.parse(helper.cleanRows(rows));
-    // print(JSON.stringify(data));
-    // return data['Count(distinct user_id)'];
 }
 
 module.exports = {
