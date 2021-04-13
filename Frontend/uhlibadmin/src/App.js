@@ -80,7 +80,7 @@ const App = () => (
         
         <Resource name="libraries" list={LibraryList} edit={LibraryEdit} create={LibraryCreate} Show={LibraryShow} icon={LocalLibraryIcon} />
 
-        <Resource name="employees" list={EmployeeList} show={EmployeeShow}create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
+        <Resource name="employees" list={EmployeeList} show={EmployeeShow} create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
 
         <Resource name="transactions" list={TransactionList} create={TransactionCreate} edit={TransactionEdit} show={TransactionShow} icon={TransformOutlinedIcon} /> 
 
