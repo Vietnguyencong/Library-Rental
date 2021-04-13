@@ -78,7 +78,7 @@ const App = () => (
 
         <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
         
-        <Resource name="libraries" list={LibraryList} edit={LibraryEdit} create={LibraryCreate} Show={LibraryShow} icon={LocalLibraryIcon} />
+        <Resource name="libraries" list={LibraryList} edit={LibraryEdit} create={LibraryCreate} show={LibraryShow} icon={LocalLibraryIcon} />
 
         <Resource name="employees" list={EmployeeList} show={EmployeeShow}create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
 

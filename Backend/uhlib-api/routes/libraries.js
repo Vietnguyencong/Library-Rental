@@ -1,6 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const librariesService = require('../services/librariesService');
+
+router.get('/', async function(req, res, next) {
+  console.log(JSON.stringify(req.query));
+  try {
+    res.setHeader('Access-Control-Expose-Headers', 'Content-Range');
+    res.setHeader('Content-Range', 5);
+    res.json(await librariesService.getByFilter(
+    JSON.parse(req.query.sort),
+    JSON.parse(req.query.range),
+    JSON.parse(req.query.filter) ));
+  } catch (err) {
+    console.error(`Get error `, err.message);
+    next(err);
+  }
+});
 // GET ALL
 router.get('/all_libraries', async function(req, res, next) {
     try {
@@ -71,4 +86,6 @@ router.delete('/deletelibrary/:id', async function(req, res, next) {
     next(err);
   }
 });
-  module.exports = router;
+
+router.get("/filter", librariesService.getLibraryByName)
+module.exports = router;
