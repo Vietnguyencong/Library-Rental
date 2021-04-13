@@ -1,9 +1,7 @@
 import * as React from "react";
 import { List, Datagrid, TextField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, NumberInput, SelectInput, BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, AutocompleteInput } from 'react-admin';
-import { TopToolbar, ShowButton, ListButton} from 'react-admin';
-import TrueIcon from '@material-ui/icons/Done'
-import FalseIcon from '@material-ui/icons/Clear'
-
+import {Actions, MyBooleanfield} from "./helper";
+import {Grid} from '@material-ui/core'
 const LoanitemFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
@@ -13,28 +11,13 @@ const LoanitemFilter = (props) => (
         <NumberInput label="search by item_id" source="item_id" alwaysOn/>
     </Filter>
 );
-const MyBooleanfield = ({ record={}, source}) =>{
-    if (record[source] === 1 ){
-        return <div>
-            <TrueIcon/> 
-        </div>
-    }
-    else{
-        return <div><FalseIcon/></div>
-    }
-}
 
 
-const Actions = ({ basePath, data, resource }) => (
-    <TopToolbar>
-        <ShowButton basePath={basePath} record={data} />
-        <ListButton basePath={basePath} label="Back"  />
-    </TopToolbar>
-);
+
 
 export const LoanitemList = props => (
     <List filters={<LoanitemFilter/>} {...props}>
-        <Datagrid rowClick="show">
+        <Datagrid rowClick="edit">
             {/* <NumberField source="id"/> */}
             <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
             <NumberField source="quantity" />
@@ -54,16 +37,24 @@ export const LoanitemList = props => (
 export const LoanitemEdit = props => (
     <Edit actions={<Actions/>} {...props}>
         <SimpleForm >
-            <ReferenceInput  source="transaction_id" reference="transactions">
-                <AutocompleteInput  optionText="transaction_id" />
-            </ReferenceInput >
-            <ReferenceInput source="item_id" reference="items" >
-                <AutocompleteInput optionText="title"/>
-            </ReferenceInput>
-            <BooleanInput source="is_due" />
-            <NumberInput source="quantity" />
-            <DateTimeInput disabled source="date_created" />
-            <DateTimeInput disabled source="updated_at" />
+            <Grid container spacing={1} style={{width:"100%"}}>
+                <Grid item xs={6}>
+                    <ReferenceInput  source="transaction_id" reference="transactions">
+                        <AutocompleteInput  optionText="transaction_id" fullWidth/>
+                    </ReferenceInput >
+                    <ReferenceInput source="item_id" reference="items" >
+                        <AutocompleteInput optionText="title" fullWidth/>
+                    </ReferenceInput>
+                    <DateTimeInput disabled source="date_created" fullWidth/>
+                </Grid>
+                <Grid item xs={6}>
+                  
+                    <BooleanInput source="is_due" fullWidth/>
+                    <NumberInput source="quantity" fullWidth/><br></br>
+                    <DateTimeInput disabled source="updated_at" fullWidth />
+                </Grid>
+            </Grid>
+           
         </SimpleForm>
     </Edit>
 );

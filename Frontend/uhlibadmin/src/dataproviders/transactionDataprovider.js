@@ -72,7 +72,7 @@ getList:  (resource, params) => {
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => ({
-            data: json,
+            data: json.map(resource => ({ ...resource, id: resource.transaction_id }) ),
             // total: parseInt(headers.get('content-range').split('/').pop(), 10),
             total:10
         }));
