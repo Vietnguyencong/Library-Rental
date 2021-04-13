@@ -6,7 +6,7 @@ import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
 const apiUrl = 'https://uhlib.cc/api';
-//  const apiUrl = 'http://localhost:5000/api';
+//const apiUrl = 'http://localhost:5000/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -50,7 +50,11 @@ export default {
             })); 
         return {data:arr[0]}
     }, 
-    
+*/
+    getOne: (resource, params) =>
+    httpClient(`${apiUrl}/${resource}/id/${params.id}`).then(({ json }) => ({
+        data: json
+    })),
     getMany: (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids }),
@@ -125,4 +129,3 @@ export default {
         }).then(({ json }) => ({ data: {json} }));
     }
 };
-
