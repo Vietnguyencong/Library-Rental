@@ -1,13 +1,13 @@
 ### getOne 
 GET http://localhost:5000/api/transactions/one/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgxOTcyNTUsImV4cCI6MTYxODIwMDg1NX0.WkzzCjH8VAudEs7hmkcHufS8ZpUJ3eEJR7yarKALDEE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIU
 
 ###  getList
 GET http://localhost:5000/api/transactions?filter={}
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgxOTcyNTUsImV4cCI6MTYxODIwMDg1NX0.WkzzCjH8VAudEs7hmkcHufS8ZpUJ3eEJR7yarKALDEE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
 ### get transaction for a user 
 GET http://localhost:5000/api/transactions?filter={"user_id":2} 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgxOTcyNTUsImV4cCI6MTYxODIwMDg1NX0.WkzzCjH8VAudEs7hmkcHufS8ZpUJ3eEJR7yarKALDEE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
 
 ### getMany 
 GET http://localhost:5000/api/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}

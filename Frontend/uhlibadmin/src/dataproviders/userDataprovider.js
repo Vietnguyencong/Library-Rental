@@ -24,8 +24,7 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
-        
-        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`; // get all empoloyee 
+        const url = `${apiUrl}/${resource}/getall?${stringify(query)}`; // get all empoloyee 
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.user_id }) ),
             // total: parseInt(headers.get('Content-Range')), // 0-10/10
