@@ -138,6 +138,39 @@ getItemByTitle = async (req,res, next)=>{
   }
 }
 
+getAll = async(req,res,next)=>{
+  try{
+      var context = JSON.parse(req.query.filter)
+      if ( JSON.stringify(context) !== "{}" ){
+          const keys = Object.keys(context)
+          var conditions = []
+          var params = []
+          // console.log(keys)
+          for (var i=0; i<keys.length; i++){
+              conditions.push(`${[keys[i]]} like "%${context[keys[i]]}%"`) 
+              params.push(context[keys[i]])
+          }
+          var condition_tring = conditions.join(" and ")
+          console.log(condition_tring)
+          var query = `SELECT * from ITEMS where ${condition_tring} ;` 
+          console.log(query)
+          const rows = await db.query(query, [])
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+          
+      }else{
+          const query = `SELECT * from ITEMS; `
+          const rows = await db.query(query, []) 
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+      }
+      
+  }catch(err){
+      next(err)
+  }
+ 
+}
+
 module.exports = {
   get,
   getByFilter,
@@ -146,5 +179,6 @@ module.exports = {
   update,
   remove,
   getMany,
-  getItemByTitle
+  getItemByTitle,
+  getAll
 }

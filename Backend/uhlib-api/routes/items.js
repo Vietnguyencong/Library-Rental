@@ -74,4 +74,5 @@ router.delete('/deleteitem', authenticate_user, async function(req, res, next) {
 router.get("/filter",itemsService.getItemByTitle)
 
 router.get('/many',itemsService.getMany )
+router.get("/getall", itemsService.getAll)
 module.exports = router;

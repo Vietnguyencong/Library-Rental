@@ -27,7 +27,7 @@ export default {
         };
    
         // const url = `${apiUrl}/${resource}/filter?${stringify(query)}`;
-        const url = `${apiUrl}/${resource}/filter?${stringify(query)}`
+        const url = `${apiUrl}/${resource}/getall?${stringify(query)}`
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.item_id }) ),
             //data:json

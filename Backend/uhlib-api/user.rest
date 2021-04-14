@@ -2,16 +2,18 @@
 get http://localhost:5000/api/users/allusers
 
 ### another get all for user filter 
-get http://localhost:5000/api/users/getall?filter={"first_name":"", "last_name": "","city": "Houston", "state": "" }
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgyMDIwOTksImV4cCI6MTYxODIwNTY5OX0.MPqU0AHU4fqAJXtsicnGZOFqEj8jtEWghUI-Crf3Hfc
-
+get http://localhost:5000/api/users/getall?filter={"city":"n","state":"c"}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
+###
+get http://localhost:5000/api/users/getall?filter={"city":"n","state":"c"}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
 ### filter get many users 
 get http://localhost:5000/api/users/many?filter={"id":[1,2]}
 
 
 ### get one user 
 get http://localhost:5000/api/users/one/1
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTgyMDIwOTksImV4cCI6MTYxODIwNTY5OX0.MPqU0AHU4fqAJXtsicnGZOFqEj8jtEWghUI-Crf3Hfc
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
 
 ### update one user 
 put http://localhost:5000/api/users/1
@@ -20,6 +22,6 @@ Content-Type: application/json
 {
     "city": "Houston"
 }
-
+k
 ### get all users by first name 
 get http://localhost:5000/api/users/filter?filter={"first_name":"UPDATED"}
