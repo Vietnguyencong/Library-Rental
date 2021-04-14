@@ -115,7 +115,7 @@ create = async(req,res, next) =>{
         const data = [newId, user_id] 
         const message = await db.promisePool.query(query, data)
         return res.json(message)
-    }catch(err){
+    } catch(err){
         next(err)
     }
 }
