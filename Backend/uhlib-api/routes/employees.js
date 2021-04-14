@@ -2,6 +2,18 @@ const  express = require('express');
 const router = express.Router();
 const employeesService = require("../services/employeesService");
 
+router.get('/', async function(req, res, next) {
+    try {
+      res.json(await employeesService.getByFilter(
+        JSON.parse(req.query.sort),
+        JSON.parse(req.query.range),
+        JSON.parse(req.query.filter) ));
+    } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+    }
+});
+
 //Get all Employees
 router.get("/all_employees", async function(req, res, next){
     res.header('Access-Control-Expose-Headers', 'X-Total-Count');

@@ -78,16 +78,31 @@ export const LibraryShow = (props) => (
                 <TextField source="location" fullWidth />   
             </Tab>
             <Tab label="Items">
-                <ReferenceManyField Label="Items" reference="items" target="item_id" addLabel={false}>
+                <ReferenceManyField label="Items" reference="items" target="library_id">
                     <Datagrid>
-                        <ReferenceField source="item_id" reference="items">
-                            <TextField source="item_id"/>
-                        </ReferenceField>
+                        {/*<ReferenceField source="title" reference="items">
+                            <TextField source="title"/>
+</ReferenceField>*/}
+                        <TextField source="title" />
+                        <NumberField source="current_quantity" />
+                        <NumberField source="stock" />
+                        <NumberField source="price" />
+                        <NumberField source="rent_period" />
+                        <NumberField source="is_available" />
+                        <TextField source="item_type" />
                     </Datagrid>
                 </ReferenceManyField>
             </Tab>
             <Tab label="Employees">
-
+                <ReferenceManyField label="Employees" reference="employees" target="library_id">
+                    <Datagrid>
+                        <TextField source="first_name" />
+                        <TextField source="middle_initial" />
+                        <TextField source="last_name" />
+                        <TextField source="job_title" />
+                        <TextField source="email_address" />
+                    </Datagrid>
+                </ReferenceManyField>
             </Tab>
         </TabbedShowLayout>
     </Show>
