@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
+import { Show, Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
+import {Actions, MyBooleanfield} from './helper'
 const ItemsFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search by title" source="item_type" alwaysOn /> */}
@@ -15,6 +16,7 @@ const ItemsFilter = (props) => (
         </ReferenceInput> */}
     </Filter>
 );
+
 
 export const ItemList = props => (
     <List filters={<ItemsFilter />} {...props}>
@@ -66,8 +68,8 @@ export const ItemCreate = (props) => (
 );
 
 export const ItemEdit = (props) =>(
-    <Edit {...props}>
-       <SimpleForm>
+    <Edit actions={<Actions/>} {...props}>
+    <SimpleForm>
            <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>New Library Item</Typography>
@@ -90,4 +92,47 @@ export const ItemEdit = (props) =>(
            </Grid>
        </SimpleForm>
    </Edit>
+)
+
+
+export const ItemShow = (props) =>(
+    <Show  {...props}>
+       <SimpleForm>
+           <Grid container spacing={1} style={{ width: "100%" }}>
+                <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom>Item Information</Typography>
+                    <Typography variant="subtitle2" gutterBottom >
+                        Title: <TextField source="title" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        Item_type: <TextField source="item_type" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        Price: <NumberField source="price" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        Total quantity: <NumberField source="current_quantity" default="1" fullWidth />    
+                    </Typography>
+
+                </Grid>
+                <Grid item xs={6}>
+                    <Typography variant="h6" gutterBottom> &nbsp; </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                        is_available: <MyBooleanfield source="is_available" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                    Rent_period:<NumberField source="rent_period" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                    Stock: <NumberField source="stock" fullWidth />
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                    Library_id: <NumberField source="library_id" fullWidth />
+                    </Typography>
+
+
+                </Grid>
+           </Grid>
+       </SimpleForm>
+   </Show>
 )
