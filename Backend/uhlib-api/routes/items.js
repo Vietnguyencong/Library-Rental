@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const itemsService = require('../services/itemsService');
+const {authenticate_user} = require("../helper")
 
 /* GET ITEMS WITH FILTER */
-router.get('/', async function(req, res, next) {
+router.get('/',authenticate_user, async function(req, res, next) {
     try {
       res.json(await itemsService.getByFilter(
         JSON.parse(req.query.sort),
@@ -16,7 +17,7 @@ router.get('/', async function(req, res, next) {
 });
 
 /* GET ITEMS */
-router.get('/allitems', async function(req, res, next) {
+router.get('/allitems', authenticate_user, async function(req, res, next) {
   try {
     res.json(await itemsService.get(req.query.page));
   } catch (err) {
@@ -26,7 +27,7 @@ router.get('/allitems', async function(req, res, next) {
 });
 
 /* GETITEM BY ID */
-router.get('/one/:id', async function(req, res, next) {
+router.get('/one/:id', authenticate_user, async function(req, res, next) {
   let id  = req.params.id;
   // console.log('id is ${id}');
   try {
@@ -38,7 +39,7 @@ router.get('/one/:id', async function(req, res, next) {
 });
 
 /* POST ITEMS */
-router.post('/', async function(req, res, next) {
+router.post('/', authenticate_user, async function(req, res, next) {
   console.log('Create new item /')
   try {
     res.json(await itemsService.create(req.body));
@@ -49,7 +50,7 @@ router.post('/', async function(req, res, next) {
 });
 
 /* UPDATE ITEM BY ID */
-router.put('/:id', async function(req, res, next) {
+router.put('/:id', authenticate_user, async function(req, res, next) {
   console.log('id is ${id}');
   try {
     res.json(await itemsService.update(req.params.id, req.body));
@@ -60,7 +61,7 @@ router.put('/:id', async function(req, res, next) {
 });
 
 /* DELETE ITEM */
-router.delete('/deleteitem', async function(req, res, next) {
+router.delete('/deleteitem', authenticate_user, async function(req, res, next) {
   console.log('id is ${id}');
   try {
     res.json(await itemsService.remove(req));

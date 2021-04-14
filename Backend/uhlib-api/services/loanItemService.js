@@ -125,6 +125,7 @@ createOne = async (req,res, next) =>{
         const query = `INSERT INTO LOAN_ITEM  (item_id , quantity, transaction_id)
         VALUES (?, ?, ? );`
         const params = [item_id, quantity, trans_id] 
+        console.log(params)
         const rows = await db.query(query, params)
         const data = cleanRows(rows)
         return res.json(data)

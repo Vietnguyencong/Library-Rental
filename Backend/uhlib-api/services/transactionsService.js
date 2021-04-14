@@ -114,8 +114,10 @@ create = async(req,res, next) =>{
         const query = `INSERT INTO TRANSACTION (transaction_id, user_id ) VALUES ( ?, ? ) ;` 
         const data = [newId, user_id] 
         const message = await db.promisePool.query(query, data)
-        return res.json(message)
-    }catch(err){
+        const query2 = `SELECT transaction_id from TRANSACTION where user_id = ? and is_commit = 0 limit 1;` 
+        const transaction_id = await db.promisePool.query(query2, req.body.user_id);
+        return res.json(cleanRows(transaction_id)[0][0])
+    } catch(err){
         next(err)
     }
 }
