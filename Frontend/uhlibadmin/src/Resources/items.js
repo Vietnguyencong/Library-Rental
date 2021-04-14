@@ -10,8 +10,10 @@ const ItemsFilter = (props) => (
             { id: 'Book', name: 'Book' },
             { id: 'Media', name: 'Media' },
             { id: 'Printer', name: 'Printer' }
-        ]} alwaysOn/>    
-        {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
+        ]} alwaysOn/> 
+        <TextInput source="title" alwaysOn/>
+
+        {/* <ReferenceInput label="Library" source="library_id" reference="libraries" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput> */}
     </Filter>

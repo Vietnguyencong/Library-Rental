@@ -231,9 +231,9 @@ getAll = async(req,res,next)=>{
               params.push(context[keys[i]])
           }
           var condition_tring = conditions.join(" and ")
-          // console.log(condition_tring)
+          console.log(condition_tring)
           var query = `SELECT * from USERS where ${condition_tring} ;` 
-          // console.log(query)
+          console.log(query)
           const rows = await db.query(query, [])
           const data = helper.cleanRows(rows)
           return res.json(data)

@@ -111,7 +111,6 @@ deleteOne  = async (req,res, next) =>{
     }catch(err){
         next(err)
     }
- 
 }
 
 // description: create one item in loan item table 
@@ -124,9 +123,14 @@ createOne = async (req,res, next) =>{
         const quantity = req.body.quantity
         const query = `INSERT INTO LOAN_ITEM  (item_id , quantity, transaction_id)
         VALUES (?, ?, ? );`
+        const query2 = `update ITEMS set current_quantity = current_quantity - ${quantity} where item_id = ${item_id} ; `
         const params = [item_id, quantity, trans_id] 
-        console.log(params)
+        // const params2 = [parseInt(quantity), item_id] 
+        // console.log(req.body)
+        // console.log(query2)
         const rows = await db.query(query, params)
+        const message = await db.query(query2, [])
+
         const data = cleanRows(rows)
         return res.json(data)
     }catch(err){
