@@ -20,13 +20,11 @@ import Context from "./Context";
 axios.interceptors.request.use(config =>{
   if(!config.headers.Authorization){
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log('token is before', user.token);
     if(user){
       config.headers.Authorization = 'Bearer ' + user.token;
       console.log('token is', user.token);
     }
   }
-  console.log('interceptors', config);
   return config;
 }, err => {Promise.reject(err)})
 
@@ -44,11 +42,13 @@ export default class App extends Component {
 
   async componentDidMount() {
     let user = localStorage.getItem("user");
+    let cart = localStorage.getItem("cart");
     user = user ? JSON.parse(user) : null;
+    cart = cart? JSON.parse(cart) : {};
    // this.setState({ user });
     if(user){
       const items = await axios.get('http://localhost:5000/api/items/allitems');
-      this.setState({ user,  items: items.data });
+      this.setState({ user,  items: items.data, cart });
       console.log(items);
     }
   }
@@ -64,17 +64,21 @@ export default class App extends Component {
           'Access-Control-Allow-Credentials': true
         }}
     ).catch((res) => {
+      console.log( 'erro ',JSON.stringify(res));
       return { status: 401, message: 'Unauthorized' }
     })
   
+    console.log(JSON.stringify(res));
     if(res.status === 200) {
       const { email,token } = jwt_decode(res.data.access_token)
       axios.defaults.headers.common = {'Authorization' : `Bearer ${token}` }
 
       console.log('email is ',email);
+      const user_id = res.data.user_id;
       const user = {
         email,
-        token: res.data.access_token
+        token: res.data.access_token,
+        user_id
       }
   
       this.setState({ user });
@@ -84,7 +88,92 @@ export default class App extends Component {
       return false;
     }
   }
+
+  addToCart = cartItem => {
+    const {cart} = this.state;
+    
+    if (cart[cartItem.id]) {
+      cart[cartItem.id].amount += cartItem.amount;
+    } else {
+      cart[cartItem.id] = cartItem;
+      cart[cartItem.id].amount = 1;
+    }
+    console.log('id is',cartItem.id);
+    console.log(JSON.stringify(cart[cartItem.id]));
+
+    if (cart[cartItem.id].amount > cart[cartItem.id].stock) {
+      cart[cartItem.id].amount = cart[cartItem.id].stock;
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
   
+  checkout = () => {
+    if (!this.state.user) {
+      this.routerRef.current.history.push("/login");
+      return;
+    }
+  
+    const cart = this.state.cart;
+    const user_id = JSON.parse(localStorage.getItem('user')).user_id;
+    console.log('user', JSON.parse(localStorage.getItem('user')).user_id);
+    axios.post('http://localhost:5000/api/transactions/', {user_id:JSON.parse(localStorage.getItem('user')).user_id}).then(response => {
+      const transaction_id = response.data.transaction_id;
+      console.log('ts', transaction_id);
+      const posts = []
+      const products = this.state.items.map(p => {
+
+//        console.log(JSON.stringify(cart));
+        if (cart[p.id]) {
+          p.stock = p.stock - cart[p.id].amount;
+          console.log('item ',cart[p.id], p.id);
+
+          console.log('data ',{ id: transaction_id, quantity: cart[p.id].amount, item_id: p.id });
+          posts.push(
+          axios.post(
+            `http://localhost:5000/api/loanitem`,
+            { transaction_id: transaction_id, quantity: cart[p.id].amount, item_id: p.id },
+          ).then(response =>{
+            console.log("response ", response.status);
+          })
+          );
+        }
+        return p;
+      });
+      Promise.all(posts).then(()=>{ 
+        console.log('success')
+        axios.put(
+          `http://localhost:5000/api/transactions/${transaction_id}`,
+          { "is_commit" : 1,
+            "user_id": user_id },
+        ).then(response =>{
+          console.log("response ", response.status);
+        })
+      });
+      // axios.all(posts).then(axios.spread(...response)) =>{
+
+      // });
+    this.setState({ products });
+    })
+
+
+  
+    this.clearCart();
+  };
+
+  removeFromCart = cartItemId => {
+    let cart = this.state.cart;
+    delete cart[cartItemId];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    this.setState({ cart });
+  };
+  
+  clearCart = () => {
+    let cart = {};
+    localStorage.removeItem("cart");
+    this.setState({ cart });
+  };
+
   logout = e => {
     e.preventDefault();
     this.setState({ user: null });
@@ -106,9 +195,7 @@ export default class App extends Component {
       >
         <Router ref={this.routerRef}>
         <div className="App">
-        <Link to="/" onClick={this.logout} className="navbar-item">
-                    Logout
-                  </Link>
+
           
           
           
@@ -176,11 +263,13 @@ export default class App extends Component {
     <Navbar.Brand href="#home">Navbar</Navbar.Brand>
     <Nav className="mr-auto">
       <Nav.Link href="#home">Home</Nav.Link>
-      <Nav.Link href="/login">Login</Nav.Link>
+     
       <Nav.Link href="/cart">Cart</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
-      {/* <Nav.Link href={this.logout}>Logout</Nav.Link> */}
-      <Nav.Link href="/logout">LogOut</Nav.Link>
+      {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
+      
+     
+      
       {/* <Link to="/" onClick={this.logout} className="navbar-item">
                     Logout
                   </Link>       */}
@@ -191,13 +280,6 @@ export default class App extends Component {
       <Button variant="outline-light">Search</Button>
     </Form>
   </Navbar>
-
-
-
-
-
-
-
 
             <Switch>
               <Route exact path="/" component={ItemList} />

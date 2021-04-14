@@ -28,14 +28,8 @@ class Login extends Component {
       })
   };
 
-
-  logout = e => {
-    e.preventDefault();
-    this.setState({ user: null });
-    localStorage.removeItem("user");
-  };
-
   render() {
+    console.log('props are ',JSON.stringify(this.props.context.login));
     return !this.props.context.user ? (
       <>
         <div className="hero is-primary ">
@@ -75,13 +69,14 @@ class Login extends Component {
                 >
                   Submit
                 </button>
+            
               </div>
             </div>
           </div>
         </form>
       </>
     ) : (
-      <Redirect to="/products" />
+      <Redirect to="/items" />
     );
   }
 }
