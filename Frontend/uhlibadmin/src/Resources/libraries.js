@@ -3,17 +3,17 @@ import { Show, Edit, Create, SimpleForm, List, Datagrid, TextField, EmailField, 
 import { Grid, Typography } from '@material-ui/core';
 const LibrariesFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search" source="q" alwaysOn />
-        <ReferenceInput label="Libaries" source="Name" reference="libraries" allowEmpty>
+        <TextInput label="Search" source="name" alwaysOn />
+        {/*<ReferenceInput label="Libaries" source="Name" reference="libraries" allowEmpty>
             <SelectInput optionText="name" />
-        </ReferenceInput>
+</ReferenceInput>*/}
     </Filter>
 );
 
 export const LibraryList = props => (
     <List filters={<LibrariesFilter />} {...props}>
 
-    <Datagrid rowClick="edit">
+        <Datagrid rowClick="edit">
             
             <TextField source="id" />
             <TextField source="name" />
@@ -44,9 +44,9 @@ export const LibraryEdit = (props) =>(
            <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>Library</Typography>
-                    <TextInput source="name" fullWidth />  
-                    <TextInput source="opening_hours" fullWidth />
-                    <TextInput source="location" fullWidth />    
+                        <TextInput source="name" fullWidth />  
+                        <TextInput source="opening_hours" fullWidth />
+                        <TextInput source="location" fullWidth />    
                 </Grid>
            </Grid>
        </SimpleForm>
