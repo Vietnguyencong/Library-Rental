@@ -11,3 +11,7 @@ get http://localhost:5000/api/items/many?filter={"id":[1,2]}
 
 ### get items by typing the title 
 get http://localhost:5000/api/items/filter?filter={"title":""}
+
+### 
+get http://localhost:5000/api/items/getall?filter={"title": "m", "item_type":"bo", "library_id":""}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzU0ODgsImV4cCI6MTYxODQzOTA4OH0.Ye2p4fK8A7HZRPGV6eDNU344GiqglgE0cmj83xge9Yo
