@@ -47,7 +47,7 @@ export default class App extends Component {
     cart = cart? JSON.parse(cart) : {};
    // this.setState({ user });
     if(user){
-      const items = await axios.get('http://localhost:5000/api/items/allitems');
+      const items = await axios.get('https://uhlib.cc/api/items/allitems');
       this.setState({ user,  items: items.data, cart });
       console.log(items);
     }
@@ -56,7 +56,7 @@ export default class App extends Component {
   login = async (email, password) => {
     console.log('ep', email, password);
     const res = await axios.post(
-      'http://localhost:5000/api/aut/userlogin',
+      'https://uhlib.cc/api/aut/userlogin',
       { email, password },
       {
         headers: {
@@ -117,7 +117,7 @@ export default class App extends Component {
     const cart = this.state.cart;
     const user_id = JSON.parse(localStorage.getItem('user')).user_id;
     console.log('user', JSON.parse(localStorage.getItem('user')).user_id);
-    axios.post('http://localhost:5000/api/transactions/', {user_id:JSON.parse(localStorage.getItem('user')).user_id}).then(response => {
+    axios.post('https://uhlib.cc/api/transactions/', {user_id:JSON.parse(localStorage.getItem('user')).user_id}).then(response => {
       const transaction_id = response.data.transaction_id;
       console.log('ts', transaction_id);
       const posts = []
@@ -131,7 +131,7 @@ export default class App extends Component {
           console.log('data ',{ id: transaction_id, quantity: cart[p.id].amount, item_id: p.id });
           posts.push(
           axios.post(
-            `http://localhost:5000/api/loanitem`,
+            `https://uhlib.cc/api/loanitem`,
             { transaction_id: transaction_id, quantity: cart[p.id].amount, item_id: p.id },
           ).then(response =>{
             console.log("response ", response.status);
@@ -143,7 +143,7 @@ export default class App extends Component {
       Promise.all(posts).then(()=>{ 
         console.log('success')
         axios.put(
-          `http://localhost:5000/api/transactions/${transaction_id}`,
+          `https://uhlib.cc/api/transactions/${transaction_id}`,
           { "is_commit" : 1,
             "user_id": user_id },
         ).then(response =>{
