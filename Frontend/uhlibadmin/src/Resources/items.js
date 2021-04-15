@@ -11,7 +11,9 @@ const ItemsFilter = (props) => (
             { id: 'Media', name: 'Media' },
             { id: 'Printer', name: 'Printer' }
         ]} alwaysOn/> 
-        <TextInput source="title" alwaysOn/>
+        <TextInput label="Search by title" source="title"/>
+        <NumberInput label="Search by library" source="library_id"/>
+        <NumberInput label="Search by availability" source="is_available"/>
 
         {/* <ReferenceInput label="Library" source="library_id" reference="libraries" allowEmpty>
             <SelectInput optionText="name" />
