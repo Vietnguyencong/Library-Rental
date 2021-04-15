@@ -64,4 +64,7 @@ router.get('/fetchpieitems', async function(req, res, next) {
     }
 });
 
+router.get("/transactions", reportService.getTransactionReport)
+
+
 module.exports = router

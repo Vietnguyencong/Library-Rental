@@ -1,5 +1,6 @@
 const db = require('./db');
 const helper = require('../helper');
+const { json } = require('express');
 
 async function get(date1, date2){
     const rows = await db.query(
@@ -64,11 +65,27 @@ async function getpieitems(){
 
     return result;  
 }
+// get the transaction report 
+// body = {startdate string, enddate string }
+// route: /api/reports/transaction 
+getTransactionReport = async (req,res, next)=>{ 
+  try{
+    const startdate= req.body.startdate 
+    const enddate = req.body.enddate 
+    const query = `call transaction_report("${startdate}", "${enddate}" ) ; `
+    const rows = await db.promisePool.query(query, [])
+    const data = helper.cleanRows(rows[0])
+    return res.json(data)
+  }catch(err){
+    next(err)
+  }
+}
 
 module.exports = {
     get,
     getloans,
-    getpieitems
+    getpieitems, 
+    getTransactionReport
 }
 
 function create_condition_string (length, value){ 
