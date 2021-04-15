@@ -70,12 +70,52 @@ async function getpieitems(){
 // route: /api/reports/transaction 
 getTransactionReport = async (req,res, next)=>{ 
   try{
-    const startdate= req.body.startdate 
-    const enddate = req.body.enddate 
+    const startdate= req.params.startdate 
+    const enddate = req.params.enddate 
     const query = `call transaction_report("${startdate}", "${enddate}" ) ; `
     const rows = await db.promisePool.query(query, [])
-    const data = helper.cleanRows(rows[0])
-    return res.json(data)
+    var data = helper.cleanRows(rows[0])
+    var result  = data[0]
+    for (var i= 0 ; i < result.length ; ++ i){
+      if (result[i].day_revenue == null){ 
+        result[i].day_revenue = 0 
+      }
+    }
+    result = result.map( row => ([
+      row.date_label, 
+      row.day_revenue
+    ]))
+    return res.json(result)
+  }catch(err){
+    next(err)
+  }
+}
+
+getTransactionCount = async(req,res,next)=>{
+  try{
+    const startdate= req.params.startdate 
+    const enddate = req.params.enddate 
+    const query = `call transaction_count("${startdate}", "${enddate}" ) ; `
+    const rows = await db.promisePool.query(query, [])
+    var data = helper.cleanRows(rows[0])
+    var result  = data[0]
+    result = result.map( row => ([
+      row.date_label, 
+      row.count_trans
+    ]))
+    return res.json(result)
+  }catch(err){
+    next(err)
+  }
+}
+getTotalTrans = async (req, res, next)=>{
+  try{
+    const startdate= req.params.startdate 
+    const enddate = req.params.enddate 
+    const query = `select count(*) as count, sum(total_price) as total from TRANSACTION where date_created between "${startdate}" and "${enddate}" ; `
+    const rows = await db.query(query, [])
+    const data = helper.cleanRows(rows)
+    return res.json(data[0])
   }catch(err){
     next(err)
   }
@@ -85,7 +125,9 @@ module.exports = {
     get,
     getloans,
     getpieitems, 
-    getTransactionReport
+    getTransactionReport,
+    getTransactionCount,
+    getTotalTrans
 }
 
 function create_condition_string (length, value){ 

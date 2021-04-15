@@ -235,13 +235,13 @@ getAll = async(req,res,next)=>{
           var query = `SELECT * from USERS where ${condition_tring} ;` 
           // console.log(query)
           const rows = await db.promisePool.query(query, [])
-          const data = helper.cleanRows(rows)
+          const data = helper.cleanRows(rows[0])
           return res.json(data)
           
       }else{
           const query = `SELECT * from USERS; `
           const rows = await db.promisePool.query(query, []) 
-          const data = helper.cleanRows(rows)
+          const data = helper.cleanRows(rows[0])
           return res.json(data)
       }
       

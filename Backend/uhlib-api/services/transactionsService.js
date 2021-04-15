@@ -10,7 +10,7 @@ getList = async(req,res, next) =>{
         // console.log(req.query)
         const query = `SELECT * FROM TRANSACTION; ` 
         const rows = await db.promisePool.query(query) 
-        const data = cleanRows(rows) 
+        const data = cleanRows(rows[0]) 
         res.json(data)
     }catch(err){
         next(err)
@@ -79,14 +79,16 @@ update = async (req,res, next) =>{
         if (id == null) return res.status(400).send({"message": "cannot find the data"})
     
         const user_id = req.body.user_id 
-        const is_commit = req.body.is_commit
-        // const date_created =  req.body.date_created
+        var is_commit = req.body.is_commit
+        if (is_commit == true) is_commit = 1 
+        else is_commit = 0
+        const date_created =  req.body.date_created.split("T")[0]
         // const updated_at = req.body.updated_at
 
         const query = `UPDATE TRANSACTION
-        SET user_id = ?, is_commit =?
+        SET user_id = ?, is_commit =?, date_created = ?
         WHERE transaction_id = ?; `
-        const data =[ user_id , is_commit, id ] 
+        const data =[ user_id , is_commit, date_created, id ] 
     
         const message = await db.promisePool.query(query, data)
         return res.json(message)
@@ -148,7 +150,7 @@ view_items_in_transaction = async (req,res)=>{
     // const query = `select l.transaction, t.user_id, l.item_id, l.quantity, t.is_commit from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id and where t.transaction_id = ?; `
     const query = `select * from LOAN_ITEM l inner join TRANSACTION t ON  l.transaction_id = t.transaction_id where t.transaction_id = ?; `
     const rows = await db.promisePool.query(query, [trans_id, ]) 
-    const result = cleanRows(rows)
+    const result = cleanRows(rows[0])
     return res.json(result)
 }
 
@@ -177,13 +179,13 @@ getAll = async(req,res,next)=>{
             var query = `SELECT * from TRANSACTION where ${condition_tring} ;` 
             // console.log(query)
             const rows = await db.promisePool.query(query, [])
-            const data = cleanRows(rows)
+            const data = cleanRows(rows[0])
             return res.json(data)
             
         }else{
             const query = `SELECT * from TRANSACTION; `
             const rows = await db.promisePool.query(query, []) 
-            const data = cleanRows(rows)
+            const data = cleanRows(rows[0])
             return res.json(data)
         }
         

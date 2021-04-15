@@ -46,11 +46,20 @@ Content-Type: application/json
     "is_commit":0 
 }
 ### 
-get http://localhost:5000/api/reports/transactions
+get http://localhost:5000/api/reports/trans_rev/2021-04-01/2021-04-30
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NTI5MTQsImV4cCI6MTYxODQ1NjUxNH0.8SAtJQ1HDP9gTjbYtPXk6hFTpetwxAnW7TFx0HpQkvc
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NTI5MTQsImV4cCI6MTYxODQ1NjUxNH0.8SAtJQ1HDP9gTjbYtPXk6hFTpetwxAnW7TFx0HpQkvc
 
-{
-    "startdate":"2021-04-01", 
-    "enddate":"2021-04-30" 
-}
+# {
+#     "startdate":"2021-04-10", 
+#     "enddate":"2021-04-20" 
+# }
+
+
+### 
+get http://localhost:5000/api/reports/trans_count/2021-04-01/2021-04-30
+
+### 
+get http://localhost:5000/api/reports/trans_total/2021-04-01/2021-04-30
+
+
