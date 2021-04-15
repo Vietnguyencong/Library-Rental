@@ -41,11 +41,11 @@ export default function Report(){
 
     function fetchData(selectedDate,selectedDate2){
         console.log(selectedDate2.toISOString(), selectedDate2.toString());
-        fetch(`http://localhost:5000/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        fetch(`https://uhlib.cc/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
-        fetch('http://localhost:5000/api/reports/fetchusersloans')
+        fetch('https://uhlib.cc/api/reports/fetchusersloans')
         .then( response => response.json() ).then(res => setNoOfLoans(res));
-        fetch('http://localhost:5000/api/reports/fetchpieitems')
+        fetch('https://uhlib.cc/api/reports/fetchpieitems')
         .then( response => response.json() ).then(res => setpiedata(res));
         //setpiedata(piedatArray)
     }
