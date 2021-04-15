@@ -22,6 +22,19 @@ async function getOne(employeeID){
     return ndata[0]; 
 }
 
+async function getByFilter(sort, range, filter){
+    let pair = Object.keys(filter);
+    let key  = pair[0];
+    const rows = await db.query(
+      `Select * from EMPLOYEES where ${key}='${filter[key]}' AND employee_id BETWEEN ${range[0]} AND ${range[1]} ORDER BY ${sort[0]} ${sort[1]}`
+    );
+  
+    const data = helper.cleanRows(rows);
+    console.log(data);
+    
+    var ndata = JSON.parse(JSON.stringify(data).split('"employee_id":').join('"id":'));
+    return ndata;
+  };
 
 // PUT /posts/123 
 //Update employee
@@ -80,6 +93,7 @@ async function remove(req){
 module.exports = { 
     getEmployees,
     getOne,
+    getByFilter,
     update, 
     remove, 
     create, 
