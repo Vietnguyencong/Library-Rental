@@ -7,7 +7,7 @@ const e = require("express")
 // GET / 
 getList = async(req,res, next) =>{
     try{
-        console.log(req.query)
+        // console.log(req.query)
         const query = `SELECT * FROM TRANSACTION; ` 
         const rows = await db.promisePool.query(query) 
         const data = cleanRows(rows) 
@@ -64,7 +64,7 @@ getMany = async (req,res) =>{
     const ids = JSON.parse(req.query.filter).id
     if (ids == null) return res.status(400).send({"message": "cannot find the data"})
     var condition_tring = create_condition_string(ids.length, "?") // ?,?,?
-    console.log("id is ", condition_tring);
+    // console.log("id is ", condition_tring);
     const query = `SELECT * FROM  TRANSACTION WHERE transaction_id  in ( ${condition_tring} ) ;`
     const rows = await db.promisePool.query(query, ids)
     const data = cleanRows(rows[0])
@@ -75,7 +75,7 @@ getMany = async (req,res) =>{
 update = async (req,res, next) =>{
     try{
         const id = (req.params.id)
-        console.log(id)
+        // console.log(id)
         if (id == null) return res.status(400).send({"message": "cannot find the data"})
     
         const user_id = req.body.user_id 
@@ -160,6 +160,38 @@ search_by_user_name  = async (req,res, next)=>{
     }
 }
 
+getAll = async(req,res,next)=>{
+    try{
+        var context = JSON.parse(req.query.filter)
+        if ( JSON.stringify(context) !== "{}" ){
+            const keys = Object.keys(context)
+            var conditions = []
+            var params = []
+            // console.log(keys)
+            for (var i=0; i<keys.length; i++){
+                conditions.push(`${[keys[i]]} like "%${context[keys[i]]}%"`) 
+                params.push(context[keys[i]])
+            }
+            var condition_tring = conditions.join(" and ")
+            // console.log(condition_tring)
+            var query = `SELECT * from TRANSACTION where ${condition_tring} ;` 
+            // console.log(query)
+            const rows = await db.promisePool.query(query, [])
+            const data = cleanRows(rows)
+            return res.json(data)
+            
+        }else{
+            const query = `SELECT * from TRANSACTION; `
+            const rows = await db.promisePool.query(query, []) 
+            const data = cleanRows(rows)
+            return res.json(data)
+        }
+        
+    }catch(err){
+        next(err)
+    }
+   
+  }
 
 module.exports = { 
     getOne, 
@@ -171,6 +203,7 @@ module.exports = {
     removeMany, 
     get_transactions_for_user, 
     view_items_in_transaction,
+    getAll
 }
 
 

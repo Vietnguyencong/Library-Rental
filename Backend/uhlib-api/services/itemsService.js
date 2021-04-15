@@ -151,16 +151,16 @@ getAll = async(req,res,next)=>{
               params.push(context[keys[i]])
           }
           var condition_tring = conditions.join(" and ")
-          console.log(condition_tring)
+          // console.log(condition_tring)
           var query = `SELECT * from ITEMS where ${condition_tring} ;` 
-          console.log(query)
-          const rows = await db.query(query, [])
+          // console.log(query)
+          const rows = await db.promisePool.query(query, [])
           const data = helper.cleanRows(rows)
           return res.json(data)
           
       }else{
           const query = `SELECT * from ITEMS; `
-          const rows = await db.query(query, []) 
+          const rows = await db.promisePool.query(query, []) 
           const data = helper.cleanRows(rows)
           return res.json(data)
       }

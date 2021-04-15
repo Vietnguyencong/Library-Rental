@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList } from 'react-admin';
+import {AutocompleteInput, List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList } from 'react-admin';
 import TrueIcon from '@material-ui/icons/Done'
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
@@ -21,9 +21,10 @@ const MyBooleanfield = ({ record={}, source}) =>{
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
-        <ReferenceInput label="Search by User" source="user_id" reference="users" allowEmpty>
+        <ReferenceInput label="Search by User" source="user_id" reference="users" alwaysOn>
             <SelectInput optionText="first_name" />
         </ReferenceInput>
+        <TextInput label="search by transaction ID" source="transaction_id" alwaysOn/>
     </Filter>
 );
 export const TransactionList = props => (

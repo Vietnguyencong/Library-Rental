@@ -5,10 +5,13 @@ import {Grid} from '@material-ui/core'
 const LoanitemFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
-        <ReferenceInput label="Search by Transaction_id" source="transaction_id" reference="transactions" allowEmpty>
-            <SelectInput optionText="transaction_id" />
+        <ReferenceInput label="Search by Transaction_id" source="transaction_id" reference="transactions" alwaysOn>
+            <AutocompleteInput optionText="transaction_id" />
         </ReferenceInput>
-        <NumberInput label="search by item_id" source="item_id" alwaysOn/>
+        {/* <NumberInput label="search by item_id" source="item_id" alwaysOn/> */}
+        <ReferenceInput label="Search by item title" source="item_id" reference="items" allowEmpty>
+            <AutocompleteInput optionText="title" />
+        </ReferenceInput>
     </Filter>
 );
 
