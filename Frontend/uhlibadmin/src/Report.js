@@ -35,15 +35,13 @@ export default function Report(){
     const [noOfLoans, setNoOfLoans] = useState({});
     const [pieData, setpiedata] = useState({});
 
-    // useEffect(() =>{
-    //     fetchData();
-    // }, [])
+    useEffect(() =>{
+        fetchData(new Date('2021-03-18T21:11:54'), new Date());
+    }, [])
 
-    function fetchData(){
-        if(selectedDate.getTime()){
-
-        }
-        fetch(`http://localhost:5000/api/reports/fetchusers?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+    function fetchData(selectedDate,selectedDate2){
+        console.log(selectedDate2.toISOString(), selectedDate2.toString());
+        fetch(`http://localhost:5000/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
         fetch('http://localhost:5000/api/reports/fetchusersloans')
         .then( response => response.json() ).then(res => setNoOfLoans(res));
@@ -60,8 +58,8 @@ export default function Report(){
       
     };
 
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-    const [selectedDate2, setSelectedDate2] = React.useState(new Date('2014-08-18T21:11:54'));
+    const [selectedDate, setSelectedDate] = React.useState(new Date('2021-03-18T21:11:54'));
+    const [selectedDate2, setSelectedDate2] = React.useState(new Date());
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -69,8 +67,9 @@ export default function Report(){
       };
 
     const handleDateChange2 = (date) => {
-        setSelectedDate(date);
-        fetchData(date);
+        console.log('selected date',date.toString());
+        setSelectedDate2(date);
+        fetchData(selectedDate,date);
       };
 
     return <div>
@@ -139,17 +138,9 @@ export default function Report(){
         </Grid>
 
 
-</TabPanel>
-        <TabPanel value={value} onChange={handleChange} index={1}>
-            Item Two
-</TabPanel>
-        <TabPanel value={value} onChange={handleChange} index={2}>
-            Item Three
-</TabPanel>
+ {/* Date picker  */}
 
-
-
-<MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
           disableToolbar
           variant="inline"
@@ -164,6 +155,13 @@ export default function Report(){
           }}
         />
 
+        </MuiPickersUtilsProvider>
+ 
+
+
+ 
+<MuiPickersUtilsProvider utils={DateFnsUtils}>
+
 <KeyboardDatePicker
           disableToolbar
           variant="inline"
@@ -177,10 +175,23 @@ export default function Report(){
             'aria-label': 'change date',
           }}
         />
-        </MuiPickersUtilsProvider>
- 
- 
+        </MuiPickersUtilsProvider>    
 
+    {/* Date picker  */}
+
+</TabPanel>
+        <TabPanel value={value} onChange={handleChange} index={1}>
+            Item Two
+</TabPanel>
+        <TabPanel value={value} onChange={handleChange} index={2}>
+            Item Three
+</TabPanel>
+
+
+
+
+ 
+ 
 
 
 

@@ -32,6 +32,42 @@ user_login  = async (req,res,next) =>{
     }
 
 }
+
+login  = async (req,res,next) =>{
+    console.log("login");
+    const email = req.body.email 
+    const password = req.body.password
+    const params = [email]
+    const query = `select * from USERS where email_address =?; `
+    const rows = await db.query(query, params)
+    if(rows.length == 0 ){
+        return res.status(401).send(" user just not exist in the db")
+    } 
+    console.log(rows);
+    // get the user passsword 
+    const user_password = rows[0].user_password
+    const user_id = rows[0].user_id;
+    console.log('user password:', user_password, password, user_password === password)
+   
+    try{
+        if (user_password === password){ // authentication 
+            const user = {
+                email:email
+            }
+            const access_token = generate_access_token(user)
+            return res.json({
+                access_token: access_token,
+                user_id : user_id
+            })
+        }else{
+            return res.status(401).send("user password or email is wrong")
+        }
+    }catch(err){
+        next(err)
+    }
+
+}
+
 user_logout = (req,res)=>{
     const header_auth = req.headers['authorization']
     const user_token = header_auth && header_auth.split(" ")[1]
@@ -43,4 +79,5 @@ user_logout = (req,res)=>{
 module.exports = {
     user_login,
     user_logout,
+    login
 }

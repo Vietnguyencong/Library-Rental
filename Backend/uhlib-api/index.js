@@ -16,6 +16,7 @@ const authenticationRouter = require("./routes/authentication")
 const {authenticate_user} = require("./helper")
 const reportsRouter = require('./routes/reports');
 
+
 app.use(cors());
 
 app.use(express.json());
@@ -36,19 +37,19 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/reports', reportsRouter);
-app.use("/api/aut", authenticationRouter)
+app.use('/api/aut', authenticationRouter)
 
-app.use(authenticate_user)
+// app.use(authenticate_user)
 
-app.use("/api/transactions", transaction_router)
-app.use('/api/items', itemsRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/employees', employeesRouter);
-app.use('/api/libraries', libRouter);
-app.use('/api/loanitem',loan_item_router)
-app.use('/api/paidfines', paidfinesRouter);
-app.use('/api/notifications', notificationsRouter);
-app.use('/api/waitinglist', waitinglistRouter);
+app.use("/api/transactions", authenticate_user, transaction_router)
+app.use('/api/items', authenticate_user, itemsRouter);
+app.use('/api/users', authenticate_user, usersRouter);
+app.use('/api/employees', authenticate_user, employeesRouter);
+app.use('/api/libraries', authenticate_user, libRouter);
+app.use('/api/loanitem', authenticate_user, loan_item_router)
+app.use('/api/paidfines', authenticate_user, paidfinesRouter);
+app.use('/api/notifications', authenticate_user, notificationsRouter);
+app.use('/api/waitinglist', authenticate_user, waitinglistRouter);
 
 
 app.use((err, req, res, next) => {
