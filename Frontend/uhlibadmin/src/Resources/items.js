@@ -10,8 +10,12 @@ const ItemsFilter = (props) => (
             { id: 'Book', name: 'Book' },
             { id: 'Media', name: 'Media' },
             { id: 'Printer', name: 'Printer' }
-        ]} alwaysOn/>    
-        {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
+        ]} alwaysOn/> 
+        <TextInput label="Search by title" source="title"/>
+        <NumberInput label="Search by library" source="library_id"/>
+        <NumberInput label="Search by availability" source="is_available"/>
+
+        {/* <ReferenceInput label="Library" source="library_id" reference="libraries" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput> */}
     </Filter>
@@ -36,6 +40,7 @@ export const ItemList = props => (
             <DateField source="updated_at" />
             {/* <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
             <TextField source="id" />
+            <TextField label="Description" source="shortDescr"/>
         </Datagrid>
     </List>
 );
@@ -61,6 +66,9 @@ export const ItemCreate = (props) => (
                     <NumberInput source="rent_period" fullWidth />
                     <NumberInput source="stock" fullWidth />
                     <NumberInput source="library_id" fullWidth />
+                </Grid>
+                <Grid item xs={5} >
+                    <TextInput label="Description" source="shortDescr" fullWidth/>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -88,6 +96,9 @@ export const ItemEdit = (props) =>(
                     <NumberInput source="rent_period" fullWidth />
                     <NumberInput source="stock" fullWidth />
                     <NumberInput source="library_id" fullWidth />
+                </Grid>
+                <Grid item xs={5}>
+                    <TextInput label="Description" source="shortDescr" fullWidth/>
                 </Grid>
            </Grid>
        </SimpleForm>
