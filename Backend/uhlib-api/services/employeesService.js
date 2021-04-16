@@ -26,7 +26,7 @@ async function getByFilter(sort, range, filter){
     let pair = Object.keys(filter);
     let key  = pair[0];
     const rows = await db.query(
-      `Select * from EMPLOYEES where ${key}='${filter[key]}' AND employee_id BETWEEN ${range[0]} AND ${range[1]} ORDER BY ${sort[0]} ${sort[1]}`
+      `Select * from EMPLOYEES where ${key}='${filter[key]}' ORDER BY ${sort[0]} ${sort[1]}`
     );
   
     const data = helper.cleanRows(rows);
