@@ -19,7 +19,7 @@ const Item = props => {
               {item.title}{" "}
               <span className="tag is-primary">${item.price}</span>
             </b>
-            <div>{item.shortDesc}</div>
+            <div>{item.shortDescr}</div>
             {item.stock > 0 ? (
               <small>{item.stock + " Available"}</small>
             ) : (

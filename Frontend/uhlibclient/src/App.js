@@ -7,7 +7,7 @@ import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-
+import Home from './components/Home';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import ItemList from './components/ItemList';
@@ -258,13 +258,16 @@ export default class App extends Component {
             
             
 
-
-  <Navbar bg="primary" variant="dark">
-    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+  
+  <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}>
+    <Navbar.Brand href="/home"><img
+    src="https://apps.lib.uh.edu/uh-elements/secondary-logo.svg"
+    alt="logo"
+    width="250" /></Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="#home">Home</Nav.Link>
+      <Nav.Link href="/home">Home</Nav.Link>
      
-      <Nav.Link href="/cart">Cart</Nav.Link>
+      <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
       
@@ -282,12 +285,10 @@ export default class App extends Component {
   </Navbar>
 
             <Switch>
-              <Route exact path="/" component={ItemList} />
+              <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/items" component={ItemList} />
-    
-
             </Switch>
           </div>
         </Router>
