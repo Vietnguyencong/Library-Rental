@@ -236,6 +236,9 @@ function TabPanel(props) {
     );
   }
 
+
+
+  // item 2 
   class Transaction_report extends React.Component {
     state = {
       data_rev:[] ,
@@ -307,7 +310,7 @@ function TabPanel(props) {
               ["date_label", "count"],...this.state.data_count]
             }
             options={{
-              title: 'Population of Largest U.S. Cities',
+              title: 'count',
               chartArea: { width: '70%' },
               hAxis: {
                 title: 'Total Population',
@@ -345,7 +348,7 @@ function TabPanel(props) {
               ["date_label", "count"],...this.state.data_rev]
             }
             options={{
-              title: 'Population of Largest U.S. Cities',
+              title: 'revuenues',
               chartArea: { width: '70%' },
               hAxis: {
                 title: 'Total Population',
