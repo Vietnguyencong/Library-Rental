@@ -82,11 +82,11 @@ export const WaitShow = (props) => (
         <Grid container spacing={1} style={{ width: "100%" }}>
             <Grid item xs={6}> 
                 <Typography variant="inline" gutterBottom> user: </Typography>        
-                <NumberField source="user_id" />
+                <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
             </Grid>
                 <Grid item xs={6}>
                     <Typography variant="inline" gutterBottom> item: </Typography>
-                    <NumberField source="item_id" />
+                    <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
             </Grid>
         </Grid> 
         </SimpleForm>

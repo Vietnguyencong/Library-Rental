@@ -77,7 +77,9 @@ router.get('/fetchpieitems', async function(req, res, next) {
 
 router.get('/fetchTotalEmp', async function(req, res, next) {
   try {
-      count = await reportService.getTotalEmp();
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getTotalEmp(date3, date4);
       res.json(count);
   } catch (err) {
       console.error(`Get error `, err.message);
@@ -87,7 +89,9 @@ router.get('/fetchTotalEmp', async function(req, res, next) {
 
 router.get('/fetchAnnualAvg', async function(req, res, next) {
   try {
-      count = await reportService.getAnnualAvg();
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getAnnualAvg(date3, date4);
       res.json(count);
   } catch (err) {
       console.error(`Get error `, err.message);
@@ -97,7 +101,9 @@ router.get('/fetchAnnualAvg', async function(req, res, next) {
 
 router.get('/fetchHourlyAvg', async function(req, res, next) {
   try {
-      count = await reportService.getHourlyAvg();
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getHourlyAvg(date3, date4);
       res.json(count);
   } catch (err) {
       console.error(`Get error `, err.message);
@@ -117,7 +123,9 @@ router.get('/fetchHourlyAvg', async function(req, res, next) {
 
 router.get('/fetchEpieitems', async function(req, res, next) {
   try {
-      count = await reportService.getEpieitems();
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getEpieitems(date3, date4);
       res.json(count);
   } catch (err) {
       console.error(`Get error `, err.message);

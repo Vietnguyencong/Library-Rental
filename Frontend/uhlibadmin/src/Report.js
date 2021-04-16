@@ -64,15 +64,15 @@ useEffect(() =>{
 
     }
     function EfetchData(selectedDate3,selectedDate4){
-      fetch('http://localhost:5000/api/reports/fetchTotalEmp')
+      fetch(`http://localhost:5000/api/reports/fetchTotalEmp?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setnoOfEmployees(res));
-      fetch('http://localhost:5000/api/reports/fetchAnnualAvg')
+      fetch(`http://localhost:5000/api/reports/fetchAnnualAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setavgAnnual(res));
-      fetch('http://localhost:5000/api/reports/fetchHourlyAvg')
+      fetch(`http://localhost:5000/api/reports/fetchHourlyAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setavgHourly(res));
       fetch('http://localhost:5000/api/reports/fetchBaritems')
       .then( response => response.json() ).then(res => setBardata(res));
-      fetch('http://localhost:5000/api/reports/fetchEpieitems')
+      fetch(`http://localhost:5000/api/reports/fetchEpieitems?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setEpiedata(res));
     }
 

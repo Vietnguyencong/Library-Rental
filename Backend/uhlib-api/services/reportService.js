@@ -73,9 +73,9 @@ async function getpieitems(){
 
 ////////reports #3
 
-async function getTotalEmp(){
+async function getTotalEmp(date3, date4){
   const rows = await db.query(
-    `SELECT Count(distinct employee_id) as data FROM EMPLOYEES;`
+    `SELECT Count(distinct employee_id) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
   );
   console.log(JSON.stringify(rows))
   const data = helper.cleanRows(rows)[0];
@@ -83,9 +83,9 @@ async function getTotalEmp(){
   return data;
 }
 
-async function getAnnualAvg(){
+async function getAnnualAvg(date3, date4){
   const rows = await db.query(
-    `SELECT TRUNCATE(AVG(salary),2) as data FROM EMPLOYEES;`
+    `SELECT TRUNCATE(AVG(salary),2) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
   );
   console.log(JSON.stringify(rows))
   const data = helper.cleanRows(rows)[0];
@@ -93,9 +93,9 @@ async function getAnnualAvg(){
   return data;
 }
 
-async function getHourlyAvg(){
+async function getHourlyAvg(date3, date4){
   const rows = await db.query(
-    `SELECT TRUNCATE(AVG(hourly_rate),2 ) as data FROM EMPLOYEES;`
+    `SELECT TRUNCATE(AVG(hourly_rate),2 ) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
   );
   console.log(JSON.stringify(rows))
   const data = helper.cleanRows(rows)[0];
@@ -137,9 +137,9 @@ async function getbaritems(){
   return result;  
 }
 
-async function getEpieitems(){
+async function getEpieitems(date3, date4){
   const rows = await db.query(
-    `SELECT job_title, COUNT(*) as data FROM EMPLOYEES GROUP BY job_title;`
+    `SELECT job_title, COUNT(*) data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}' group by job_title;`
   );
   console.log(JSON.parse(JSON.stringify(rows)))
   

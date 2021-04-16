@@ -32,7 +32,7 @@ export const PaidList = props => (
     <List filters={<PaidFilter/>} {...props}>
         <Datagrid rowClick="show">
         <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
-            <NumberField source="item_id" />
+            <NumberField source="loan_id" />
             <TextField source="description" />
             <NumberField source="final_amount" />
             <NumberField source="is_paid" />
@@ -91,7 +91,7 @@ export const FinesShow = (props) => (
         <Typography variant="h6" gutterBottom>Fine Information</Typography>
             <Grid container spacing={3} style={{ width: "100%" }}>
                 <Grid item xs={12} sm= {6}>
-                    User: <NumberField source="users_id"  min={0} fullWidth/>
+                    User: <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
                     </Grid>
                     <Grid item xs={12} sm= {6}>
                     Loan Id: <NumberField source="loan_id"  min={0} fullWidth/>
