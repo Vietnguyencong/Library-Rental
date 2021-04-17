@@ -102,5 +102,5 @@ router.delete('/deleteItemList', async function(req, res, next) {
         }
     });
 
-
+    router.get('/many',itemsService.getMany )
 module.exports = router;
