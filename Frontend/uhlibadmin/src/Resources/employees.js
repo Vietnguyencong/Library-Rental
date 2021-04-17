@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm,ReferenceField, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -30,14 +30,12 @@ const ShowActions = ({ basePath, data, resource }) => (
 
 export const EmployeeList = props => (
     <List filters={<EmployeesFilter />} {...props}>
-        <Datagrid rowClick="show">
-            <NumberField source="id" fullWidth/>
-            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="name" /></ReferenceField>*/} 
+        <Datagrid rowClick="show"> 
             <NumberField source="library_id" fullWidth/>
             <TextField source="first_name" fullWidth/>
             <TextField source="middle_initial" fullWidth/>
             <TextField source="last_name" fullWidth/>
-            <TextField source="email_address" fullWidth/>
+            <EmailField source="email_address" fullWidth/>
             <TextField source="job_title" fullWidth/>
             <NumberField source="salary" fullWidth/>
             <NumberField source="hourly_rate" fullWidth/>
@@ -59,7 +57,6 @@ export const EmployeeCreate = (props) => (
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>New Employee</Typography>
-                    <NumberInput source="id" min={0} fullWidth />
                     <TextInput source="first_name" fullWidth />
                     <TextInput source="last_name" fullWidth />
                     <TextInput source="email_address" fullWidth />
@@ -91,7 +88,6 @@ export const EmployeeEdit = (props) =>(
             <Grid container spacing={1} style={{ width: "100%" }}>
             <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom>Edit Employee</Typography>
-                    <NumberInput source="id" min={0} fullWidth />
                     <TextInput source="first_name" fullWidth />
                     <TextInput source="last_name" fullWidth />
                     <TextInput source="email_address" fullWidth />
@@ -122,50 +118,46 @@ export const EmployeeShow = props => (
             <Typography variant="h6" gutterBottom>Employee Information</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>
             <Grid item xs={12} sm={6}>
-            Employee ID: <NumberField source="id" />
-            </Grid>
-            {/*<ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
-            <Grid item xs={12} sm={6}>
-            Library ID: <NumberField source="library_id" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             First Name: <TextField source="first_name" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            Middle Initial: <TextField source="middle_initial" />
+            Library ID: <NumberField source="library_id" />
             </Grid>
             <Grid item xs={12} sm={6}>
             Last Name: <TextField source="last_name" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            Job Title: <TextField source="job_title" />
+            Middle Initial: <TextField source="middle_initial" />
             </Grid>
             <Grid item xs={12} sm={6}>
             Email Address: <TextField source="email_address" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            Hourly Rate: <NumberField source="hourly_rate" />
+            Job Title: <TextField source="job_title" />
             </Grid>
             <Grid item xs={12} sm={6}>
             Salary: <NumberField source="salary" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            Zipcode: <NumberField source="zipcode" />
+            Hourly Rate: <NumberField source="hourly_rate" />
             </Grid>
             <Grid item xs={12} sm={6}>
             Street Number: <NumberField source="street_number" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            Street Name: <TextField source="street_name" />
+            Zipcode: <NumberField source="zipcode" />
             </Grid>
             <Grid item xs={12} sm={6}>
             City: <TextField source="city" />
             </Grid>
             <Grid item xs={12} sm={6}>
-            State: <TextField source="state" />
+            Street Name: <TextField source="street_name" />
             </Grid>
             <Grid item xs={12} sm={6}>
             Password: <TextField source="password" />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            State: <TextField source="state" />
             </Grid>
             </Grid>
         </SimpleForm>

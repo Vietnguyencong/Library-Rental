@@ -77,4 +77,72 @@ router.get("/trans_count/:startdate/:enddate", reportService.getTransactionCount
 router.get("/trans_total/:startdate/:enddate", reportService.getTotalTrans)
 
 
+
+
+
+
+
+
+
+
+
+////////// report #3
+
+router.get('/fetchTotalEmp', async function(req, res, next) {
+  try {
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getTotalEmp(date3, date4);
+      res.json(count);
+  } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+  }
+  });
+
+router.get('/fetchAnnualAvg', async function(req, res, next) {
+  try {
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getAnnualAvg(date3, date4);
+      res.json(count);
+  } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+  }
+  });
+
+router.get('/fetchHourlyAvg', async function(req, res, next) {
+  try {
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getHourlyAvg(date3, date4);
+      res.json(count);
+  } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+  }
+  });
+
+  router.get('/fetchBaritems', async function(req, res, next) {
+    try {
+        count = await reportService.getbaritems();
+        res.json(count);
+    } catch (err) {
+        console.error(`Get error `, err.message);
+        next(err);
+    }
+});
+
+router.get('/fetchEpieitems', async function(req, res, next) {
+  try {
+    let date3 = moment(new Date(req.query.date3)).format("yyyy-MM-DD");
+    let date4 = moment(new Date(req.query.date4)).format("yyyy-MM-DD");
+      count = await reportService.getEpieitems(date3, date4);
+      res.json(count);
+  } catch (err) {
+      console.error(`Get error `, err.message);
+      next(err);
+  }
+});
 module.exports = router

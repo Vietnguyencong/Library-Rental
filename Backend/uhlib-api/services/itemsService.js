@@ -28,7 +28,7 @@ async function getByFilter(sort, range, filter){
   let pair = Object.keys(filter);
   let key  = pair[0];
   const rows = await db.query(
-    `Select * from ITEMS where ${key}='${filter[key]}' AND stock BETWEEN ${range[0]} AND ${range[1]} ORDER BY ${sort[0]} ${sort[1]}`
+    `Select * from ITEMS where ${key}='${filter[key]}' ORDER BY ${sort[0]} ${sort[1]}`
   );
 
   const data = helper.cleanRows(rows);
@@ -42,12 +42,12 @@ async function getByFilter(sort, range, filter){
 async function create(item){
   const result = await db.query(
     `INSERT INTO ITEMS 
-    (title, stock, current_quantity, price, rent_period, item_type, library_id, is_available) 
+    (title, stock, current_quantity, price, rent_period, item_type, library_id, is_available, shortDescr) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
     [
       item.title, item.stock, item.current_quantity, item.price,
-      item.rent_period, item.item_type, item.library_id, item.is_available
+      item.rent_period, item.item_type, item.library_id, item.is_available, item.shortDescr
     ]
   );
 
@@ -62,12 +62,12 @@ async function create(item){
 
 async function update(id, req){
   const user = await db.query(`
-  UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?
+  UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?, shortDescr=?
    WHERE item_id=?`,
    [
     req.title, req.stock, req.current_quantity,
     req.price, req.rent_period, req.item_type,
-    req.library_id, req.is_available,
+    req.library_id, req.is_available, req.shortDescr,
     id
    ]
    );
