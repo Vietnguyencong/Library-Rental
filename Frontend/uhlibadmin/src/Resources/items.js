@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Show, Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
+import { ImageField, Show, Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
+
 import { Grid, Typography } from '@material-ui/core';
 import {Actions, MyBooleanfield} from './helper'
 const ItemsFilter = (props) => (
@@ -142,6 +143,12 @@ export const ItemShow = (props) =>(
                     </Typography>
 
 
+                </Grid>
+                
+                <Grid item xs={6}>
+                    
+                    <ImageField source="imageLink" title="Image"/>   
+                    
                 </Grid>
            </Grid>
        </SimpleForm>
