@@ -18,6 +18,7 @@
     "ra-input-rich-text": "^3.14.0",
     "react": "^17.0.2",
     "react-admin": "^3.14.1",
+    "react-datepicker": "^3.7.0",
     "react-dom": "^17.0.2",
     "react-google-charts": "^3.0.15",
     "react-scripts": "4.0.3",
