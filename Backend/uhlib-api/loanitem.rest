@@ -1,6 +1,6 @@
 ### get all the loan item 
-get http://localhost:5000/api/loanitem?filter={"item_id":}
-
+get http://localhost:5000/api/loanitem?filter={"transaction_id":"d6","item_id":""}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg1MTI0MzUsImV4cCI6MTYxODUxNjAzNX0.2PxKI7bJZwm-ZLUXwqk-Jy2xIunvlTUjGC8vOfZIJe4
 ### 
 get http://localhost:5000/api/loanitem?filter={"quantity":1, "item_id":0}
 ### get one loan item 

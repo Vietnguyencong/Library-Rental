@@ -7,7 +7,7 @@ GET http://localhost:5000/api/transactions?filter={}
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
 ### get transaction for a user 
 GET http://localhost:5000/api/transactions?filter={"user_id":2} 
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0MzExMDYsImV4cCI6MTYxODQzNDcwNn0.DJPrKTwVKEXX0s1DpOG3hneuU96n-LFDb6d8qGvtIUE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NTI5MTQsImV4cCI6MTYxODQ1NjUxNH0.8SAtJQ1HDP9gTjbYtPXk6hFTpetwxAnW7TFx0HpQkvc
 
 ### getMany 
 GET http://localhost:5000/api/transactions/many?filter={"id":["a0884e0d-1dd6-49ed-8e1e-bb2354d65df9","752ca4cf-c923-4eac-ae67-2c43f7f0b5e9"]}
@@ -45,3 +45,21 @@ Content-Type: application/json
     "user_id":1, 
     "is_commit":0 
 }
+### 
+get http://localhost:5000/api/reports/trans_rev/2021-04-01/2021-04-30
+Content-Type: application/json
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NTI5MTQsImV4cCI6MTYxODQ1NjUxNH0.8SAtJQ1HDP9gTjbYtPXk6hFTpetwxAnW7TFx0HpQkvc
+
+# {
+#     "startdate":"2021-04-10", 
+#     "enddate":"2021-04-20" 
+# }
+
+
+### k
+get http://localhost:5000/api/reports/trans_count/2021-04-01/2021-04-30
+
+### 
+get http://localhost:5000/api/reports/trans_total/2021-04-01/2021-04-30
+
+
