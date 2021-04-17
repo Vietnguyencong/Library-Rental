@@ -42,12 +42,12 @@ async function getByFilter(sort, range, filter){
 async function create(item){
   const result = await db.query(
     `INSERT INTO ITEMS 
-    (title, stock, current_quantity, price, rent_period, item_type, library_id, is_available) 
+    (title, stock, current_quantity, price, rent_period, item_type, library_id, is_available, shortDescr) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
     [
       item.title, item.stock, item.current_quantity, item.price,
-      item.rent_period, item.item_type, item.library_id, item.is_available
+      item.rent_period, item.item_type, item.library_id, item.is_available, item.shortDescr
     ]
   );
 
@@ -62,12 +62,12 @@ async function create(item){
 
 async function update(id, req){
   const user = await db.query(`
-  UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?
+  UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?, shortDescr=?
    WHERE item_id=?`,
    [
     req.title, req.stock, req.current_quantity,
     req.price, req.rent_period, req.item_type,
-    req.library_id, req.is_available,
+    req.library_id, req.is_available, req.shortDescr,
     id
    ]
    );
@@ -138,6 +138,39 @@ getItemByTitle = async (req,res, next)=>{
   }
 }
 
+getAll = async(req,res,next)=>{
+  try{
+      var context = JSON.parse(req.query.filter)
+      if ( JSON.stringify(context) !== "{}" ){
+          const keys = Object.keys(context)
+          var conditions = []
+          var params = []
+          // console.log(keys)
+          for (var i=0; i<keys.length; i++){
+              conditions.push(`${[keys[i]]} like "%${context[keys[i]]}%"`) 
+              params.push(context[keys[i]])
+          }
+          var condition_tring = conditions.join(" and ")
+          // console.log(condition_tring)
+          var query = `SELECT * from ITEMS where ${condition_tring} ;` 
+          // console.log(query)
+          const rows = await db.promisePool.query(query, [])
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+          
+      }else{
+          const query = `SELECT * from ITEMS; `
+          const rows = await db.promisePool.query(query, []) 
+          const data = helper.cleanRows(rows)
+          return res.json(data)
+      }
+      
+  }catch(err){
+      next(err)
+  }
+ 
+}
+
 module.exports = {
   get,
   getByFilter,
@@ -146,5 +179,6 @@ module.exports = {
   update,
   remove,
   getMany,
-  getItemByTitle
+  getItemByTitle,
+  getAll
 }
