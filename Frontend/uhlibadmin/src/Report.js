@@ -14,9 +14,6 @@ import {
   KeyboardTimePicker,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
-import DatePicker from "react-datepicker";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 import moment from 'moment';
 
@@ -47,15 +44,15 @@ export default function Report(){
     function fetchData(selectedDate,selectedDate2){
       if(selectedDate2 && selectedDate){
         console.log(selectedDate2.toISOString(), selectedDate2.toString());
-        fetch(`https://uhlib.cc/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        fetch(`http://localhost:5000/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
-        fetch(`https://uhlib.cc/api/reports/fetchusersloans?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        fetch(`http://localhost:5000/api/reports/fetchusersloans?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => {
           console.log('no..', res);
           setNoOfLoans(res)
         });
 
-        fetch(`https://uhlib.cc/api/reports/fetchpieitems?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        fetch(`http://localhost:5000/api/reports/fetchpieitems?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setpiedata(res));
       }        //setpiedata(piedatArray)
     }
@@ -141,7 +138,6 @@ export default function Report(){
                             rootProps={{ 'data-testid': '1' }}
                             />
                     </Paper>
-                    
                 </Grid>
                 <Grid item xs={6}>
                     <Paper style={{ height: "290px", margin: '4px', padding: '6px'}}>
@@ -199,11 +195,12 @@ export default function Report(){
 
 </TabPanel>
         <TabPanel value={value} onChange={handleChange} index={1}>
-        <Transaction_report/>
+            Item Two
 </TabPanel>
         <TabPanel value={value} onChange={handleChange} index={2}>
             Item Three
 </TabPanel>
+
 
 
 
@@ -249,170 +246,3 @@ function TabPanel(props) {
       </div>
     );
   }
-
-
-
-  // item 2 
-  class Transaction_report extends React.Component {
-    state = {
-      data_rev:[] ,
-      data_count:[],
-      summary: {
-        count:0,
-        total:0
-      }
-    }
-    componentDidMount(){ // defualt 
-      console.log("amount the component")
-      this.getData_rev("2021-04-01", "2021-04-30")
-      this.getData_count("2021-04-01", "2021-04-30")
-      this.getSummary("2021-04-01", "2021-04-30")
-    }
-    date_change (startdate, enddate){
-      console.log("Date changed, updated the data")
-      this.getData_rev(startdate, enddate)
-      this.getData_count(startdate, enddate)
-      this.getSummary(startdate, enddate)
-    }
-    getData_rev = async (startdate, enddate) =>{
-      const url = `http://localhost:5000/api/reports/trans_rev/${startdate}/${enddate}`
-      const res = await fetch(url)
-      const json = await res.json()
-      console.log("this is json", json)
-      // update the state : data 
-      this.setState({data_rev:json})
-    }
-    getData_count = async (startdate, enddate) =>{
-      const url = `http://localhost:5000/api/reports/trans_count/${startdate}/${enddate}`
-      const res = await fetch(url)
-      const json = await res.json()
-      console.log("this is json", json)
-      this.setState({data_count:json})
-    }
-    getSummary = async (start, end)=>{
-      const url = `http://localhost:5000/api/reports/trans_total/${start}/${end}`
-      const res = await fetch(url)
-      const json = await res.json()
-      this.setState({summary:json})
-    }
-    render(){
-      return (
-        <div>
-          <Date_start ondate_change={this.date_change.bind(this)}/>
-          {/* <Date_end ondate_change={this.date_change}/> */}
-          <Chart
-            width={800}
-            height={'300px'}
-            chartType="AreaChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-              ["date_label", "count"],...this.state.data_count]
-            }
-            options={{
-              title: 'TRANSACTION_COUNT',
-              hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-              vAxis: { minValue: 0 },
-              chartArea: { width: '70%', height: '70%' },
-            }}
-          />
-          <Chart
-            width={800}
-            height={300}
-            chartType="ColumnChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-              ["date_label", "count"],...this.state.data_count]
-            }
-            options={{
-              title: 'count',
-              chartArea: { width: '70%' },
-              hAxis: {
-                title: 'Total Population',
-                minValue: 0,
-              },
-              vAxis: {
-                title: 'City',
-              },
-            }}
-            legendToggle
-          />
-          <Chart
-            width={800}
-            height={'300px'}
-            chartType="AreaChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-              ["date_label", "Revenue"],...this.state.data_rev]
-            }
-            options={{
-              title: 'REVENUES',
-              hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-              vAxis: { minValue: 0 },
-              // For the legend to fit, we make the chart area smaller
-              chartArea: { width: '70%', height: '70%' },
-              // lineWidth: 25
-            }}
-          />
-          <Chart
-            width={800}
-            height={300}
-            chartType="ColumnChart"
-            loader={<div>Loading Chart</div>}
-            data={[
-              ["date_label", "count"],...this.state.data_rev]
-            }
-            options={{
-              title: 'revuenues',
-              chartArea: { width: '70%' },
-              hAxis: {
-                title: 'Total Population',
-                minValue: 0,
-              },
-              vAxis: {
-                title: 'City',
-              },
-            }}
-            legendToggle
-          />
-        </div>
-      )
-    }
-  }
-
-  const Date_start = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
-    const fetch_url = (date)=>{
-     
-      var sd = new Date(startDate);
-      var year=sd.getFullYear();
-      var month=sd.getMonth()+1 //getMonth is zero based;
-      var day=sd.getDate();
-      var sd=year+"-"+month+"-"+day;
-
-      var ed = new Date(endDate);
-      var year=ed.getFullYear();
-      var month=ed.getMonth()+1 //getMonth is zero based;
-      var day=ed.getDate();
-      var ed=year+"-"+month+"-"+day;
-
-      props.ondate_change(sd, ed)
-    }
-    return (
-      <div>
-        <DatePicker selected={startDate} 
-            onChange={date => setStartDate(date)}
-          	dateFormat='yyyy/MM/dd'
-            onCalendarClose={fetch_url}
-        />
-        <DatePicker selected={endDate} 
-          onChange={date => setEndDate(date)} 
-          onCalendarClose={fetch_url}
-        />
-      </div>
-    );
-  };
-
-
-
-   
