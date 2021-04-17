@@ -5,10 +5,13 @@ import {Grid} from '@material-ui/core'
 const LoanitemFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
-        <ReferenceInput label="Search by Transaction_id" source="transaction_id" reference="transactions" allowEmpty>
-            <SelectInput optionText="transaction_id" />
+        <ReferenceInput label="Search by Transaction_id" source="transaction_id" reference="transactions" alwaysOn>
+            <TextInput  optionText="transaction_id" resettable  />
         </ReferenceInput>
-        <NumberInput label="search by item_id" source="item_id" alwaysOn/>
+        {/* <NumberInput label="search by item_id" source="item_id" alwaysOn/> */}
+        <ReferenceInput label="Search by item title" source="item_id" reference="items" allowEmpty>
+            <AutocompleteInput optionText="title" resettable />
+        </ReferenceInput>
     </Filter>
 );
 
@@ -40,7 +43,7 @@ export const LoanitemEdit = props => (
             <Grid container spacing={1} style={{width:"100%"}}>
                 <Grid item xs={6}>
                     <ReferenceInput  source="transaction_id" reference="transactions">
-                        <AutocompleteInput  optionText="transaction_id" fullWidth/>
+                        <TextInput  optionText="transaction_id" fullWidth/>
                     </ReferenceInput >
                     <ReferenceInput source="item_id" reference="items" >
                         <AutocompleteInput optionText="title" fullWidth/>

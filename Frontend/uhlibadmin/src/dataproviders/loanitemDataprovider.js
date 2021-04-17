@@ -1,8 +1,8 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-// const apiUrl = 'http://localhost:5000/api';
-const apiUrl = 'https://uhlib.cc/api';
+const apiUrl = 'http://localhost:5000/api';
+// const apiUrl = 'https://uhlib.cc/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {

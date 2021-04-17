@@ -72,4 +72,9 @@ router.get('/fetchpieitems', async function(req, res, next) {
     }
 });
 
+router.get("/trans_rev/:startdate/:enddate", reportService.getTransactionReport)
+router.get("/trans_count/:startdate/:enddate", reportService.getTransactionCount)
+router.get("/trans_total/:startdate/:enddate", reportService.getTotalTrans)
+
+
 module.exports = router
