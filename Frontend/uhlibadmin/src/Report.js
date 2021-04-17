@@ -15,6 +15,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import moment from 'moment';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -33,21 +35,26 @@ export default function Report(){
 
     const [noOfUser, setNoOfUser] = useState({});
     const [noOfLoans, setNoOfLoans] = useState({});
-    const [pieData, setpiedata] = useState({});
+    const [pieData, setpiedata] = useState(null);
 
     useEffect(() =>{
         fetchData(new Date('2021-03-18T21:11:54'), new Date());
     }, [])
 
     function fetchData(selectedDate,selectedDate2){
+      if(selectedDate2 && selectedDate){
         console.log(selectedDate2.toISOString(), selectedDate2.toString());
         fetch(`https://uhlib.cc/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
-        fetch('https://uhlib.cc/api/reports/fetchusersloans')
-        .then( response => response.json() ).then(res => setNoOfLoans(res));
-        fetch('https://uhlib.cc/api/reports/fetchpieitems')
+        fetch(`https://uhlib.cc/api/reports/fetchusersloans?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        .then( response => response.json() ).then(res => {
+          console.log('no..', res);
+          setNoOfLoans(res)
+        });
+
+        fetch(`https://uhlib.cc/api/reports/fetchpieitems?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setpiedata(res));
-        //setpiedata(piedatArray)
+      }        //setpiedata(piedatArray)
     }
 
     const classes = useStyles();
@@ -89,7 +96,7 @@ export default function Report(){
             <Grid container direction="row" justify="center" alignItems="center">
                 <Grid item className="" xs={12}>
                     <Paper >
-                        <h1>Report  {selectedDate.toISOString()}</h1>
+                        <h1>Report  { moment(selectedDate).format("yyyy-MM-DD")} to { moment(selectedDate2).format("yyyy-MM-DD")}</h1>
                         
                     </Paper>
                 </Grid>
@@ -116,7 +123,7 @@ export default function Report(){
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                     <Paper>
                     <Chart
                             width={'500px'}
@@ -130,6 +137,13 @@ export default function Report(){
                             }}
                             rootProps={{ 'data-testid': '1' }}
                             />
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper style={{ height: "290px", margin: '4px', padding: '6px'}}>
+                    {/* { pieData && pieData.map(item => { return <p>{JSON.stringify(item)}</p>                      })} */}
+                      { pieData && pieData.map(item => { return <p>{`${item[0]} : ${item[1]}`}</p>                      })}
+                      {/* {pieData !=null && pieData.map(item => { return<p>{`${item[0]} ${item[1]} `}</p>                     })} */}
                     </Paper>
                 </Grid>
 
