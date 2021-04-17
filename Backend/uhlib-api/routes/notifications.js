@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const notificationsService = require('../services/notificationsService');
+const { route } = require('./waitinglist');
 
 router.get('/allusersnotifications', async function(req, res, next) {
     try {
@@ -105,7 +106,5 @@ router.delete('/deleteEmployeeNotification', async function(req, res, next) {
           next(err);
         }
       });
-
-
 
 module.exports = router;

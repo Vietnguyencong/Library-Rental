@@ -125,6 +125,7 @@ FilterE = async(filter) =>{
   }
 }
 
+
 module.exports = {
     getUsers,
     getSingleUser,
@@ -135,5 +136,5 @@ module.exports = {
     removeUserNotification,
     removeOneEmployeeNotification,
     removeEmployeeNotification,
-    FilterE
+    FilterE,
 }

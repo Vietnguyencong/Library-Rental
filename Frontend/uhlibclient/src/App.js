@@ -11,7 +11,7 @@ import Home from './components/Home';
 import Cart from './components/Cart';
 import Login from './components/Login';
 import ItemList from './components/ItemList';
-
+import Notification from './components/Notification'
 import Context from "./Context";
 
 //axios.defaults.baseURL = 'http://localhost';
@@ -35,7 +35,9 @@ export default class App extends Component {
     this.state = {
       user: null,
       cart: {},
-      products: []
+      products: [],
+      notiCount : 0,
+      list_noti :[]
     };
     this.routerRef = React.createRef();
   }
@@ -46,11 +48,13 @@ export default class App extends Component {
     user = user ? JSON.parse(user) : null;
     cart = cart? JSON.parse(cart) : {};
    // this.setState({ user });
+   console.log("THIS IS THE USER", user)
     if(user){
       const items = await axios.get('https://uhlib.cc/api/items/allitems');
       this.setState({ user,  items: items.data, cart });
       console.log(items);
     }
+    this.getNotification()
   }
 
   login = async (email, password) => {
@@ -181,7 +185,12 @@ export default class App extends Component {
     localStorage.removeItem("user");
   };
 
-
+  getNotification = async () =>{
+    // fetch notification for users 
+    const url = `https://uhlib.cc/api/notifications/user/${this.state.user.user_id}`
+    const notis = await axios(url)
+    this.setState({notiCount:notis.data.length, list_noti:notis.data })
+  }
   render() {
     return (
       <Context.Provider
@@ -270,6 +279,11 @@ export default class App extends Component {
      
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
+      <Nav.Link href="/notifcations">
+      <div class="ui label">
+        <i class="mail icon"></i> {this.state.notiCount}
+      </div>
+      </Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
       
      
@@ -290,6 +304,7 @@ export default class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/items" component={ItemList} />
+              <Route exact path="/notifcations" component={Notification} />
             </Switch>
           </div>
         </Router>
