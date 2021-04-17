@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList } from 'react-admin';
+import {AutocompleteInput, CloneButton, List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList, BooleanField } from 'react-admin';
 import TrueIcon from '@material-ui/icons/Done'
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
@@ -21,9 +21,10 @@ const MyBooleanfield = ({ record={}, source}) =>{
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
-        <ReferenceInput label="Search by User" source="user_id" reference="users" allowEmpty>
+        <ReferenceInput label="Search by User" source="user_id" reference="users" alwaysOn>
             <SelectInput optionText="first_name" />
         </ReferenceInput>
+        <TextInput label="search by transaction ID" source="transaction_id" alwaysOn/>
     </Filter>
 );
 export const TransactionList = props => (
@@ -31,17 +32,18 @@ export const TransactionList = props => (
         <Datagrid rowClick="edit">
             <ReferenceField source="user_id" reference="users"><TextField source="first_name" /></ReferenceField>
             
-            <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
+            {/* <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
                 <SingleFieldList>
                     <ChipField source="item_id"></ChipField>
                 </SingleFieldList>
-            </ReferenceManyField>
+            </ReferenceManyField> */}
             <TextField source="transaction_id" ></TextField>
             {/* <NumberField source="is_commit" /> */}
             <MyBooleanfield source="is_commit" />
             <DateField source="date_created" />
             <DateField source="updated_at" />
             {/* <CreateRelatedButton/> */}
+            <CloneButton/>
         </Datagrid>
     </List>
 );
@@ -52,11 +54,11 @@ export const TransactionEdit = props => (
            <Grid container spacing={1} style={{width:"100%"}}>
                 <Grid item xs={6}>
                     <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
-                    <BooleanInput source="is_commit" />
+                    <BooleanInput source="is_commit" max={1} min={0} />
                     <NumberInput disabled source="total_price"></NumberInput>
                     <NumberInput disabled source="total_quantity"></NumberInput>
                     <TextInput disabled source="transaction_id" fullWidth ></TextInput>
-                    <DateTimeInput disabled source="date_created" fullWidth />
+                    <DateInput  source="date_created" fullWidth />
                     <DateTimeInput disabled source="updated_at" fullWidth/>
                 </Grid>
                 <Grid item xs={6}>

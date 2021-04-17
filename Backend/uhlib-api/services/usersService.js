@@ -234,14 +234,14 @@ getAll = async(req,res,next)=>{
           // console.log(condition_tring)
           var query = `SELECT * from USERS where ${condition_tring} ;` 
           // console.log(query)
-          const rows = await db.query(query, [])
-          const data = helper.cleanRows(rows)
+          const rows = await db.promisePool.query(query, [])
+          const data = helper.cleanRows(rows[0])
           return res.json(data)
           
       }else{
           const query = `SELECT * from USERS; `
-          const rows = await db.query(query, []) 
-          const data = helper.cleanRows(rows)
+          const rows = await db.promisePool.query(query, []) 
+          const data = helper.cleanRows(rows[0])
           return res.json(data)
       }
       

@@ -11,8 +11,8 @@ getOne = async (req,res, next)=>{
     try{
         const id  = req.params.id   
         const query = `select * from LOAN_ITEM where id = ?;`
-        const rows = await db.query(query, [id])
-        const data  = cleanRows(rows)
+        const rows = await db.promisePool.query(query, [id])
+        const data  = cleanRows(rows[0])
         return res.json(data)
     }catch(err){
         next(err)
@@ -26,8 +26,8 @@ getMany = async (req,res, next) =>{
         const ids = JSON.parse(req.query.filter).id
         const condition_tring = create_condition_string(ids.length, "?")
         const query = `SELECT * from LOAN_ITEM where id in (${condition_tring});`
-        const rows = await db.query(query, ids)
-        const data = cleanRows(rows)
+        const rows = await db.promisePool.query(query, ids)
+        const data = cleanRows(rows[0])
         return res.json(data)
     }catch(err){
         next(err)
@@ -44,31 +44,23 @@ getAll = async(req,res,next)=>{
             const keys = Object.keys(context)
             var conditions = []
             var params = []
-            console.log(keys)
+            // console.log(keys)
             for (var i=0; i<keys.length; i++){
-                conditions.push(`${[keys[i]]}=?`) 
+                conditions.push(`${[keys[i]]} like "%${context[keys[i]]}%"`) 
                 params.push(context[keys[i]])
             }
             var condition_tring = conditions.join(" and ")
+            // console.log(condition_tring)
             var query = `SELECT * from LOAN_ITEM where ${condition_tring} ;` 
-            console.log(condition_tring)
-            console.log(query)
-            const rows = await db.query(query, params)
-            const data = cleanRows(rows)
+            // console.log(query)
+            const rows = await db.promisePool.query(query, [])
+            const data = cleanRows(rows[0])
             return res.json(data)
-              // if ("item_id" in context &&  "transaction_id" in context ){
-            //     query = `SELECT * from LOAN_ITEM where item_id=? and transaction_id =? ;`
-            //     const item_id = context.item_id 
-            //     const transaction_id = context.transaction_id
-            //     params = [item_id, transaction_id]
-            // }else if ("item_id" in context){
-            //     query = `SELECT * from LOAN_ITEM where item_id=? and transaction_id =? ;`
-            // }else{
-            // }
+            
         }else{
             const query = `SELECT * from LOAN_ITEM; `
-            const rows = await db.query(query, []) 
-            const data = cleanRows(rows)
+            const rows = await db.promisePool.query(query, []) 
+            const data = cleanRows(rows[0])
             return res.json(data)
         }
         
@@ -76,7 +68,7 @@ getAll = async(req,res,next)=>{
         next(err)
     }
    
-}
+  }
 
 // description: update one loan_item in quanitty ONLY 
 // route:  loan_item/one/:trans_id/:item_id/:quantity  
@@ -88,8 +80,8 @@ editOne = async (req,res ,next) =>{
         const is_due = (req.body.is_due) 
         const quantity = parseInt(req.body.quantity)
         const query = `UPDATE LOAN_ITEM SET quantity = ?, is_due= ? WHERE id = ?; `
-        const rows = await db.query(query, [quantity, is_due, id])
-        const data = cleanRows(rows)
+        const rows = await db.promisePool.query(query, [quantity, is_due, id])
+        const data = cleanRows(rows[0])
         return res.json(data)
     }
     catch(err){
@@ -105,13 +97,12 @@ deleteOne  = async (req,res, next) =>{
     try{
         const id = req.params.id
         const query = `DELETE FROM LOAN_ITEM where id = ? ; `
-        const rows = await db.query(query, [id]) 
-        const data = cleanRows(rows)
+        const rows = await db.promisePool.query(query, [id]) 
+        const data = cleanRows(rows[0])
         return res.json(data)
     }catch(err){
         next(err)
     }
- 
 }
 
 // description: create one item in loan item table 
@@ -124,10 +115,15 @@ createOne = async (req,res, next) =>{
         const quantity = req.body.quantity
         const query = `INSERT INTO LOAN_ITEM  (item_id , quantity, transaction_id)
         VALUES (?, ?, ? );`
+        const query2 = `update ITEMS set current_quantity = current_quantity - ${quantity} where item_id = ${item_id} ; `
         const params = [item_id, quantity, trans_id] 
-        console.log(params)
-        const rows = await db.query(query, params)
-        const data = cleanRows(rows)
+        // const params2 = [parseInt(quantity), item_id] 
+        // console.log(req.body)
+        // console.log(query2)
+        const rows = await db.promisePool.query(query, params)
+        const message = await db.promisePool.query(query2, [])
+
+        const data = cleanRows(rows[0])
         return res.json(data)
     }catch(err){
         next(err)
@@ -142,8 +138,8 @@ deleteMany = async (req,res,next)=>{
         const ids = JSON.parse(req.query.filter).id
         const condition_tring = create_condition_string(ids.length, "?")
         const query = `delete from LOAN_ITEM where id in (${condition_tring});`
-        const rows = await db.query(query, ids)
-        const data = cleanRows(rows)
+        const rows = await db.promisePool.query(query, ids)
+        const data = cleanRows(rows[0])
         return res.json(data)
     }catch(err){
         next(err)

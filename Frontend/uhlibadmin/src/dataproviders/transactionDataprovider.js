@@ -1,8 +1,8 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
+// const apiUrl = 'https://uhlib.cc/api';
 const apiUrl = 'https://uhlib.cc/api';
-// const apiUrl = 'http://localhost:5000/api';
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
@@ -115,7 +115,7 @@ getList:  (resource, params) => {
         const query = {
             filter: JSON.stringify({ id: params.ids}),
         };
-        return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
+        return httpClient(`${apiUrl}/${resource}/many?${stringify(query)}`, {
             method: 'DELETE',
         }).then(({ json }) => ({ data: json }));
     }
