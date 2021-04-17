@@ -221,7 +221,6 @@ async function getEpieitems(date3, date4){
 module.exports = {
     get,
     getloans,
-    getpieitems,
     getTransactionReport,
     getTransactionCount,
     getTotalTrans,
