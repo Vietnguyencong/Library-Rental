@@ -1,4 +1,4 @@
-const  express = require('express')
+const express = require('express')
 const router = express.Router()
 const {user_login, user_logout, login} = require("../services/authentication")
 const {authenticate_user} = require("../helper")
