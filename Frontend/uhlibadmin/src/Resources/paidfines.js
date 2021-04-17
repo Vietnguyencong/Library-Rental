@@ -2,7 +2,7 @@ import * as React from "react";
 import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, ReferenceField,  Show, BooleanField, NullableBooleanInput } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
-import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
+import { List, Datagrid, TextField, NumberInput ,AutocompleteInput, PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
 const PaidFilter = (props) => (
@@ -32,7 +32,7 @@ export const PaidList = props => (
     <List filters={<PaidFilter/>} {...props}>
         <Datagrid rowClick="show">
         <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
-            <NumberField source="item_id" />
+            <NumberField source="loan_id" />
             <TextField source="description" />
             <NumberField source="final_amount" />
             <NumberField source="is_paid" />
@@ -46,12 +46,14 @@ export const FinesCreate = (props) => (
         <SimpleForm>
         <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <NumberInput source="users_id"  min={0} fullWidth/>
+                <ReferenceInput source="user_id" reference="users" >
+                        <AutocompleteInput optionText="first_name" fullWidth/>
+                        </ReferenceInput>
                     <TextInput source="description" fullWidth/>
                     <BooleanInput source="is_paid" fullWidth/>
                     </Grid>
                     <Grid item xs={6}>
-                    <NumberInput source="item_id"  min={0} fullWidth/>
+                    <NumberInput source="loan_id"  min={0} fullWidth/>
                     <NumberInput source="final_amount"  min={0} fullWidth/>
                     </Grid>
             </Grid>
@@ -67,12 +69,14 @@ export const FinesEdit = (props) =>(
         <Typography variant="h6" gutterBottom>Edit Fine</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <NumberInput source="users_id"  min={0} fullWidth/>
+                <ReferenceInput source="user_id" reference="users" >
+                        <AutocompleteInput optionText="first_name" fullWidth/>
+                        </ReferenceInput>
                     <TextInput source="description" fullWidth/>
                     <BooleanInput source="is_paid" fullWidth/>
                     </Grid>
                     <Grid item xs={6}>
-                    <NumberInput source="item_id"  min={0} fullWidth/>
+                    <NumberInput source="loan_id"  min={0} fullWidth/>
                     <NumberInput source="final_amount"  min={0} fullWidth/>
                     </Grid>
             </Grid>
@@ -91,7 +95,7 @@ export const FinesShow = (props) => (
         <Typography variant="h6" gutterBottom>Fine Information</Typography>
             <Grid container spacing={3} style={{ width: "100%" }}>
                 <Grid item xs={12} sm= {6}>
-                    User: <NumberField source="users_id"  min={0} fullWidth/>
+                    User: <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
                     </Grid>
                     <Grid item xs={12} sm= {6}>
                     Loan Id: <NumberField source="loan_id"  min={0} fullWidth/>

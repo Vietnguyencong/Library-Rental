@@ -2,12 +2,12 @@ import * as React from "react";
 import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
-import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
+import { List, Datagrid, TextField, NumberInput , PasswordInput,AutocompleteInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
 const WaitFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search by user ID" source="user_id" alwaysOn />
+        <TextInput label="Search by user name" source="user_id" alwaysOn />
         {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput> */}
@@ -44,10 +44,14 @@ export const WaitCreate = (props) => (
         <Typography variant="h6" gutterBottom>New waitlist item</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>
             <Grid item xs={6}>
-                    <NumberInput source="user_id"  min={0}/>
+            <ReferenceInput source="user_id" reference="users" >
+                        <AutocompleteInput optionText="first_name" fullWidth/>
+                        </ReferenceInput>
                 </Grid>
                 <Grid item xs={6}>
-                    <NumberInput source="item_id" min={0}/>
+                <ReferenceInput source="item_id" reference="items" >
+                        <AutocompleteInput optionText="title" fullWidth/>
+                        </ReferenceInput>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -60,10 +64,14 @@ export const WaitEdit = (props) =>(
         <Typography variant="h6" gutterBottom>Edit Information</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <NumberInput source="user_id"  min={0}/>
+                <ReferenceInput source="user_id" reference="users" >
+                        <AutocompleteInput optionText="first_name" fullWidth/>
+                        </ReferenceInput>
                 </Grid>
                 <Grid item xs={6}>
-                    <NumberInput source="item_id" min={0}/>
+                <ReferenceInput source="item_id" reference="items" >
+                        <AutocompleteInput optionText="title" fullWidth/>
+                        </ReferenceInput>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -82,11 +90,11 @@ export const WaitShow = (props) => (
         <Grid container spacing={1} style={{ width: "100%" }}>
             <Grid item xs={6}> 
                 <Typography variant="inline" gutterBottom> user: </Typography>        
-                <NumberField source="user_id" />
+                <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
             </Grid>
                 <Grid item xs={6}>
                     <Typography variant="inline" gutterBottom> item: </Typography>
-                    <NumberField source="item_id" />
+                    <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
             </Grid>
         </Grid> 
         </SimpleForm>

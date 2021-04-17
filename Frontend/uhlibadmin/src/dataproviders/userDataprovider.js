@@ -3,8 +3,8 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-// const apiUrl = 'https://uhlib.cc/api';
-const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://uhlib.cc/api';
+// const apiUrl = 'http://localhost:5000/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -24,6 +24,7 @@ export default {
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify(params.filter),
         };
+        
         const url = `${apiUrl}/${resource}/getall?${stringify(query)}`; // get all empoloyee 
         return  httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.user_id }) ),

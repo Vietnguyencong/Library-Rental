@@ -3,8 +3,8 @@ import { stringify } from 'query-string';
 import { responsiveFontSizes } from '@material-ui/core';
 import { string } from 'prop-types';
 
-// const apiUrl = 'https://uhlib.cc/api';
-const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://uhlib.cc/api';
+//  const apiUrl = 'http://localhost:5000/api';
 // const apiUrl = ''
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
@@ -63,6 +63,7 @@ export default {
         const { field, order } = params.sort;
         const query = {
             sort: JSON.stringify([field, order]),
+            // sort: JSON.stringify(["title","ASC"]),
             range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
             filter: JSON.stringify({
                 ...params.filter,
@@ -74,7 +75,7 @@ export default {
         const url = `${apiUrl}/${resource}?${stringify(query)}`;
         console.log(url)
         return httpClient(url).then(({ headers, json }) => ({
-            data: [json],
+            data: json,
             total:10
         }));
     },

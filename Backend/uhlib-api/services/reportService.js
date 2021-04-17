@@ -121,13 +121,115 @@ getTotalTrans = async (req, res, next)=>{
   }
 }
 
+
+
+
+
+
+
+////////reports #3
+
+async function getTotalEmp(date3, date4){
+  const rows = await db.query(
+    `SELECT Count(distinct employee_id) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
+  );
+  console.log(JSON.stringify(rows))
+  const data = helper.cleanRows(rows)[0];
+
+  return data;
+}
+
+async function getAnnualAvg(date3, date4){
+  const rows = await db.query(
+    `SELECT TRUNCATE(AVG(salary),2) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
+  );
+  console.log(JSON.stringify(rows))
+  const data = helper.cleanRows(rows)[0];
+
+  return data;
+}
+
+async function getHourlyAvg(date3, date4){
+  const rows = await db.query(
+    `SELECT TRUNCATE(AVG(hourly_rate),2 ) as data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}';`
+  );
+  console.log(JSON.stringify(rows))
+  const data = helper.cleanRows(rows)[0];
+
+  return data;
+}
+
+async function getbaritems(){
+  const rows = await db.query(
+    `SELECT library_id, COUNT(*) as data FROM EMPLOYEES GROUP BY library_id;`
+  );
+  const Transrows = await db.query(
+  `SELECT library_id, COUNT(*) as data FROM LibaryIDFromLoans GROUP BY library_id order by library_id asc ;`
+  );
+
+  console.log(JSON.parse(JSON.stringify(rows)))
+  var result = [];
+  result.push(['Library ID', 'Employees', 'Transactions']);
+  for (var i = 0; i < rows.length; i++) {
+      var obj = rows[i];
+      var Transobj = Transrows[i];
+      const res = [];
+      const keys = Object.keys(obj);
+      const Transkeys = Object.keys(Transobj);
+      for (let j = 0; j < keys.length; j++) {
+          const key = keys[j];
+          res.push(obj[key]);
+          if(j != 0)
+          {
+          const key = Transkeys[j];
+          res.push(Transobj[key]);
+          }
+      }
+
+      result.push(res);
+  }
+  console.log(result);
+
+  return result;  
+}
+
+async function getEpieitems(date3, date4){
+  const rows = await db.query(
+    `SELECT job_title, COUNT(*) data FROM EMPLOYEES where created_at >= '${date3}' and created_at <= '${date4}' group by job_title;`
+  );
+  console.log(JSON.parse(JSON.stringify(rows)))
+  
+  var result = [];
+  result.push(['A','B']);
+
+  for (var i = 0; i < rows.length; i++) {
+      var obj = rows[i];
+      const res = [];
+      const keys = Object.keys(obj);
+      for (let j = 0; j < keys.length; j++) {
+          const key = keys[j];
+          res.push(obj[key]);
+      }
+
+      result.push(res);
+  }
+  console.log(result);
+
+  return result;  
+}
 module.exports = {
     get,
     getloans,
     getpieitems, 
     getTransactionReport,
     getTransactionCount,
-    getTotalTrans
+    getTotalTrans,
+    getpieitems,
+    getTotalEmp,
+    getAnnualAvg,
+    getHourlyAvg,
+    getbaritems,
+    getEpieitems
 }
 
 function create_condition_string (length, value){ 
