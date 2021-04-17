@@ -11,8 +11,8 @@ export default {
             }, 
             body: JSON.stringify(
                 {
-                    "email": "atram@gmail.copm", 
-                    "password": "test"
+                    "email": username, 
+                    "password": password
                 }
             )
         })  
