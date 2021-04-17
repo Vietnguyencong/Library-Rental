@@ -259,13 +259,13 @@ export default class App extends Component {
             
 
   
-  <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}>
+  <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}  >
     <Navbar.Brand href="/home"><img
     src="https://apps.lib.uh.edu/uh-elements/secondary-logo.svg"
     alt="logo"
     width="250" /></Navbar.Brand>
     <Nav className="mr-auto">
-      <Nav.Link href="/home">Home</Nav.Link>
+      <Nav.Link href="/home" className={{margin:"14px"}}>Home</Nav.Link>
      
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
