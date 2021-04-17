@@ -27,7 +27,7 @@ import { UserList, UserCreate, UserEdit, UserShow } from './Resources/users';
 import { TransactionList, TransactionCreate, TransactionEdit,  TransactionShow } from './Resources/transactions';
 
 import {LoanitemList, LoanitemCreate, LoanitemEdit, LoanitemShow} from './Resources/loanitem'
-import { ItemList, ItemCreate, ItemEdit } from './Resources/items';
+import { ItemList, ItemCreate, ItemEdit, ItemShow } from './Resources/items';
 import { LibraryList, LibraryCreate, LibraryEdit, LibraryShow } from './Resources/libraries';
 import { EmployeeList, EmployeeShow, EmployeeCreate , EmployeeEdit } from './Resources/employees';
 import { PaidList, FinesShow, FinesCreate , FinesEdit } from './Resources/paidfines';
@@ -68,7 +68,7 @@ const App = () => (
         
         <Resource name="notifications" list={NotificationList} show={NotificationShow} icon={NotificationsNoneOutlinedIcon} /> 
 
-        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} icon={LibraryBooksIcon} /> 
+        <Resource name="items" list={ItemList} create={ItemCreate} edit={ItemEdit} show={ItemShow} icon={LibraryBooksIcon} /> 
         
         { /* <Resource name="books" list={ItemList} icon={LibraryBooksIcon} edit={EditGuesser} />*/}
 
@@ -78,7 +78,7 @@ const App = () => (
 
         <Resource name="loanitem" list={LoanitemList} edit={LoanitemEdit} create={LoanitemCreate} show={LoanitemShow} icon={TableChartOutlinedIcon} /> 
         
-        <Resource name="libraries" list={LibraryList} edit={LibraryEdit} create={LibraryCreate} Show={LibraryShow} icon={LocalLibraryIcon} />
+        <Resource name="libraries" list={LibraryList} edit={LibraryEdit} create={LibraryCreate} show={LibraryShow} icon={LocalLibraryIcon} />
 
         <Resource name="employees" list={EmployeeList} show={EmployeeShow} create={EmployeeCreate} edit={EmployeeEdit} icon={SupervisorAccountIcon} /> 
 
@@ -90,7 +90,6 @@ const App = () => (
         
         <Resource name="Report" list={Report} icon={LocalLibraryIcon} />
 
-        
 
     </Admin>
     
