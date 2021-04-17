@@ -43,7 +43,7 @@ export const EmployeeList = props => (
             <TextField source="street_name" fullWidth/>
             <TextField source="city" fullWidth/>
             <TextField source="state" fullWidth/>
-            <NumberField source="zipcode" fullWidth/>
+            <TextField source="zipcode" fullWidth/>
             <TextField source="password" fullWidth/>
         </Datagrid>
     </List>

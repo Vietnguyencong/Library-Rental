@@ -16,6 +16,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
+import moment from 'moment';
+
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -34,7 +36,7 @@ export default function Report(){
 
     const [noOfUser, setNoOfUser] = useState({});
     const [noOfLoans, setNoOfLoans] = useState({});
-    const [pieData, setpiedata] = useState({});
+    const [pieData, setpiedata] = useState(null);
 
 const [noOfEmployees, setnoOfEmployees] = useState({});
 const [avgAnnual, setavgAnnual] = useState({});
@@ -46,33 +48,35 @@ useEffect(() =>{
   EfetchData(new Date('2021-03-18T21:11:54'), new Date());
 }, [])
 
-
-
     useEffect(() =>{
         fetchData(new Date('2021-03-18T21:11:54'), new Date());
     }, [])
 
     function fetchData(selectedDate,selectedDate2){
-        console.log(selectedDate.toString(), selectedDate2.toString());
-        fetch(`http://localhost:5000/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+      if(selectedDate2 && selectedDate){
+        console.log(selectedDate2.toISOString(), selectedDate2.toString());
+        fetch(`https://uhlib.cc/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
-        fetch('http://localhost:5000/api/reports/fetchusersloans')
-        .then( response => response.json() ).then(res => setNoOfLoans(res));
-        fetch('http://localhost:5000/api/reports/fetchpieitems')
-        .then( response => response.json() ).then(res => setpiedata(res));
-        //setpiedata(piedatArray)
+        fetch(`https://uhlib.cc/api/reports/fetchusersloans?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        .then( response => response.json() ).then(res => {
+          console.log('no..', res);
+          setNoOfLoans(res)
+        });
 
+        fetch(`https://uhlib.cc/api/reports/fetchpieitems?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
+        .then( response => response.json() ).then(res => setpiedata(res));
+      }        //setpiedata(piedatArray)
     }
     function EfetchData(selectedDate3,selectedDate4){
-      fetch(`http://localhost:5000/api/reports/fetchTotalEmp?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+      fetch(`https://uhlib.cc/api/reports/fetchTotalEmp?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setnoOfEmployees(res));
-      fetch(`http://localhost:5000/api/reports/fetchAnnualAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+      fetch(`https://uhlib.cc/api/reports/fetchAnnualAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setavgAnnual(res));
-      fetch(`http://localhost:5000/api/reports/fetchHourlyAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+      fetch(`https://uhlib.cc/api/reports/fetchHourlyAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setavgHourly(res));
-      fetch('http://localhost:5000/api/reports/fetchBaritems')
+      fetch('https://uhlib.cc/api/reports/fetchBaritems')
       .then( response => response.json() ).then(res => setBardata(res));
-      fetch(`http://localhost:5000/api/reports/fetchEpieitems?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+      fetch(`https://uhlib.cc/api/reports/fetchEpieitems?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
       .then( response => response.json() ).then(res => setEpiedata(res));
     }
 
@@ -88,11 +92,10 @@ useEffect(() =>{
     const [selectedDate2, setSelectedDate2] = React.useState(new Date());
     const [selectedDate3, setSelectedDate3] = React.useState(new Date('2021-03-18T21:11:54'));
     const [selectedDate4, setSelectedDate4] = React.useState(new Date());
-    
+
     const handleDateChange = (date) => {
-      console.log(date.toISOString());
         setSelectedDate(date);
-        fetchData(date, selectedDate2);
+        fetchData(date);
       };
 
     const handleDateChange2 = (date) => {
@@ -100,15 +103,15 @@ useEffect(() =>{
         setSelectedDate2(date);
         fetchData(selectedDate,date);
       };
-      const handleDateChange3 = (date) => {
-        setSelectedDate3(date);
-        EfetchData(date, selectedDate4);
-      };
-      
-      const handleDateChange4 = (date) => {
-        setSelectedDate4(date);
-        EfetchData(selectedDate3,date);
-      };
+    const handleDateChange3 = (date) => {
+      setSelectedDate3(date);
+      EfetchData(date, selectedDate4);
+    };
+    
+    const handleDateChange4 = (date) => {
+      setSelectedDate4(date);
+      EfetchData(selectedDate3,date);
+    };
     return <div>
 
 {/* https://material-ui.com/components/tabs/ */}
@@ -126,34 +129,23 @@ useEffect(() =>{
             <Grid container direction="row" justify="center" alignItems="center">
                 <Grid item className="" xs={12}>
                     <Paper >
-                        <h1>Report  {selectedDate.toISOString()}</h1>
+                        <h1>Report  { moment(selectedDate).format("yyyy-MM-DD")} to { moment(selectedDate2).format("yyyy-MM-DD")}</h1>
                         
                     </Paper>
                 </Grid>
                 <Grid item className="" xs={12}>
                     <Paper >
-                        <h3>Registered users {noOfUser.count} </h3>
-                        
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper >
-                    <p>Number of loans  {noOfLoans.data}</p>
+                        <h3>Registered users: {noOfUser.count} </h3>
+                        <h3>Number of loans: {noOfLoans.data}</h3>
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
                     <Paper>
-                        <h3>Total revenue </h3>
+                        <h3>Items breakdown </h3>
                     </Paper>
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Paper>
-                        <h3>Items per library</h3>
-                    </Paper>
-                </Grid>
-
-                <Grid item xs={12}>
+                <Grid item xs={6}>
                     <Paper>
                     <Chart
                             width={'500px'}
@@ -162,11 +154,18 @@ useEffect(() =>{
                             loader={<div>Loading Chart</div>}
                             data={pieData}
                             options={{
-                                title: 'Items loaned',
+                                title: 'Items in libary',
                                 is3D: true
                             }}
                             rootProps={{ 'data-testid': '1' }}
                             />
+                    </Paper>
+                </Grid>
+                <Grid item xs={6}>
+                    <Paper style={{ height: "290px", margin: '4px', padding: '6px'}}>
+                    {/* { pieData && pieData.map(item => { return <p>{JSON.stringify(item)}</p>                      })} */}
+                      { pieData && pieData.map(item => { return <p>{`${item[0]} : ${item[1]}`}</p>                      })}
+                      {/* {pieData !=null && pieData.map(item => { return<p>{`${item[0]} ${item[1]} `}</p>                     })} */}
                     </Paper>
                 </Grid>
 
@@ -191,6 +190,7 @@ useEffect(() =>{
             'aria-label': 'change date',
           }}
         />
+
         </MuiPickersUtilsProvider>
  
 
@@ -217,9 +217,10 @@ useEffect(() =>{
 
 </TabPanel>
         <TabPanel value={value} onChange={handleChange} index={1}>
+
             Item Two
 </TabPanel>
-        <TabPanel value={value} onChange={handleChange} index={2}>
+<TabPanel value={value} onChange={handleChange} index={2}>
         <Paper>
             Item Three
             <Grid item xs={12}>
@@ -309,11 +310,23 @@ useEffect(() =>{
         />
         </MuiPickersUtilsProvider>  
 </TabPanel>
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
     </div>;
 }
-
-
-
 
 function TabONE(){return <p>TAB ONE</p>}
 
@@ -343,3 +356,5 @@ function TabPanel(props) {
       </div>
     );
   }
+
+

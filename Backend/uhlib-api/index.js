@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 app.use('/api/reports', reportsRouter);
 app.use('/api/aut', authenticationRouter)
 
-// app.use(authenticate_user)
+app.use(authenticate_user)
 
 app.use("/api/transactions", authenticate_user, transaction_router)
 app.use('/api/items', authenticate_user, itemsRouter);
