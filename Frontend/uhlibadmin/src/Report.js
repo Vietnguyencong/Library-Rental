@@ -7,6 +7,8 @@ import {useState, useEffect} from 'react';
 import Chart from "react-google-charts";
 import Icon from "@material-ui/core/Icon";
 
+import DatePicker from "react-datepicker"; //added by yoseline
+
 import 'date-fns';
 import React from 'react';
 import DateFnsUtils from '@date-io/date-fns';
@@ -217,8 +219,8 @@ useEffect(() =>{
 
 </TabPanel>
         <TabPanel value={value} onChange={handleChange} index={1}>
-
-            Item Two
+        <Transaction_report/>
+           
 </TabPanel>
 <TabPanel value={value} onChange={handleChange} index={2}>
         <Paper>
@@ -311,20 +313,6 @@ useEffect(() =>{
         </MuiPickersUtilsProvider>  
 </TabPanel>
 
-
-
-
- 
- 
-
-
-
-
-
-
-
-
-
     </div>;
 }
 
@@ -357,4 +345,192 @@ function TabPanel(props) {
     );
   }
 
+
+    // item 2 
+    class Transaction_report extends React.Component {
+      state = {
+        data_rev:[] ,
+        data_count:[],
+        summary: {
+          count:0,
+          total:0
+        }
+      }
+      componentDidMount(){ // defualt 
+        console.log("amount the component")
+        this.getData_rev("2021-04-01", "2021-04-30")
+        this.getData_count("2021-04-01", "2021-04-30")
+        this.getSummary("2021-04-01", "2021-04-30")
+      }
+      date_change (startdate, enddate){
+        console.log("Date changed, updated the data")
+        this.getData_rev(startdate, enddate)
+        this.getData_count(startdate, enddate)
+        this.getSummary(startdate, enddate)
+      }
+      getData_rev = async (startdate, enddate) =>{
+        const url = `http://localhost:5000/api/reports/trans_rev/${startdate}/${enddate}`
+        const res = await fetch(url)
+        const json = await res.json()
+        console.log("this is json", json)
+        // update the state : data 
+        this.setState({data_rev:json})
+      }
+      getData_count = async (startdate, enddate) =>{
+        const url = `http://localhost:5000/api/reports/trans_count/${startdate}/${enddate}`
+        const res = await fetch(url)
+        const json = await res.json()
+        console.log("this is json", json)
+        this.setState({data_count:json})
+      }
+      getSummary = async (start, end)=>{
+        const url = `http://localhost:5000/api/reports/trans_total/${start}/${end}`
+        const res = await fetch(url)
+        const json = await res.json()
+        this.setState({summary:json})
+      }
+      render(){
+        return (
+          <div class="ui center aligned basic segment">
+          <div>
+            <Date_start ondate_change={this.date_change.bind(this)}/>
+            <div class="ui placeholder segment">
+            <div class="ui two column stackable center aligned grid">
+              <div class="ui vertical divider">And</div>
+              <div class="middle aligned row">
+                <div class="column">
+                  <div class="ui icon header">
+                    <i class="search icon"></i>
+                    TOTAL TRANSACTIONS: {this.state.summary.count}
+                  </div>
+                  <div class="field">
+                    <div class="ui search">
+                      
+                      <div class="results"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="ui icon header">
+                    <i class="dollar sign icon"></i>
+                    TOTAL REVENUE : {this.state.summary.total}
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+            <Chart
+              width={800}
+              height={'300px'}
+              chartType="AreaChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ["date_label", "count"],...this.state.data_count]
+              }
+              options={{
+                title: 'TRANSACTION_COUNT',
+                hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                vAxis: { minValue: 0 },
+                chartArea: { width: '70%', height: '70%' },
+              }}
+            />
+            <Chart
+              width={800}
+              height={300}
+              chartType="ColumnChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ["date_label", "count"],...this.state.data_count]
+              }
+              options={{
+                title: 'count',
+                chartArea: { width: '70%' },
+                hAxis: {
+                  title: 'Total Population',
+                  minValue: 0,
+                },
+                vAxis: {
+                  title: 'City',
+                },
+              }}
+              legendToggle
+            />
+            <Chart
+              width={800}
+              height={'300px'}
+              chartType="AreaChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ["date_label", "Revenue"],...this.state.data_rev]
+              }
+              options={{
+                title: 'REVENUES',
+                hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                vAxis: { minValue: 0 },
+                // For the legend to fit, we make the chart area smaller
+                chartArea: { width: '70%', height: '70%' },
+                // lineWidth: 25
+              }}
+            />
+            <Chart
+              width={800}
+              height={300}
+              chartType="ColumnChart"
+              loader={<div>Loading Chart</div>}
+              data={[
+                ["date_label", "count"],...this.state.data_rev]
+              }
+              options={{
+                title: 'revuenues',
+                chartArea: { width: '70%' },
+                hAxis: {
+                  title: 'Total Population',
+                  minValue: 0,
+                },
+                vAxis: {
+                  title: 'City',
+                },
+              }}
+              legendToggle
+            />
+          </div>
+          </div>
+        )
+      }
+    }
+  
+    const Date_start = (props) => {
+      const [startDate, setStartDate] = useState(new Date());
+      const [endDate, setEndDate] = useState(new Date());
+      const fetch_url = (date)=>{
+       
+        var sd = new Date(startDate);
+        var year=sd.getFullYear();
+        var month=sd.getMonth()+1 //getMonth is zero based;
+        var day=sd.getDate();
+        var sd=year+"-"+month+"-"+day;
+  
+        var ed = new Date(endDate);
+        var year=ed.getFullYear();
+        var month=ed.getMonth()+1 //getMonth is zero based;
+        var day=ed.getDate();
+        var ed=year+"-"+month+"-"+day;
+  
+        props.ondate_change(sd, ed)
+      }
+      return (
+        <div>
+          <DatePicker selected={startDate} 
+              onChange={date => setStartDate(date)}
+              dateFormat='yyyy/MM/dd'
+              onCalendarClose={fetch_url}
+          />
+          <DatePicker selected={endDate} 
+            onChange={date => setEndDate(date)} 
+            onCalendarClose={fetch_url}
+          />
+        </div>
+      );
+    };
 
