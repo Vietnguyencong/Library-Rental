@@ -3,7 +3,7 @@ const helper = require('../helper');
 
 async function get(){
     const rows = await db.query(
-      `SELECT library_id, name, opening_hours, location
+      `SELECT library_id, name, opening_hours, location, image_link
       FROM LIBRARIES`
     );
   
