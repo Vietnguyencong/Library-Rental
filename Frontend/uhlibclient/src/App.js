@@ -48,7 +48,7 @@ export default class App extends Component {
     user = user ? JSON.parse(user) : null;
     cart = cart? JSON.parse(cart) : {};
    // this.setState({ user });
-   console.log("THIS IS THE USER", user)
+   //console.log("THIS IS THE USER", user)
     if(user){
       const items = await axios.get('https://uhlib.cc/api/items/allitems');
       this.setState({ user,  items: items.data, cart });
@@ -187,9 +187,11 @@ export default class App extends Component {
 
   getNotification = async () =>{
     // fetch notification for users 
+    if(this.state.user){
     const url = `https://uhlib.cc/api/notifications/user/${this.state.user.user_id}`
     const notis = await axios(url)
     this.setState({notiCount:notis.data.length, list_noti:notis.data })
+    }
   }
   render() {
     return (
