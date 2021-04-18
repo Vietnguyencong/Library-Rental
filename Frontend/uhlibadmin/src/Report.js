@@ -115,7 +115,7 @@ useEffect(() =>{
       EfetchData(selectedDate3,date);
     };
     return <div>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
 {/* https://material-ui.com/components/tabs/ */}
         <AppBar position="static">
             <Tabs value={"1"} onChange={handleChange} aria-label="simple tabs example" centered>
@@ -369,7 +369,7 @@ function TabPanel(props) {
         this.getSummary(startdate, enddate)
       }
       getData_rev = async (startdate, enddate) =>{
-        const url = `http://localhost:5000/api/reports/trans_rev/${startdate}/${enddate}`
+        const url = `https://uhlib.cc/api/reports/trans_rev/${startdate}/${enddate}`
         const res = await fetch(url)
         const json = await res.json()
         console.log("this is json", json)
@@ -377,124 +377,125 @@ function TabPanel(props) {
         this.setState({data_rev:json})
       }
       getData_count = async (startdate, enddate) =>{
-        const url = `http://localhost:5000/api/reports/trans_count/${startdate}/${enddate}`
+        const url = `https://uhlib.cc/api/reports/trans_count/${startdate}/${enddate}`
         const res = await fetch(url)
         const json = await res.json()
         console.log("this is json", json)
         this.setState({data_count:json})
       }
       getSummary = async (start, end)=>{
-        const url = `http://localhost:5000/api/reports/trans_total/${start}/${end}`
+        const url = `https://uhlib.cc/api/reports/trans_total/${start}/${end}`
         const res = await fetch(url)
         const json = await res.json()
         this.setState({summary:json})
       }
       render(){
         return (
+          
           <div class="ui center aligned basic segment">
-          <div>
-            <Date_start ondate_change={this.date_change.bind(this)}/>
-            <div class="ui placeholder segment">
-            <div class="ui two column stackable center aligned grid">
-              <div class="ui vertical divider">And</div>
-              <div class="middle aligned row">
-                <div class="column">
-                  <div class="ui icon header">
-                    <i class="search icon"></i>
-                    TOTAL TRANSACTIONS: {this.state.summary.count}
-                  </div>
-                  <div class="field">
-                    <div class="ui search">
-                      
-                      <div class="results"></div>
+            <div>
+              <Date_start ondate_change={this.date_change.bind(this)}/>
+              <div class="ui placeholder segment">
+              <div class="ui two column stackable center aligned grid">
+                <div class="ui vertical divider">And</div>
+                <div class="middle aligned row">
+                  <div class="column">
+                    <div class="ui icon header">
+                      <i class="search icon"></i>
+                      TOTAL TRANSACTIONS: {this.state.summary.count}
+                    </div>
+                    <div class="field">
+                      <div class="ui search">
+                        
+                        <div class="results"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="column">
-                  <div class="ui icon header">
-                    <i class="dollar sign icon"></i>
-                    TOTAL REVENUE : {this.state.summary.total}
+                  <div class="column">
+                    <div class="ui icon header">
+                      <i class="dollar sign icon"></i>
+                      TOTAL REVENUE : {this.state.summary.total}
+                    </div>
+                    
                   </div>
-                  
                 </div>
               </div>
             </div>
-          </div>
-            <Chart
-              width={800}
-              height={'300px'}
-              chartType="AreaChart"
-              loader={<div>Loading Chart</div>}
-              data={[
-                ["date_label", "count"],...this.state.data_count]
-              }
-              options={{
-                title: 'TRANSACTION_COUNT',
-                hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-                vAxis: { minValue: 0 },
-                chartArea: { width: '70%', height: '70%' },
-              }}
-            />
-            <Chart
-              width={800}
-              height={300}
-              chartType="ColumnChart"
-              loader={<div>Loading Chart</div>}
-              data={[
-                ["date_label", "count"],...this.state.data_count]
-              }
-              options={{
-                title: 'count',
-                chartArea: { width: '70%' },
-                hAxis: {
-                  title: 'Total Population',
-                  minValue: 0,
-                },
-                vAxis: {
-                  title: 'City',
-                },
-              }}
-              legendToggle
-            />
-            <Chart
-              width={800}
-              height={'300px'}
-              chartType="AreaChart"
-              loader={<div>Loading Chart</div>}
-              data={[
-                ["date_label", "Revenue"],...this.state.data_rev]
-              }
-              options={{
-                title: 'REVENUES',
-                hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-                vAxis: { minValue: 0 },
-                // For the legend to fit, we make the chart area smaller
-                chartArea: { width: '70%', height: '70%' },
-                // lineWidth: 25
-              }}
-            />
-            <Chart
-              width={800}
-              height={300}
-              chartType="ColumnChart"
-              loader={<div>Loading Chart</div>}
-              data={[
-                ["date_label", "count"],...this.state.data_rev]
-              }
-              options={{
-                title: 'revuenues',
-                chartArea: { width: '70%' },
-                hAxis: {
-                  title: 'Total Population',
-                  minValue: 0,
-                },
-                vAxis: {
-                  title: 'City',
-                },
-              }}
-              legendToggle
-            />
-          </div>
+              <Chart
+                width={800}
+                height={'300px'}
+                chartType="AreaChart"
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ["date_label", "count"],...this.state.data_count]
+                }
+                options={{
+                  title: 'TRANSACTION_COUNT',
+                  hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                  vAxis: { minValue: 0 },
+                  chartArea: { width: '70%', height: '70%' },
+                }}
+              />
+              <Chart
+                width={800}
+                height={300}
+                chartType="ColumnChart"
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ["date_label", "count"],...this.state.data_count]
+                }
+                options={{
+                  title: 'count',
+                  chartArea: { width: '70%' },
+                  hAxis: {
+                    title: 'Total Population',
+                    minValue: 0,
+                  },
+                  vAxis: {
+                    title: 'City',
+                  },
+                }}
+                legendToggle
+              />
+              <Chart
+                width={800}
+                height={'300px'}
+                chartType="AreaChart"
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ["date_label", "Revenue"],...this.state.data_rev]
+                }
+                options={{
+                  title: 'REVENUES',
+                  hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                  vAxis: { minValue: 0 },
+                  // For the legend to fit, we make the chart area smaller
+                  chartArea: { width: '70%', height: '70%' },
+                  // lineWidth: 25
+                }}
+              />
+              <Chart
+                width={800}
+                height={300}
+                chartType="ColumnChart"
+                loader={<div>Loading Chart</div>}
+                data={[
+                  ["date_label", "count"],...this.state.data_rev]
+                }
+                options={{
+                  title: 'revuenues',
+                  chartArea: { width: '70%' },
+                  hAxis: {
+                    title: 'Total Population',
+                    minValue: 0,
+                  },
+                  vAxis: {
+                    title: 'City',
+                  },
+                }}
+                legendToggle
+              />
+            </div>
           </div>
         )
       }
