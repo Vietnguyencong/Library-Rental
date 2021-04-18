@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav} from "react-bootstrap";
 
 
 
@@ -13,7 +13,7 @@ import Login from './components/Login';
 import ItemList from './components/ItemList';
 import Notification from './components/Notification'
 import Context from "./Context";
-
+import Searchbar from './components/Search/Searchbar'
 //axios.defaults.baseURL = 'http://localhost';
 
 
@@ -55,6 +55,7 @@ export default class App extends Component {
       console.log(items);
     }
     this.getNotification()
+    this.submitSearchForm("")
   }
 
   login = async (email, password) => {
@@ -192,6 +193,13 @@ export default class App extends Component {
     const notis = await axios(url)
     this.setState({notiCount:notis.data.length, list_noti:notis.data })}
   }
+  submitSearchForm = async (term) => {
+    const url = `https://uhlib.cc/api/items/getall?filter={"title":"${term}"}`
+    const filtered_items = await axios.get(url)
+    // return filtered_items.data
+    console.log("THIS IS THE DATA:", filtered_items.data)
+    this.setState({items: filtered_items.data})
+  }
   render() {
     return (
       <Context.Provider
@@ -294,10 +302,7 @@ export default class App extends Component {
                   </Link>       */}
 
     </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-light">Search</Button>
-    </Form>
+    <Searchbar submitSearchForm={this.submitSearchForm}/>
   </Navbar>
             <Switch>
               <Route exact path="/home" component={Home} />
