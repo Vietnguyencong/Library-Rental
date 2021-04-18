@@ -10,6 +10,7 @@ class Noti extends React.Component {
         super(props);
         this.state = {
         list_noti :[],
+        user: null,
         };
         /*        for(let i = 0; i<15; i++){
             list_noti.push({
@@ -21,10 +22,20 @@ class Noti extends React.Component {
       }
       
       componentDidMount(){
-        this.getNoti()
+        let user = localStorage.getItem("user");
+        user = user ? JSON.parse(user) : null;
+        console.log(user);
+        console.log("user_id:");
+        console.log(user.user_id);
+        this.setState({ user,  user: user.user_id });
+        console.log(user.user_id);
+        this.getNoti(user.user_id);
+        
       }
-      getNoti = async () =>{
-        const noti = await axios.get(`https://uhlib.cc/api/notifications/user/1`)
+      getNoti = async (id) =>{
+        console.log(id);
+        //${this.state.user.user_id}
+        const noti = await axios.get(`https://uhlib.cc/api/notifications/user/${id}`)
         this.setState({list_noti:noti.data})
       }
 
