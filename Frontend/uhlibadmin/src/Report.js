@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
       backgroundColor: theme.palette.background.paper,
     },
-    tabs:{
+    tabs: {
 
     },
-    tab:{
+    tab: {
         textcolor: 'green',
-        color: 'purple'
+        color: 'white'
     }
   }));
 
@@ -139,14 +139,9 @@ useEffect(() =>{
                     <Paper >
                         <h3>Registered users: {noOfUser.count} </h3>
                         <h3>Number of loans: {noOfLoans.data}</h3>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper>
                         <h3>Items breakdown </h3>
                     </Paper>
                 </Grid>
-
                 <Grid item xs={6}>
                     <Paper>
                     <Chart
