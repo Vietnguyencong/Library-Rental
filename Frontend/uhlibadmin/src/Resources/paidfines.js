@@ -46,7 +46,7 @@ export const FinesCreate = (props) => (
         <SimpleForm>
         <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                <ReferenceInput source="user_id" reference="users" >
+                <ReferenceInput source="users_id" reference="users" >
                         <AutocompleteInput optionText="first_name" fullWidth/>
                         </ReferenceInput>
                     <TextInput source="description" fullWidth/>
