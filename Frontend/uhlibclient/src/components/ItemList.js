@@ -22,6 +22,7 @@ class ItemList extends React.Component {
 
     render() {
         const {products} = this.state;
+        const filtered_products = this.props.context.items
         // console.log('props are ',JSON.stringify(this.props));
     //    return <p>{this.state.products.map(product => <p>{product.title}</p>)}</p>
     return (
@@ -34,8 +35,8 @@ class ItemList extends React.Component {
           <br />
           <div className="container">
             <div className="column columns is-multiline">
-              {products && products.length ? (
-                products.map((product, index) => (
+              { filtered_products && filtered_products.length ? (
+                filtered_products.map((product, index) => (
                   <Item
                     item={product}
                     key={index}

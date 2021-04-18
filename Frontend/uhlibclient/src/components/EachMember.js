@@ -46,7 +46,7 @@ class Members extends React.Component {
                 <div class="column">
                     <div class="ui fluid card">
                     <div class="image">
-                        <img src="https://semantic-ui.com/images/avatar/large/elliot.jpg"/>
+                        <img src="https://semantic-ui.com/images/avatar/large/christian.jpg"/>
                     </div>
                     <div class="content">
                         <a class="header">Minh</a>

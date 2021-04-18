@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Switch, Route, Link, BrowserRouter as Router } from "react-router-dom";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav} from "react-bootstrap";
 
 
 
@@ -13,7 +13,7 @@ import Login from './components/Login';
 import ItemList from './components/ItemList';
 import Notification from './components/Notification'
 import Context from "./Context";
-
+import Searchbar from './components/Search/Searchbar'
 //axios.defaults.baseURL = 'http://localhost';
 
 
@@ -48,13 +48,14 @@ export default class App extends Component {
     user = user ? JSON.parse(user) : null;
     cart = cart? JSON.parse(cart) : {};
    // this.setState({ user });
-   //console.log("THIS IS THE USER", user)
+   console.log("THIS IS THE USER", user)
     if(user){
       const items = await axios.get('https://uhlib.cc/api/items/allitems');
       this.setState({ user,  items: items.data, cart });
       console.log(items);
     }
     this.getNotification()
+    this.submitSearchForm("")
   }
 
   login = async (email, password) => {
@@ -186,12 +187,18 @@ export default class App extends Component {
   };
 
   getNotification = async () =>{
-    // fetch notification for users 
     if(this.state.user){
+    // fetch notification for users 
     const url = `https://uhlib.cc/api/notifications/user/${this.state.user.user_id}`
     const notis = await axios(url)
-    this.setState({notiCount:notis.data.length, list_noti:notis.data })
-    }
+    this.setState({notiCount:notis.data.length, list_noti:notis.data })}
+  }
+  submitSearchForm = async (term) => {
+    const url = `https://uhlib.cc/api/items/getall?filter={"title":"${term}"}`
+    const filtered_items = await axios.get(url)
+    // return filtered_items.data
+    console.log("THIS IS THE DATA:", filtered_items.data)
+    this.setState({items: filtered_items.data})
   }
   render() {
     return (
@@ -208,76 +215,14 @@ export default class App extends Component {
         <Router ref={this.routerRef}>
         <div className="App">
 
-          
-          
-          
-          
-          
-          {/* <nav
-            className="navbar navbar-default"
-            role="navigation"
-            aria-label="main navigation"
-          >
-            <div className="navbar-brand">
-              <b className="navbar-item is-size-4 ">ecommerce</b>
-              <label
-                role="button"
-                class="navbar-burger burger"
-                aria-label="menu"
-                aria-expanded="false"
-                data-target="navbarBasicExample"
-                onClick={e => {
-                  e.preventDefault();
-                  this.setState({ showMenu: !this.state.showMenu });
-                }}
-              >
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </label>
-            </div>
-              <div className={`navbar-menu ${
-                  this.state.showMenu ? "is-active" : ""
-                }`}>
-                <Link to="/products" className="navbar-item">
-                  Products
-                </Link>
-                {this.state.user && this.state.user.accessLevel < 1 && (
-                  <Link to="/add-product" className="navbar-item">
-                    Add Product
-                  </Link>
-                )}
-                <Link to="/cart" className="navbar-item">
-                  Cart
-                  <span
-                    className="tag is-primary"
-                    style={{ marginLeft: "5px" }}
-                  >
-                    { Object.keys(this.state.cart).length }
-                  </span>
-                </Link>
-                {!this.state.user ? (
-                  <Link to="/login" className="navbar-item">
-                    Login
-                  </Link>
-                ) : (
-                  <Link to="/" onClick={this.logout} className="navbar-item">
-                    Logout
-                  </Link>
-                )}
-              </div>
-            </nav> */}
-            
-            
-
-  
   <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}  >
-    <Navbar.Brand href="/home"><img
+    <Navbar.Brand href="/home" style={{margin:"5px"}}><img
     src="https://apps.lib.uh.edu/uh-elements/secondary-logo.svg"
     alt="logo"
     width="250" /></Navbar.Brand>
-    <Nav className="mr-auto">
-      <Nav.Link href="/home" className={{margin:"14px"}}>Home</Nav.Link>
+    <Nav className="mr-auto" style={{marginTop: "10px"}}>
+
+      <Nav.Link href="/home">Home</Nav.Link>
      
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
@@ -287,20 +232,10 @@ export default class App extends Component {
       </div>
       </Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
-      
      
-      
-      {/* <Link to="/" onClick={this.logout} className="navbar-item">
-                    Logout
-                  </Link>       */}
-
     </Nav>
-    <Form inline>
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-light">Search</Button>
-    </Form>
+    <Searchbar submitSearchForm={this.submitSearchForm}/>
   </Navbar>
-
             <Switch>
               <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={Login} />
