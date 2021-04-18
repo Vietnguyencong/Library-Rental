@@ -37,7 +37,8 @@ export default class App extends Component {
       cart: {},
       products: [],
       notiCount : 0,
-      list_noti :[]
+      list_noti :[], 
+      search_content:""
     };
     this.routerRef = React.createRef();
   }
@@ -270,22 +271,22 @@ export default class App extends Component {
 
   
   <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}  >
-    <Navbar.Brand href="/home"><img
+    <Navbar.Brand href="/home" style={{margin:"5px"}}><img
     src="https://apps.lib.uh.edu/uh-elements/secondary-logo.svg"
     alt="logo"
     width="250" /></Navbar.Brand>
-    <Nav className="mr-auto">
-      <Nav.Link href="/home" className={{margin:"14px"}}>Home</Nav.Link>
+    <Nav className="mr-auto" style={{marginTop: "10px"}}>
+
+      <Nav.Link href="/home">Home</Nav.Link>
      
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
-      <Nav.Link href="/items">Items</Nav.Link>
-      <Nav.Link href="/notifcations">
-      <div class="ui label">
-        <i class="mail icon"></i> {this.state.notiCount}
-      </div>
-      </Nav.Link>
+      <Nav.Link href="/items" >Items</Nav.Link>
+      <Nav.Link href="/notifcations" >
+        <div class="ui label">
+          <i class="mail icon"></i> {this.state.notiCount}
+        </div>
+      </Nav.Link> 
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
-      
      
       
       {/* <Link to="/" onClick={this.logout} className="navbar-item">
@@ -298,7 +299,6 @@ export default class App extends Component {
       <Button variant="outline-light">Search</Button>
     </Form>
   </Navbar>
-
             <Switch>
               <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={Login} />

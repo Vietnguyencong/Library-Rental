@@ -30,7 +30,7 @@ const Cart = props => {
                 <button
                   onClick={props.context.clearCart}
                   className="button is-warning "
-                >
+              >
                   Clear cart
                 </button>{" "}
                 <button
