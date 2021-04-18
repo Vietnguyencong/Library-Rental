@@ -15,10 +15,17 @@ class  Library extends React.Component {
   }
   render () {
     return <div class="ui unstackable items"> 
+<<<<<<< HEAD
         {this.state.libraries.slice(0,5).map((item)=>{
             return (
                 <div class="item">
                     <div class="image"><img src="" alt="image right here"></img></div>
+=======
+        {this.state.libraries.map((item)=>{
+            return (
+                <div class="item">
+                    <div class="image">image righr here</div>
+>>>>>>> ab009f6a3972505bb340519e53c18656e4c784d8
                     <div class="content">
                         <a class="header">{item.name}</a>
                         <div class="meta">

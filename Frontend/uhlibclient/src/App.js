@@ -37,8 +37,7 @@ export default class App extends Component {
       cart: {},
       products: [],
       notiCount : 0,
-      list_noti :[], 
-      search_content:""
+      list_noti :[]
     };
     this.routerRef = React.createRef();
   }
@@ -187,10 +186,11 @@ export default class App extends Component {
   };
 
   getNotification = async () =>{
+    if(this.state.user){
     // fetch notification for users 
     const url = `https://uhlib.cc/api/notifications/user/${this.state.user.user_id}`
     const notis = await axios(url)
-    this.setState({notiCount:notis.data.length, list_noti:notis.data })
+    this.setState({notiCount:notis.data.length, list_noti:notis.data })}
   }
   render() {
     return (
@@ -280,12 +280,12 @@ export default class App extends Component {
       <Nav.Link href="/home">Home</Nav.Link>
      
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
-      <Nav.Link href="/items" >Items</Nav.Link>
-      <Nav.Link href="/notifcations" >
-        <div class="ui label">
-          <i class="mail icon"></i> {this.state.notiCount}
-        </div>
-      </Nav.Link> 
+      <Nav.Link href="/items">Items</Nav.Link>
+      <Nav.Link href="/notifcations">
+      <div class="ui label">
+        <i class="mail icon"></i> {this.state.notiCount}
+      </div>
+      </Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
      
       

@@ -4,14 +4,17 @@ const Item = props => {
   const { item } = props;
 
   const convertBolbToImage = (imgareBlob)=>{
+    console.log("image in ", imgareBlob);
     if(imgareBlob){
       console.log("image in ", imgareBlob);
-      var arryIn =new Uint8Array(imgareBlob);
-      var blob = new Blob([imgareBlob], {type: "image/jpeg"})
+      // var arryIn =new Uint8Array(imgareBlob);
+//      var blob = new Blob([imgareBlob], {type: "image/jpeg"})
       let create =   window.URL || window.webkitURL
-      var imagre = create.createObjectURL(blob)
-      console.log("image out", imagre);
-      // console.log("img: ", imgareBlob);
+      // var imagre = create.createObjectURL(blob)
+      // console.log("image out", imagre);
+      //var blob = new Blob([imgareBlob], {type: "image/jpeg"})
+      var imagre = window.URL.createObjectURL(imgareBlob)
+      // console.log("img: ", imagre);
       return imagre;
     }   
   }
@@ -32,11 +35,11 @@ const Item = props => {
       <div className="box">
         <div className="media">
           <div className="media-left">
-            <figure className="image is-64x64">
-              <img
+            <figure className="image is-64x64e" style={{ height: "200px"}}>
+              {/* <img
                 src="https://bulma.io/images/placeholders/128x128.png"
                 alt={item.item_type}
-              />
+              /> */}
               {/* <img
                 src={convertBolbToImage(item.image)}
                 alt={item.item_type}
@@ -45,10 +48,10 @@ const Item = props => {
                 source={{uri: item.image.data}}
                 alt={item.item_type}
               /> */}
-              {/* <img
-                src={URL.createObjectURL(item.image)}
+              <img
+                src={item.imageLink}
                 alt={item.item_type}
-              /> */}
+              />
             </figure>
           </div>
           <div className="media-content">
