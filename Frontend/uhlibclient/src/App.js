@@ -186,10 +186,11 @@ export default class App extends Component {
   };
 
   getNotification = async () =>{
+    if(this.state.user){
     // fetch notification for users 
     const url = `https://uhlib.cc/api/notifications/user/${this.state.user.user_id}`
     const notis = await axios(url)
-    this.setState({notiCount:notis.data.length, list_noti:notis.data })
+    this.setState({notiCount:notis.data.length, list_noti:notis.data })}
   }
   render() {
     return (
