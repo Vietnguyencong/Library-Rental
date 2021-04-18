@@ -216,69 +216,6 @@ export default class App extends Component {
         <Router ref={this.routerRef}>
         <div className="App">
 
-          
-          
-          
-          
-          
-          {/* <nav
-            className="navbar navbar-default"
-            role="navigation"
-            aria-label="main navigation"
-          >
-            <div className="navbar-brand">
-              <b className="navbar-item is-size-4 ">ecommerce</b>
-              <label
-                role="button"
-                class="navbar-burger burger"
-                aria-label="menu"
-                aria-expanded="false"
-                data-target="navbarBasicExample"
-                onClick={e => {
-                  e.preventDefault();
-                  this.setState({ showMenu: !this.state.showMenu });
-                }}
-              >
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </label>
-            </div>
-              <div className={`navbar-menu ${
-                  this.state.showMenu ? "is-active" : ""
-                }`}>
-                <Link to="/products" className="navbar-item">
-                  Products
-                </Link>
-                {this.state.user && this.state.user.accessLevel < 1 && (
-                  <Link to="/add-product" className="navbar-item">
-                    Add Product
-                  </Link>
-                )}
-                <Link to="/cart" className="navbar-item">
-                  Cart
-                  <span
-                    className="tag is-primary"
-                    style={{ marginLeft: "5px" }}
-                  >
-                    { Object.keys(this.state.cart).length }
-                  </span>
-                </Link>
-                {!this.state.user ? (
-                  <Link to="/login" className="navbar-item">
-                    Login
-                  </Link>
-                ) : (
-                  <Link to="/" onClick={this.logout} className="navbar-item">
-                    Logout
-                  </Link>
-                )}
-              </div>
-            </nav> */}
-            
-            
-
-  
   <Navbar variant="dark" style={{backgroundColor: "#c8102e"}}  >
     <Navbar.Brand href="/home" style={{margin:"5px"}}><img
     src="https://apps.lib.uh.edu/uh-elements/secondary-logo.svg"
@@ -297,11 +234,6 @@ export default class App extends Component {
       </Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
      
-      
-      {/* <Link to="/" onClick={this.logout} className="navbar-item">
-                    Logout
-                  </Link>       */}
-
     </Nav>
     <Searchbar submitSearchForm={this.submitSearchForm}/>
   </Navbar>
