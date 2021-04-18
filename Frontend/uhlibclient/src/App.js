@@ -89,6 +89,7 @@ export default class App extends Component {
   
       this.setState({ user });
       localStorage.setItem("user", JSON.stringify(user));
+      this.submitSearchForm("")
       return true;
     } else {
       return false;

@@ -13,17 +13,17 @@ class MainContent extends React.Component {
       mainindex : 0 
     }
  
-    componentDidUpdate(preprops){
-        if (preprops.index !== this.state.mainindex){
-            this.setState({mainindex: preprops.index})
-        }
-    }
+    // componentDidUpdate(preprops){
+    //     if (preprops.index !== this.state.mainindex){
+    //         this.setState({mainindex: preprops.index})
+    //     }
+    // }
     render (){
-        const {mainindex} = this.state
+        const index = this.props.index
     return (
         <div  class="twelve wide stretched column">
         <div class="ui segment" >
-          {this.state.content[mainindex]}
+          {this.state.content[index]}
         </div>
       </div>
     )
