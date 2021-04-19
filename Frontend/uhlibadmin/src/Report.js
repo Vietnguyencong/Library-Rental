@@ -198,7 +198,7 @@ useEffect(() =>{
                 </div>
               </div >
 
-<Paper style={{margin: '4px', padding: '6px'}}>
+<Paper>
             <Grid container direction="row" justify="center" alignItems="center">
                 {/* <Grid item className="" xs={12}>
                     <Paper >
@@ -550,6 +550,8 @@ function TabPanel(props) {
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
               />
+
+              <Paper>
               <div class="ui placeholder segment">
                 <div class="ui two column stackable center aligned grid">
                   <div class="ui vertical divider">And</div>
@@ -653,6 +655,7 @@ function TabPanel(props) {
                   legendToggle
                 />
                 </div>
+                </Paper>
               </div>
           </div>
         )
