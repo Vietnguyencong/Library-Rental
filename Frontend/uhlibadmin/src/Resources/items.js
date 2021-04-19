@@ -35,8 +35,8 @@ export const ItemList = props => (
             <NumberField source="is_available" />
             <TextField source="item_type" />
             <TextField source="library_id" />
-            <DateField source="created_by" />
-            <DateField source="updated_by" />
+            {/* <DateField source="created_by" /> */}
+            {/* <DateField source="updated_by" /> */}
             <DateField source="created_at" />
             <DateField source="updated_at" />
             {/* <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
@@ -81,7 +81,7 @@ export const ItemEdit = (props) =>(
     <SimpleForm>
            <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                    <Typography variant="h6" gutterBottom>New Library Item</Typography>
+                    <Typography variant="h6" gutterBottom>Edit Library Item</Typography>
                     <TextInput source="title" fullWidth />
                     <RadioButtonGroupInput source="item_type" choices={[
                     { id: 'Book', name: 'Book' },

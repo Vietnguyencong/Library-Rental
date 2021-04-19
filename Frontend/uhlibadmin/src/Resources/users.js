@@ -8,11 +8,11 @@ import { TabbedShowLayout, Tab } from 'react-admin'
 
 const UserFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Serch by city" source="city" alwaysOn />
-        <TextInput label="Serch by state" source="state" alwaysOn />
-        <TextInput label="Serch by first name" source="first_name"  />
-        <TextInput label="Serch by last name" source="last_name"  />
-        <TextInput label="Serch by email_address name" source="email_address"  />
+        <TextInput label="Search by city" source="city" alwaysOn />
+        <TextInput label="Search by state" source="state" alwaysOn />
+        <TextInput label="Search by first name" source="first_name"  />
+        <TextInput label="Search by last name" source="last_name"  />
+        <TextInput label="Search by email_address name" source="email_address"  />
         {/* <ReferenceInput label="User" source="id" reference="users" allowEmpty>
             <SelectInput optionText="first_name" />
         </ReferenceInput> */}

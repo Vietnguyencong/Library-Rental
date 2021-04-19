@@ -26,13 +26,13 @@ class  Home extends React.Component {
             <div class=" four wide column">
               <div class="ui vertical fluid tabular menu">
                 <a  class={this.state.active == 0 ? "item active": "item"} onClick={e=> this.handleClick(0)}>
-                  Bio
+                  Project
                 </a>
                 <a class={this.state.active == 1 ? "item active": "item"} onClick={e=> this.handleClick(1)} >
-                  Pics
+                  Powered by
                 </a>
                 <a class={this.state.active == 2 ? "item active": "item"} onClick={e=> this.handleClick(2)}>
-                  Companies
+                  Thanks
                 </a>
                 <a class={this.state.active == 3 ? "item active": "item"} onClick={e=> this.handleClick(3)}>
                   Links

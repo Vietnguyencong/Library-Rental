@@ -125,53 +125,10 @@ useEffect(() =>{
             </Tabs>
         </AppBar>
         <TabPanel value={value} onChange={handleChange} index={0}>
-            Item One
+            {/* Item One */}
 
-
-            <Grid container direction="row" justify="center" alignItems="center">
-                <Grid item className="" xs={12}>
-                    <Paper >
-                        <h1>Report  { moment(selectedDate).format("yyyy-MM-DD")} to { moment(selectedDate2).format("yyyy-MM-DD")}</h1>
-                        
-                    </Paper>
-                </Grid>
-                <Grid item className="" xs={12}>
-                    <Paper >
-                        <h3>Registered users: {noOfUser.count} </h3>
-                        <h3>Number of loans: {noOfLoans.data}</h3>
-                        <h3>Items breakdown </h3>
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper>
-                    <Chart
-                            width={'500px'}
-                            height={'300px'}
-                            chartType="PieChart"
-                            loader={<div>Loading Chart</div>}
-                            data={pieData}
-                            options={{
-                                title: 'Items in libary',
-                                is3D: true
-                            }}
-                            rootProps={{ 'data-testid': '1' }}
-                            />
-                    </Paper>
-                </Grid>
-                <Grid item xs={6}>
-                    <Paper style={{ height: "290px", margin: '4px', padding: '6px'}}>
-                    {/* { pieData && pieData.map(item => { return <p>{JSON.stringify(item)}</p>                      })} */}
-                      { pieData && pieData.map(item => { return <p>{`${item[0]} : ${item[1]}`}</p>                      })}
-                      {/* {pieData !=null && pieData.map(item => { return<p>{`${item[0]} ${item[1]} `}</p>                     })} */}
-                    </Paper>
-                </Grid>
-
-
-                        
-        </Grid>
-
-
- {/* Date picker  */}
+            <div class="ui center aligned basic segment">
+              {/* Date picker  */}
 
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
@@ -211,6 +168,120 @@ useEffect(() =>{
         </MuiPickersUtilsProvider>    
 
     {/* Date picker  */}
+              </div>
+
+
+              <div class="ui placeholder segment">
+                <div class="ui two column stackable center aligned grid">
+                  <div class="ui vertical divider">And</div>
+                  <div class="middle aligned row">
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="user plus icon"></i>
+                        REGISTERED USERS: {noOfUser.count}
+                      </div>
+                      <div class="field">
+                        <div class="ui search">
+                          
+                          <div class="results"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="chart bar icon"></i>
+                        TOTAL LOANS : {noOfLoans.data}
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div >
+
+<Paper style={{margin: '4px', padding: '6px'}}>
+            <Grid container direction="row" justify="center" alignItems="center">
+                {/* <Grid item className="" xs={12}>
+                    <Paper >
+                        <h1>Report  { moment(selectedDate).format("yyyy-MM-DD")} to { moment(selectedDate2).format("yyyy-MM-DD")}</h1>
+                        
+                    </Paper>
+                </Grid> */}
+                <Grid item xs={12}>
+                    {/* <Paper > */}
+                        {/* <h3>Registered users: {noOfUser.count} </h3>
+                        <h3>Number of loans: {noOfLoans.data}</h3>
+                        <h3>Items breakdown </h3> */}
+                    {/* </Paper> */}
+                </Grid>
+                <Grid item xs={6}>
+                    {/* <Paper> */}
+                    <Chart
+                            width={'500px'}
+                            height={'300px'}
+                            chartType="PieChart"
+                            loader={<div>Loading Chart</div>}
+                            data={pieData}
+                            options={{
+                                title: 'Items in libary',
+                                is3D: true
+                            }}
+                            rootProps={{ 'data-testid': '1' }}
+                            />
+                    {/* </Paper> */}
+                </Grid>
+                <Grid item xs={6}>
+                    <div style={{ height: "290px", margin: '4px', padding: '6px'}}>
+                    {/* { pieData && pieData.map(item => { return <p>{JSON.stringify(item)}</p>                      })} */}
+                      { pieData && pieData.map(item => { return <p style={{margin: '0px', padding: '0px'}}>{`${item[0]} : ${item[1]}`}</p>                      })}
+                      {/* {pieData !=null && pieData.map(item => { return<p>{`${item[0]} ${item[1]} `}</p>                     })} */}
+                    </div>
+                </Grid>
+
+
+                        
+        </Grid>
+        </Paper>
+
+ {/* Date picker  */}
+{/* 
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Date picker inline"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+
+        </MuiPickersUtilsProvider>
+  */}
+
+
+ 
+{/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+<KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Date picker inline"
+          value={selectedDate2}
+          onChange={handleDateChange2}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+        />
+        </MuiPickersUtilsProvider>    
+
+    Date picker  */}
 
 </TabPanel>
         <TabPanel value={value} onChange={handleChange} index={1}>
@@ -218,59 +289,10 @@ useEffect(() =>{
            
 </TabPanel>
 <TabPanel value={value} onChange={handleChange} index={2}>
-        <Paper>
-            Item Three
-            <Grid item xs={12}>
 
-                    <h3>Total number of employees: {noOfEmployees.data} </h3>
-                
-            </Grid>
-            <Grid item xs={12}>
-                        <h3>Average hourly rate: ${avgHourly.data} </h3>
-                  
-                </Grid>
-            <Grid item xs={12}>
-              
-                    <h3>Average annual wage: ${avgAnnual.data} </h3>
-             
-            </Grid>
-            <Grid item xs={12}>
-     
-            <Chart
-              width={'500px'}
-              height={'300px'}
-              chartType="Bar"
-              loader={<div>Loading Chart</div>}
-              data={BarData}
-              options={{
-                chart: {
-                  title: 'Each Library Information',
-                  subtitle: 'Showing employees and transactions of each library by it\'s ID',
-                },
-              }}
-              rootProps={{ 'data-testid': '2' }}
-            />
-     
-            </Grid>
-            <Grid item xs={12}>
-      
-                    <Chart
-                            width={'500px'}
-                            height={'300px'}
-                            chartType="PieChart"
-                            loader={<div>Loading Chart</div>}
-                            data={EpieData}
-                            options={{
-                                title: 'Type of Employees',
-                                is3D: true
-                            }}
-                            rootProps={{ 'data-testid': '3' }}
-                            />
-        
-                 
-                </Grid>
-                </Paper>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+<div class="ui center aligned basic segment">
+              {/* Date picker  */}
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
           disableToolbar
           variant="inline"
@@ -306,6 +328,105 @@ useEffect(() =>{
           }}
         />
         </MuiPickersUtilsProvider>  
+ 
+              </div>
+
+
+              <div class="ui placeholder segment">
+                <div class="ui three column stackable center aligned grid">
+                  {/* <div class="ui vertical divider">And</div> */}
+
+                  <div class="middle aligned row">
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="users icon"></i>
+                        NUMBER OF EMPLOYEES: {noOfEmployees.data}
+                      </div>
+                      <div class="field">
+                        <div class="ui search">
+                          
+                          <div class="results"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="dollar sign icon"></i>
+                        AVERAGE HOURLY RATE : ${avgHourly.data}
+                      </div>
+                    </div>
+
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="money bill alternate outline icon"></i>
+                        AVERAGE ANNUAL SALARY : ${avgAnnual.data}
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div >
+
+      
+        <Paper  style={{margin: '4px', padding: '6px'}}>
+            {/* Item Three */}
+           
+            {/* <Grid item xs={12}>
+
+                    <h3>Total number of employees: {noOfEmployees.data} </h3>
+                
+            </Grid>
+            <Grid item xs={12}>
+                        <h3>Average hourly rate: ${avgHourly.data} </h3>
+                  
+                </Grid>
+            <Grid item xs={12}>
+              
+                    <h3>Average annual wage: ${avgAnnual.data} </h3>
+             
+            </Grid> */}
+            <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={6}>
+     
+            <Chart
+              width={'500px'}
+              height={'300px'}
+              chartType="Bar"
+              loader={<div>Loading Chart</div>}
+              data={BarData}
+              options={{
+                chart: {
+                  title: 'Each Library Information',
+                  subtitle: 'Showing employees and transactions of each library by it\'s ID',
+                },
+              }}
+              rootProps={{ 'data-testid': '2' }}
+            />
+     
+            </Grid>
+            <Grid item xs={6}>
+      
+                    <Chart
+                            width={'500px'}
+                            height={'300px'}
+                            chartType="PieChart"
+                            loader={<div>Loading Chart</div>}
+                            data={EpieData}
+                            options={{
+                                title: 'Type of Employees',
+                                is3D: true
+                            }}
+                            rootProps={{ 'data-testid': '3' }}
+                            />
+        
+                 
+                </Grid>
+                </Grid>
+                </Paper>
+                
 </TabPanel>
 
     </div>;

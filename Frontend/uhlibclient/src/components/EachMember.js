@@ -11,9 +11,9 @@ class Members extends React.Component {
                        <img class="hidden content" src="https://drive.google.com/uc?id=19j6jzey729IKKOZs8-Vcwz01-kskFbW_"/> 
                     </div>
                     <div class="content">
-                        <a class="header">Issac</a>
+                        <a class="header">Isaac</a>
                         <div classs="description">
-                            this is my description 
+                            "This is my description" 
                         </div>
                     </div>
                     </div>
@@ -27,7 +27,7 @@ class Members extends React.Component {
                     <div class="content">
                         <a class="header">Aiden</a>
                         <div classs="description">
-                            this is my desciption
+                        "There is no Ctrl-Z in life."
                         </div>
                     </div>
                     </div>
