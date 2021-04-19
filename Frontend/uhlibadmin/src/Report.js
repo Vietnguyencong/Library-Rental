@@ -430,106 +430,109 @@ function TabPanel(props) {
                 endDate={this.state.endDate}
               />
               <div class="ui placeholder segment">
-              <div class="ui two column stackable center aligned grid">
-                <div class="ui vertical divider">And</div>
-                <div class="middle aligned row">
-                  <div class="column">
-                    <div class="ui icon header">
-                      <i class="search icon"></i>
-                      TOTAL TRANSACTIONS: {this.state.summary.count}
-                    </div>
-                    <div class="field">
-                      <div class="ui search">
-                        
-                        <div class="results"></div>
+                <div class="ui two column stackable center aligned grid">
+                  <div class="ui vertical divider">And</div>
+                  <div class="middle aligned row">
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="search icon"></i>
+                        TOTAL TRANSACTIONS: {this.state.summary.count}
+                      </div>
+                      <div class="field">
+                        <div class="ui search">
+                          
+                          <div class="results"></div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="column">
-                    <div class="ui icon header">
-                      <i class="dollar sign icon"></i>
-                      TOTAL REVENUE : {this.state.summary.total}
+                    <div class="column">
+                      <div class="ui icon header">
+                        <i class="dollar sign icon"></i>
+                        TOTAL REVENUE : {this.state.summary.total.toFixed()}
+                      </div>
+                      
                     </div>
-                    
                   </div>
                 </div>
+              </div >
+              <div class="ui two column centered grid" style={{margin:"20px"}}>
+                <div></div>
+                <Chart
+                  width={500}
+                  height={'300px'}
+                  chartType="AreaChart"
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ["date_label", "count"],...this.state.data_count]
+                  }
+                  options={{
+                    title: 'TRANSACTION_COUNT',
+                    hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                    vAxis: { minValue: 0 },
+                    chartArea: { width: '70%', height: '70%' },
+                  }}
+                />
+                <Chart
+                  width={500}
+                  height={300}
+                  chartType="ColumnChart"
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ["date_label", "count"],...this.state.data_count]
+                  }
+                  options={{
+                    title: 'count',
+                    chartArea: { width: '70%' },
+                    hAxis: {
+                      title: 'Total Population',
+                      minValue: 0,
+                    },
+                    vAxis: {
+                      title: 'Count',
+                    },
+                  }}
+                  legendToggle
+                />
+                <Chart
+                  width={500}
+                  height={'300px'}
+                  chartType="AreaChart"
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ["date_label", "Revenue"],...this.state.data_rev]
+                  }
+                  options={{
+                    title: 'REVENUES',
+                    hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
+                    vAxis: { minValue: 0 },
+                    // For the legend to fit, we make the chart area smaller
+                    chartArea: { width: '70%', height: '70%' },
+                    // lineWidth: 25
+                  }}
+                />
+                <Chart
+                  width={500}
+                  height={300}
+                  chartType="ColumnChart"
+                  loader={<div>Loading Chart</div>}
+                  data={[
+                    ["date_label", "count"],...this.state.data_rev]
+                  }
+                  options={{
+                    title: 'revuenues',
+                    chartArea: { width: '70%' },
+                    hAxis: {
+                      title: 'Total Population',
+                      minValue: 0,
+                    },
+                    vAxis: {
+                      title: 'Revenues',
+                    },
+                  }}
+                  legendToggle
+                />
+                </div>
               </div>
-            </div>
-              <Chart
-                width={800}
-                height={'300px'}
-                chartType="AreaChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["date_label", "count"],...this.state.data_count]
-                }
-                options={{
-                  title: 'TRANSACTION_COUNT',
-                  hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-                  vAxis: { minValue: 0 },
-                  chartArea: { width: '70%', height: '70%' },
-                }}
-              />
-              <Chart
-                width={800}
-                height={300}
-                chartType="ColumnChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["date_label", "count"],...this.state.data_count]
-                }
-                options={{
-                  title: 'count',
-                  chartArea: { width: '70%' },
-                  hAxis: {
-                    title: 'Total Population',
-                    minValue: 0,
-                  },
-                  vAxis: {
-                    title: 'Count',
-                  },
-                }}
-                legendToggle
-              />
-              <Chart
-                width={800}
-                height={'300px'}
-                chartType="AreaChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["date_label", "Revenue"],...this.state.data_rev]
-                }
-                options={{
-                  title: 'REVENUES',
-                  hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
-                  vAxis: { minValue: 0 },
-                  // For the legend to fit, we make the chart area smaller
-                  chartArea: { width: '70%', height: '70%' },
-                  // lineWidth: 25
-                }}
-              />
-              <Chart
-                width={800}
-                height={300}
-                chartType="ColumnChart"
-                loader={<div>Loading Chart</div>}
-                data={[
-                  ["date_label", "count"],...this.state.data_rev]
-                }
-                options={{
-                  title: 'revuenues',
-                  chartArea: { width: '70%' },
-                  hAxis: {
-                    title: 'Total Population',
-                    minValue: 0,
-                  },
-                  vAxis: {
-                    title: 'Revenues',
-                  },
-                }}
-                legendToggle
-              />
-            </div>
           </div>
         )
       }
@@ -540,7 +543,7 @@ function TabPanel(props) {
       const {startDate, endDate, fetch_url1, fetch_url2} = props
       
       return (
-        <div>
+        <div >
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             disableToolbar
