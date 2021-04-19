@@ -151,7 +151,7 @@ export default class App extends Component {
         console.log('success')
         axios.put(
           `https://uhlib.cc/api/transactions/${transaction_id}`,
-          { "is_commit" : 1,
+          { "is_commit" : true,
             "user_id": user_id },
         ).then(response =>{
           console.log("response ", response.status);

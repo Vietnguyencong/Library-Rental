@@ -82,13 +82,13 @@ update = async (req,res, next) =>{
         var is_commit = req.body.is_commit
         if (is_commit == true) is_commit = 1 
         else is_commit = 0
-        const date_created =  req.body.date_created.split("T")[0]
+        // const date_created =  req.body.date_created.split("T")[0]
         // const updated_at = req.body.updated_at
 
         const query = `UPDATE TRANSACTION
-        SET user_id = ?, is_commit =?, date_created = ?
+        SET user_id = ?, is_commit =?
         WHERE transaction_id = ?; `
-        const data =[ user_id , is_commit, date_created, id ] 
+        const data =[ user_id , is_commit, id ] 
     
         const message = await db.promisePool.query(query, data)
         return res.json(message)
