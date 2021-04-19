@@ -58,7 +58,7 @@ export const TransactionEdit = props => (
                     <NumberInput disabled source="total_price"></NumberInput>
                     <NumberInput disabled source="total_quantity"></NumberInput>
                     <TextInput disabled source="transaction_id" fullWidth ></TextInput>
-                    <DateInput  source="date_created" fullWidth />
+                    <DateInput disabled source="date_created" fullWidth />
                     <DateTimeInput disabled source="updated_at" fullWidth/>
                 </Grid>
                 <Grid item xs={6}>
