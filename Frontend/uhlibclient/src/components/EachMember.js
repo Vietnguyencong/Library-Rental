@@ -69,7 +69,7 @@ class Members extends React.Component {
                     <div class="content">
                         <a class="header">Viet</a>
                         <div classs="description">
-                            this is my description
+                            "Niceee. This is solid!"
                         </div>
                     </div>
                     </div>
