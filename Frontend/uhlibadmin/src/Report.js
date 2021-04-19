@@ -587,7 +587,7 @@ function TabPanel(props) {
                     ["date_label", "count"],...this.state.data_count]
                   }
                   options={{
-                    title: 'TRANSACTION_COUNT',
+                    title: 'TRANSACTION COUNT',
                     hAxis: { title: 'Day', titleTextStyle: { color: '#333' } },
                     vAxis: { minValue: 0 },
                     chartArea: { width: '70%', height: '70%' },
@@ -602,7 +602,7 @@ function TabPanel(props) {
                     ["date_label", "count"],...this.state.data_count]
                   }
                   options={{
-                    title: 'count',
+                    title: 'Count',
                     chartArea: { width: '70%' },
                     hAxis: {
                       title: 'Total Population',
@@ -640,7 +640,7 @@ function TabPanel(props) {
                     ["date_label", "count"],...this.state.data_rev]
                   }
                   options={{
-                    title: 'revuenues',
+                    title: 'Revenues',
                     chartArea: { width: '70%' },
                     hAxis: {
                       title: 'Total Population',

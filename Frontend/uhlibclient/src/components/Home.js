@@ -32,10 +32,10 @@ class  Home extends React.Component {
                   Powered by
                 </a>
                 <a class={this.state.active == 2 ? "item active": "item"} onClick={e=> this.handleClick(2)}>
-                  Thanks
+                  Links
                 </a>
                 <a class={this.state.active == 3 ? "item active": "item"} onClick={e=> this.handleClick(3)}>
-                  Links
+                  Thank you 
                 </a>
               </div>
             </div>

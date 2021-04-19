@@ -4,8 +4,8 @@ class MainContent extends React.Component {
     state = {
         content: {
         1: "MySQL, NodeJS, React, Blood, Sweat, Tears", 
-        2: "Dr. Ramamurthy for your teaching and guidance", 
-        3: "",
+        2: "Google", 
+        3: "Dr. Ramamurthy for your teaching and guidance",
         0: "Team 10 was assigned to create a library database. We were inspired from our actual libraries here at UH. While this semester we couldn't be there in person, we were there in spirt."
 
         },
