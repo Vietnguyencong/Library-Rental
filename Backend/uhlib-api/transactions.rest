@@ -66,4 +66,12 @@ get http://localhost:5000/api/reports/trans_total/2021-04-01/2021-04-30
 
 ### 
 get http://localhost:5000/api/libraries/all_libraries
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg3MzA2MTEsImV4cCI6MTYxODczNDIxMX0.wruu1FJG2FhBtnQava3kvWDe622pnIyEnEfiagB4YPB
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs
+
+### 
+get http://localhost:5000/api/emp_noti/getall
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs
+
+###
+get http://localhost:5000/api/emp_noti/one/53
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs
