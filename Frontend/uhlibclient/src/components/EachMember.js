@@ -75,3 +75,5 @@ class Members extends React.Component {
 }
 
 export default Members
+
+//https://myporfolio-bucket.s3.amazonaws.com/images/selfimage.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATDIOQ4ZCHCZZPCG5%2F20210418%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210418T233003Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=d85fa39f85421b325bf15b791a8f598f1395ae4a7e32d07661f8ef413b4f4081

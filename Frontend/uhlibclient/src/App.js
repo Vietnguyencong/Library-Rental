@@ -98,7 +98,7 @@ export default class App extends Component {
 
   addToCart = cartItem => {
     const {cart} = this.state;
-    
+    console.log("this is cartitem", cartItem)
     if (cart[cartItem.id]) {
       cart[cartItem.id].amount += cartItem.amount;
     } else {
