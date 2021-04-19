@@ -3,9 +3,9 @@ import React from 'react'
 class MainContent extends React.Component {
     state = {
         content: {
-        1: "MySQL, NodeJS, React, Blood, Sweat, Tears", 
-        2: "Google", 
-        3: "Dr. Ramamurthy for your teaching and guidance",
+        1: "MySQL, Node.js, React.js, Express.js, Blood, Sweat, Tears", 
+        2: "(F)acebook, (A)mazon, (A)pple, (N)etflix, (G)oogle", 
+        3: "Dr. Ramamurthy for your unbounded patience, teaching, and guidance",
         0: "Team 10 was assigned to create a library database. We were inspired from our actual libraries here at UH. While this semester we couldn't be there in person, we were there in spirt."
 
         },
