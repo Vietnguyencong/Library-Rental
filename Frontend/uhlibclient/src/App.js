@@ -129,17 +129,17 @@ export default class App extends Component {
       console.log('ts', transaction_id);
       const posts = []
       const products = this.state.items.map(p => {
-
+      
 //        console.log(JSON.stringify(cart));
-        if (cart[p.id]) {
-          p.stock = p.stock - cart[p.id].amount;
-          console.log('item ',cart[p.id], p.id);
+        if (cart[p.item_id]) {
+          p.stock = p.stock - cart[p.item_id].amount;
+          console.log('item ',cart[p.item_id], p.item_id);
 
-          console.log('data ',{ id: transaction_id, quantity: cart[p.id].amount, item_id: p.id });
+          console.log('data ',{ id: transaction_id, quantity: cart[p.item_id].amount, item_id: p.item_id });
           posts.push(
           axios.post(
             `https://uhlib.cc/api/loanitem`,
-            { transaction_id: transaction_id, quantity: cart[p.id].amount, item_id: p.id },
+            { transaction_id: transaction_id, quantity: cart[p.item_id].amount, item_id: p.item_id },
           ).then(response =>{
             console.log("response ", response.status);
           })
