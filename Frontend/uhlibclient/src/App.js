@@ -89,6 +89,7 @@ export default class App extends Component {
   
       this.setState({ user });
       localStorage.setItem("user", JSON.stringify(user));
+      this.submitSearchForm("")
       return true;
     } else {
       return false;
@@ -97,7 +98,7 @@ export default class App extends Component {
 
   addToCart = cartItem => {
     const {cart} = this.state;
-    
+    console.log("this is cartitem", cartItem)
     if (cart[cartItem.id]) {
       cart[cartItem.id].amount += cartItem.amount;
     } else {

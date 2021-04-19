@@ -6,24 +6,24 @@ class MainContent extends React.Component {
         1: "this is the content 1", 
         2: "this is the content 2", 
         3: "thisi the content 3",
-        0: "thisi the content 0"
+        0: "Team 10 was assigned to create a library database. We have gotten inspiration from our actual libraries here at UH. While this semester we couldn't be there in person, we're there in spirt. Power by: mysql, react, node, blood, sweat, tears"
 
         },
      
       mainindex : 0 
     }
  
-    componentDidUpdate(preprops){
-        if (preprops.index !== this.state.mainindex){
-            this.setState({mainindex: preprops.index})
-        }
-    }
+    // componentDidUpdate(preprops){
+    //     if (preprops.index !== this.state.mainindex){
+    //         this.setState({mainindex: preprops.index})
+    //     }
+    // }
     render (){
-        const {mainindex} = this.state
+        const index = this.props.index
     return (
         <div  class="twelve wide stretched column">
         <div class="ui segment" >
-          {this.state.content[mainindex]}
+          {this.state.content[index]}
         </div>
       </div>
     )

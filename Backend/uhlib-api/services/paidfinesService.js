@@ -16,7 +16,7 @@ async function getAll(){
     const user =  await db.query(`Select * from PAID_FINES where users_id=${users_id}`);
     const data = helper.cleanRows(user);
     let message = `Error in getting user ${users_id}`;
-    var ndata = JSON.parse(JSON.stringify(data).split('"users_id":').join('"item_id":'));
+    var ndata = JSON.parse(JSON.stringify(data).split('"users_id":').join('"loan_id":'));
     return ndata;
   }
 
@@ -33,11 +33,11 @@ async function getAll(){
   async function create(paid_fines){
     const result = await db.query(
       `INSERT INTO PAID_FINES 
-      (users_id, item_id, description, final_amount, is_paid) 
+      (users_id, loan_id, description, final_amount, is_paid) 
       VALUES 
       (?, ?, ?, ?, ?)`, 
       [
-        paid_fines.users_id, paid_fines.item_id, paid_fines.description, paid_fines.final_amount,
+        paid_fines.users_id, paid_fines.loan_id, paid_fines.description, paid_fines.final_amount,
         paid_fines.is_paid
       ]
     );
@@ -52,10 +52,10 @@ async function getAll(){
   //UPDATE EXISTING FINES BY ID
   async function update(id,req){
     const user = await db.query(`
-    UPDATE PAID_FINES SET users_id= ?, item_id=?, description=?, final_amount=?, is_paid=?
+    UPDATE PAID_FINES SET users_id= ?, loan_id=?, description=?, final_amount=?, is_paid=?
      WHERE id=?`,
      [
-      req.users_id, req.item_id, req.description, req.final_amount, req.is_paid,
+      req.users_id, req.loan_id, req.description, req.final_amount, req.is_paid,
       id, 
      ]
      );

@@ -35,7 +35,7 @@ const Item = props => {
       <div className="box">
         <div className="media">
           <div className="media-left">
-            <figure className="image is-64x64e" style={{ height: "200px"}}>
+            <figure className="image is-64x64e" style={{ height: "290px"}}>
               {/* <img
                 src="https://bulma.io/images/placeholders/128x128.png"
                 alt={item.item_type}
@@ -48,7 +48,7 @@ const Item = props => {
                 source={{uri: item.image.data}}
                 alt={item.item_type}
               /> */}
-              <img
+              <img class="pr-4"
                 src={item.imageLink}
                 alt={item.item_type}
               />
@@ -70,7 +70,7 @@ const Item = props => {
                 className="button is-small is-outlined is-primary   is-pulled-right"
                 onClick={() =>
                   props.addToCart1({
-                    id: item.id,
+                    id: item.item_id,
                     item,
                     amount: 1
                   })
