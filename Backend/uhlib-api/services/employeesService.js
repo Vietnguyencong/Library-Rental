@@ -5,7 +5,7 @@ const helper = require('../helper');
 // GET ALL / 
 async function getEmployees(){
     const rows = await db.query(
-        `SELECT * FROM EMPLOYEES;`
+        `SELECT * FROM EMPLOYEES ORDER BY first_name asc;`
     );
     const data = helper.cleanRows(rows);
     return data ;

@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ItemList from './components/ItemList';
 import Notification from './components/Notification'
+import Settings from './components/Settings'
 import Context from "./Context";
 import Searchbar from './components/Search/Searchbar'
 //axios.defaults.baseURL = 'http://localhost';
@@ -232,6 +233,7 @@ export default class App extends Component {
         <i class="mail icon"></i> {this.state.notiCount}
       </div>
       </Nav.Link>
+      <Nav.Link href="/settings">Settings</Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
      
     </Nav>
@@ -243,6 +245,7 @@ export default class App extends Component {
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/items" component={ItemList} />
               <Route exact path="/notifcations" component={Notification} />
+              <Route exact path="/settings" component={Settings} />
             </Switch>
           </div>
         </Router>

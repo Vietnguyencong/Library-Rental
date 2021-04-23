@@ -26,7 +26,7 @@ export const NotificationList = props => (
             <NumberField source="employee_id" />
             <TextField source="title" fullWidth />
             <TextField source="body" fullWidth />
-            <DateField source="created_at" fullWidth />
+            <DateField source="created_at" showTime fullWidth />
         </Datagrid>
     </List>
 );
@@ -46,7 +46,7 @@ export const NotificationShow = props => (
             Title: <TextField source="title" fullWidth />
             </Grid>
             <Grid item xs={6}>
-            Date created: <DateField source="created_at" fullWidth />
+            Created at: <DateField source="created_at" showTime />
             </Grid>
             </Grid>
         </SimpleForm>

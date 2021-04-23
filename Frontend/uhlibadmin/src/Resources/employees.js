@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, TabbedShowLayout, DateField, DateInput, TextInput, Tab } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -44,7 +44,9 @@ export const EmployeeList = props => (
             <TextField source="city" fullWidth/>
             <TextField source="state" fullWidth/>
             <TextField source="zipcode" fullWidth/>
-            <TextField source="password" fullWidth/>
+            {/*<TextField source="password" fullWidth/>*/}
+            <DateField  source= "created_at" showTime > </DateField>
+            <DateField  source= "updated_at" showTime > </DateField>
         </Datagrid>
     </List>
 );
@@ -95,6 +97,7 @@ export const EmployeeEdit = (props) =>(
                     <NumberInput source="street_number"min={0} fullWidth />
                     <TextInput source="city" fullWidth/>
                     <PasswordInput source="password" fullWidth/>
+                    <DateInput disabled source= "created_at" showTime > </DateInput>
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp; </Typography>
@@ -105,6 +108,7 @@ export const EmployeeEdit = (props) =>(
                     <NumberInput source="zipcode" min={0} fullWidth />
                     <TextInput source="street_name" fullWidth />
                     <TextInput source="state" fullWidth/>
+                    <DateInput disabled source= "updated_at" showTime > </DateInput>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -114,52 +118,26 @@ export const EmployeeEdit = (props) =>(
 
 export const EmployeeShow = props => (    
     <Edit actions={<ShowActions/>} {...props}>
-        <SimpleForm>
-            <Typography variant="h6" gutterBottom>Employee Information</Typography>
-            <Grid container spacing={1} style={{ width: "100%" }}>
-            <Grid item xs={12} sm={6}>
+        <TabbedShowLayout syncWithLocation={false}>
+            <Tab label="Summary">
             First Name: <TextField source="first_name" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Library ID: <NumberField source="library_id" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Last Name: <TextField source="last_name" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Middle Initial: <TextField source="middle_initial" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Email Address: <TextField source="email_address" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Job Title: <TextField source="job_title" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Salary: <NumberField source="salary" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Hourly Rate: <NumberField source="hourly_rate" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Street Number: <NumberField source="street_number" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Zipcode: <NumberField source="zipcode" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             City: <TextField source="city" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Street Name: <TextField source="street_name" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             Password: <TextField source="password" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
             State: <TextField source="state" />
-            </Grid>
-            </Grid>
-        </SimpleForm>
+            Created at: <DateField  source= "created_at" showTime > </DateField>
+            Updated at:<DateField  source= "updated_at" showTime > </DateField>
+           
+        </Tab>
+        </TabbedShowLayout>
     </Edit>
 )
