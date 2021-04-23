@@ -26,9 +26,9 @@ export const LoanitemList = props => (
             <NumberField source="quantity" />
             <TextField source="transaction_id" />
             <MyBooleanfield source="is_due" />
-            <DateField source="date_due" />
-            <DateField source="created_at" />
-            <DateField source="updated_at" />
+            <DateField source="date_due" showTime/>
+            <DateField source="created_at" showTime/>
+            <DateField source="updated_at" showTime/>
             {/* <TextField source="created_by" />
             <TextField source="updated_by" /> */}
         </Datagrid>
@@ -48,13 +48,13 @@ export const LoanitemEdit = props => (
                     <ReferenceInput source="item_id" reference="items" >
                         <AutocompleteInput optionText="title" fullWidth/>
                     </ReferenceInput>
-                    <DateTimeInput disabled source="date_created" fullWidth/>
+                    <DateTimeInput disabled source="created_at" showTime/>
                 </Grid>
                 <Grid item xs={6}>
                   
                     <BooleanInput source="is_due" fullWidth/>
                     <NumberInput source="quantity" fullWidth/><br></br>
-                    <DateTimeInput disabled source="updated_at" fullWidth />
+                    <DateTimeInput disabled source="updated_at" showTime />
                 </Grid>
             </Grid>
            
@@ -75,7 +75,7 @@ export const LoanitemCreate = props => (
             </ReferenceInput>
             <BooleanInput source="is_due" />
             <NumberInput source="quantity" />
-            <DateTimeInput disabled source="date_created" />
+            <DateTimeInput disabled source="created_at" />
             <DateTimeInput disabled source="updated_at" />
         </SimpleForm>
     </Create>
@@ -90,9 +90,9 @@ export const LoanitemShow = props =>{
             <NumberField source="quantity" />
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
-            <DateField source="date_due" />
-            <DateField source="created_at" />
-            <DateField source="updated_at" />
+            <DateField source="date_due" showTime/>
+            <DateField source="created_at" showTime/>
+            <DateField source="updated_at" showTime/>
     </SimpleShowLayout>
 </Show>
 }

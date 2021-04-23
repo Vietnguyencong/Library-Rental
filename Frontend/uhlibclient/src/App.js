@@ -12,6 +12,7 @@ import Cart from './components/Cart';
 import Login from './components/Login';
 import ItemList from './components/ItemList';
 import Notification from './components/Notification'
+import Settings from './components/Settings'
 import Context from "./Context";
 import Searchbar from './components/Search/Searchbar'
 //axios.defaults.baseURL = 'http://localhost';
@@ -89,6 +90,7 @@ export default class App extends Component {
   
       this.setState({ user });
       localStorage.setItem("user", JSON.stringify(user));
+      this.submitSearchForm("")
       return true;
     } else {
       return false;
@@ -97,7 +99,7 @@ export default class App extends Component {
 
   addToCart = cartItem => {
     const {cart} = this.state;
-    
+    console.log("this is cartitem", cartItem)
     if (cart[cartItem.id]) {
       cart[cartItem.id].amount += cartItem.amount;
     } else {
@@ -150,7 +152,7 @@ export default class App extends Component {
         console.log('success')
         axios.put(
           `https://uhlib.cc/api/transactions/${transaction_id}`,
-          { "is_commit" : 1,
+          { "is_commit" : true,
             "user_id": user_id },
         ).then(response =>{
           console.log("response ", response.status);
@@ -231,6 +233,7 @@ export default class App extends Component {
         <i class="mail icon"></i> {this.state.notiCount}
       </div>
       </Nav.Link>
+      <Nav.Link href="/settings">Settings</Nav.Link>
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
      
     </Nav>
@@ -242,6 +245,7 @@ export default class App extends Component {
               <Route exact path="/cart" component={Cart} />
               <Route exact path="/items" component={ItemList} />
               <Route exact path="/notifcations" component={Notification} />
+              <Route exact path="/settings" component={Settings} />
             </Switch>
           </div>
         </Router>

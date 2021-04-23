@@ -1,8 +1,8 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, ReferenceField,  Show, BooleanField, NullableBooleanInput } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, DateField, ReferenceField,  Show, BooleanField, NullableBooleanInput } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
-import { List, Datagrid, TextField, NumberInput ,AutocompleteInput, PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
+import { List, Datagrid, TextField, NumberInput ,AutocompleteInput, TabbedShowLayout, Tab, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
 const PaidFilter = (props) => (
@@ -36,6 +36,8 @@ export const PaidList = props => (
             <TextField source="description" />
             <NumberField source="final_amount" />
             <NumberField source="is_paid" />
+            {/*<DateField  source= "created_at" showTime > </DateField>
+            <DateField  source= "updated_at" showTime > </DateField> */}
         </Datagrid>
     </List>
 );
@@ -46,7 +48,7 @@ export const FinesCreate = (props) => (
         <SimpleForm>
         <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
-                <ReferenceInput source="user_id" reference="users" >
+                <ReferenceInput source="users_id" reference="users" >
                         <AutocompleteInput optionText="first_name" fullWidth/>
                         </ReferenceInput>
                     <TextInput source="description" fullWidth/>
@@ -91,26 +93,14 @@ export const FinesEdit = (props) =>(
 
 export const FinesShow = (props) => (    
     <Edit actions={<ShowActions/>} {...props}>
-        <SimpleForm>
-        <Typography variant="h6" gutterBottom>Fine Information</Typography>
-            <Grid container spacing={3} style={{ width: "100%" }}>
-                <Grid item xs={12} sm= {6}>
+               <TabbedShowLayout syncWithLocation={false}>
+            <Tab label="Summary">
                     User: <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
-                    </Grid>
-                    <Grid item xs={12} sm= {6}>
                     Loan Id: <NumberField source="loan_id"  min={0} fullWidth/>
-                    </Grid>
-                    <Grid item xs={12} sm= {6}>
                     Description: <TextField source="description" fullWidth/>
-                    </Grid>
-                    <Grid item xs={12} sm= {6}>
                     Final Amount: <NumberField source="final_amount"  min={0} fullWidth/>
-                    </Grid>
-                    <Grid item xs={12} sm= {6}>
                     Paid: <TextField source="is_paid" fullWidth/>
-                    </Grid>
-                    
-            </Grid>
-        </SimpleForm>
+        </Tab>
+        </TabbedShowLayout>
     </Edit>
 );

@@ -20,6 +20,7 @@ import CalendarViewDayOutlinedIcon from '@material-ui/icons/CalendarViewDayOutli
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AlbumIcon from '@material-ui/icons/Album';
 import PrintIcon from '@material-ui/icons/Print';
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 
 import Dashboard from './Dashboard';
 
@@ -88,7 +89,7 @@ const App = () => (
         
         {<Resource name="waitinglist" list={WaitList} show={WaitShow} icon={CalendarViewDayOutlinedIcon} edit={WaitEdit} create={WaitCreate}/>}
         
-        <Resource name="Report" list={Report} icon={LocalLibraryIcon} />
+        <Resource name="Report" list={Report} icon={AssessmentOutlinedIcon} />
 
 
     </Admin>

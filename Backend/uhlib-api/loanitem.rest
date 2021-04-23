@@ -40,10 +40,10 @@ Content-Type: application/json
 
 post http://localhost:5000/api/loanitem
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NDI4MjIsImV4cCI6MTYxODQ0NjQyMn0.RmD6_QhoRyz9EUjzMRZgUK6l_EITrxLJkUpg7-kR6l8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjI4NzMsImV4cCI6MTYxODg2NjQ3M30.kUTp5CmnhVv-fqbeDZTt7obRdnWGwYjjzIejV2E6kyI
 
 {
     "transaction_id": "1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba",
     "item_id":5,
-    "quantity":10
+    "quantity":11
 }

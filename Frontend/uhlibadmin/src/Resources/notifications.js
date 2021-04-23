@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show, DateField } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
@@ -26,6 +26,7 @@ export const NotificationList = props => (
             <NumberField source="employee_id" />
             <TextField source="title" fullWidth />
             <TextField source="body" fullWidth />
+            <DateField source="created_at" showTime fullWidth />
         </Datagrid>
     </List>
 );
@@ -43,6 +44,9 @@ export const NotificationShow = props => (
             </Grid>
             <Grid item xs={6}>
             Title: <TextField source="title" fullWidth />
+            </Grid>
+            <Grid item xs={6}>
+            Created at: <DateField source="created_at" showTime />
             </Grid>
             </Grid>
         </SimpleForm>

@@ -40,15 +40,16 @@ GET http://localhost:3000/api/transactions/view_all_items/1adfc6ff-8ad7-466b-8c5
 ### 
 put http://localhost:5000/api/transactions/1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NTU0MzUsImV4cCI6MTYxODg1OTAzNX0.9oXzJ4t3x1_GxZXV-2zBQA827jOg5RImfguU41AHa7s
 
 {
     "user_id":1, 
-    "is_commit":0 
+    "is_commit":true
 }
 ### 
 get http://localhost:5000/api/reports/trans_rev/2021-04-01/2021-04-30
 Content-Type: application/json
-# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg0NTI5MTQsImV4cCI6MTYxODQ1NjUxNH0.8SAtJQ1HDP9gTjbYtPXk6hFTpetwxAnW7TFx0HpQkvc
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NTU0MzUsImV4cCI6MTYxODg1OTAzNX0.9oXzJ4t3x1_GxZXV-2zBQA827jOg5RImfguU41AHa7s
 
 # {
 #     "startdate":"2021-04-10", 
@@ -65,4 +66,12 @@ get http://localhost:5000/api/reports/trans_total/2021-04-01/2021-04-30
 
 ### 
 get http://localhost:5000/api/libraries/all_libraries
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg3MzA2MTEsImV4cCI6MTYxODczNDIxMX0.wruu1FJG2FhBtnQava3kvWDe622pnIyEnEfiagB4YPB
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs
+
+### 
+get http://localhost:5000/api/emp_noti/getall
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs
+
+###
+get http://localhost:5000/api/emp_noti/one/53
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTg4NjYzNDcsImV4cCI6MTYxODg2OTk0N30.D6xmqyZoJkIeCe_TVBYpSv1m9-13woBnMp9VCSag4xs

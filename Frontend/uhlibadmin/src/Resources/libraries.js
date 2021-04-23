@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListButton, TopToolbar, ShowButton, ReferenceManyField, TabbedShowLayout, Tab, Show, Edit, Create, SimpleForm, List, Datagrid, TextField, EmailField, Filter, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput } from 'react-admin';
+import { ListButton, TopToolbar, ShowButton, ReferenceManyField, TabbedShowLayout, DateInput,Tab, Show, Edit, Create, SimpleForm, List, Datagrid, TextField, EmailField, Filter, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 const LibrariesFilter = (props) => (
     <Filter {...props}>
@@ -34,7 +34,8 @@ export const LibraryList = props => (
             <TextField source="name" />
             <TextField source="opening_hours" />
             <TextField source="location" />
-            
+            <DateField  source= "created_at" showTime > </DateField>
+            <DateField  source= "updated_at" showTime > </DateField>
         </Datagrid>
     </List>
 );
@@ -46,7 +47,7 @@ export const LibraryCreate = (props) => (
                     <Typography variant="h6" gutterBottom>New Library</Typography>
                     <TextInput source="name" fullWidth />  
                     <TextInput source="opening_hours" fullWidth />
-                    <TextInput source="location" fullWidth />    
+                    <TextInput source="location" fullWidth />   
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -62,6 +63,8 @@ export const LibraryEdit = (props) =>(
                         <TextInput source="name" fullWidth />  
                         <TextInput source="opening_hours" fullWidth />
                         <TextInput source="location" fullWidth />    
+                         {/*DateInput disabled source= "created_at" showTime > </DateInput> 
+                        <DateInput disabled source= "updated_at" showTime > </DateInput> */}
                 </Grid>
            </Grid>
        </SimpleForm>
@@ -75,7 +78,7 @@ export const LibraryShow = (props) => (
                 <Typography variant="h6" gutterBottom>Library</Typography>
                 <TextField source="name" fullWidth />  
                 <TextField source="opening_hours" fullWidth />
-                <TextField source="location" fullWidth />   
+                <TextField source="location" fullWidth />
             </Tab>
             <Tab label="Items">
                 <ReferenceManyField label="Items" reference="items" target="library_id">
