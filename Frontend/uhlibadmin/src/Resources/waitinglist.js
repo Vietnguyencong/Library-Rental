@@ -1,13 +1,13 @@
 import * as React from "react";
-import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField, TextInput, Show } from 'react-admin';
+import { NumberField, Filter, Create, Edit, SimpleForm, ReferenceField,DateField, TextInput, Show, DateInput } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
-import { List, Datagrid, TextField, NumberInput , PasswordInput,AutocompleteInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
+import { List, Datagrid, TextField, TabbedShowLayout , Tab,AutocompleteInput, EmailField, ReferenceInput, SelectInput, BooleanInput } from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 
 const WaitFilter = (props) => (
     <Filter {...props}>
-        <TextInput label="Search by user name" source="user_id" alwaysOn />
+        <TextInput label="Search by user id" source="user_id" alwaysOn />
         {/* <ReferenceInput label="Items" source="title" reference="items" allowEmpty>
             <SelectInput optionText="name" />
         </ReferenceInput> */}
@@ -33,6 +33,8 @@ export const WaitList = props => (
         <Datagrid rowClick="show">
         <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
         <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
+        <DateField  source= "created_at" showTime > </DateField>
+        <DateField  source= "updated_at" showTime > </DateField>
         </Datagrid>
     </List>
 );
@@ -67,11 +69,13 @@ export const WaitEdit = (props) =>(
                 <ReferenceInput source="user_id" reference="users" >
                         <AutocompleteInput optionText="first_name" fullWidth/>
                         </ReferenceInput>
+                        <DateInput disabled source= "created_at" showTime > </DateInput>
                 </Grid>
                 <Grid item xs={6}>
                 <ReferenceInput source="item_id" reference="items" >
                         <AutocompleteInput optionText="title" fullWidth/>
                         </ReferenceInput>
+                        <DateInput disabled source= "updated_at" showTime > </DateInput>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -85,18 +89,13 @@ export const WaitEdit = (props) =>(
 
 export const WaitShow = (props) => (    
     <Edit actions={<ShowActions/>} {...props}>
-        <SimpleForm>
-        <Typography variant="h6" gutterBottom>Showing Information</Typography>
-        <Grid container spacing={1} style={{ width: "100%" }}>
-            <Grid item xs={6}> 
-                <Typography variant="inline" gutterBottom> user: </Typography>        
-                <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
-            </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="inline" gutterBottom> item: </Typography>
-                    <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
-            </Grid>
-        </Grid> 
-        </SimpleForm>
+        <TabbedShowLayout syncWithLocation={false}>
+            <Tab label="Summary">
+                User:<ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
+                Item: <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>
+                Created at: <DateField  source= "created_at" showTime > </DateField>
+                Updated at: <DateField  source= "updated_at" showTime > </DateField>
+        </Tab>
+        </TabbedShowLayout>
     </Edit>
 );

@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReferenceField,ReferenceManyField, DateField, NumberField, Filter, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
+import {ReferenceField,ReferenceManyField, DateField, NumberField, Filter, DateInput, Create, Edit, SimpleForm, TextInput, Show } from 'react-admin';
 // import RichTextInput from 'ra-input-rich-text';
 import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import { List, Datagrid, TextField, NumberInput , PasswordInput, EmailField, ReferenceInput, SelectInput } from 'react-admin';
@@ -48,6 +48,8 @@ export const UserList = props => (
             <TextField source="city" />
             <TextField source="state" />
             <TextField source="zip_code" />
+            <DateField  source= "created_at" showTime > </DateField>
+            <DateField  source= "updated_at" showTime > </DateField>
         </Datagrid>
     </List>
 );
@@ -97,6 +99,7 @@ export const UserEdit = (props) =>(
                     <NumberInput source="phone_number" fullWidth />
                     <TextInput source="social_security" fullWidth />
                     <PasswordInput disabled source="user_password" fullWidth />
+                    <DateInput disabled source= "created_at" showTime > </DateInput>
 
                 </Grid>
                 <Grid item xs={6}>
@@ -108,6 +111,7 @@ export const UserEdit = (props) =>(
                     <NumberInput source="zip_code" fullWidth />
                     <TextInput source="discount_id" defaultValue="1" fullWidth />
                     <TextInput source="is_admin" defaultValue="1" fullWidth />
+                    <DateInput disabled source= "updated_at" showTime > </DateInput>
                 </Grid>
             </Grid>
         </SimpleForm>
@@ -152,6 +156,8 @@ export const UserShow = (props) => (
                 <NumberField source="phone_number" fullWidth />
                 <TextField source="social_security" fullWidth />
                 <TextField source="user_password" fullWidth />
+                <DateField  source= "created_at" showTime > </DateField>
+                <DateField  source= "updated_at" showTime > </DateField>
             </Tab>
             <Tab label="address" >
                 <NumberField source="street_number" fullWidth />

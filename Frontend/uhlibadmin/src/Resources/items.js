@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ImageField, Show, Edit, Create, SimpleForm, List, Datagrid, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
+import { ImageField, Show, Edit, Create, SimpleForm, List, Datagrid, DateInput, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
 
 import { Grid, Typography } from '@material-ui/core';
 import {Actions, MyBooleanfield} from './helper'
@@ -37,8 +37,8 @@ export const ItemList = props => (
             <TextField source="library_id" />
             {/* <DateField source="created_by" /> */}
             {/* <DateField source="updated_by" /> */}
-            <DateField source="created_at" />
-            <DateField source="updated_at" />
+            <DateField source="created_at" showTime/>
+            <DateField source="updated_at" showTime/>
             {/* <ReferenceField source="library_id" reference="libraries"><TextField source="id" /></ReferenceField> */}
             <TextField source="id" />
             <TextField label="Description" source="shortDescr"/>
@@ -89,7 +89,8 @@ export const ItemEdit = (props) =>(
                     { id: 'Printer', name: 'Printer' },
                     ]} />    
                     <NumberInput source="price" fullWidth />
-                    <NumberInput source="current_quantity" default="1" fullWidth />    
+                    <NumberInput source="current_quantity" default="1" fullWidth /> 
+                    <TextInput label="Description" source="shortDescr" fullWidth/>   
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp; </Typography>
@@ -97,9 +98,12 @@ export const ItemEdit = (props) =>(
                     <NumberInput source="rent_period" fullWidth />
                     <NumberInput source="stock" fullWidth />
                     <NumberInput source="library_id" fullWidth />
-                </Grid>
-                <Grid item xs={5}>
-                    <TextInput label="Description" source="shortDescr" fullWidth/>
+                    <Grid item xs={3}>
+                    <DateInput disabled source= "created_at" showTime > </DateInput>
+                    </Grid>
+                    <Grid item xs={3}>
+                    <DateInput disabled source= "updated_at" showTime > </DateInput>
+                    </Grid>
                 </Grid>
            </Grid>
        </SimpleForm>
@@ -141,8 +145,12 @@ export const ItemShow = (props) =>(
                     <Typography variant="subtitle2" gutterBottom>
                     Library_id: <NumberField source="library_id" fullWidth />
                     </Typography>
-
-
+                    <Typography variant="subtitle2" gutterBottom>
+                    Created at: <DateField  source= "created_at" showTime > </DateField>
+                    </Typography>
+                    <Typography variant="subtitle2" gutterBottom>
+                   Updated at: <DateField  source= "updated_at" showTime > </DateField>
+                    </Typography>
                 </Grid>
                 
                 <Grid item xs={6}>

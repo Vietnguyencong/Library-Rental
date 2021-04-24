@@ -119,9 +119,9 @@ useEffect(() =>{
 {/* https://material-ui.com/components/tabs/ */}
         <AppBar position="static">
             <Tabs value={"1"} onChange={handleChange} aria-label="simple tabs example" centered>
-                <Tab label="Item One" {...a11yProps(0)} className={classes.tab}/>
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
+                <Tab label="Users Report" {...a11yProps(0)} className={classes.tab}/>
+                <Tab label="Finances Report" {...a11yProps(1)} />
+                <Tab label="Employees Report" {...a11yProps(2)} />
             </Tabs>
         </AppBar>
         <TabPanel value={value} onChange={handleChange} index={0}>

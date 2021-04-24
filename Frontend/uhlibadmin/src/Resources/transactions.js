@@ -40,8 +40,8 @@ export const TransactionList = props => (
             <TextField source="transaction_id" ></TextField>
             {/* <NumberField source="is_commit" /> */}
             <MyBooleanfield source="is_commit" />
-            <DateField source="date_created" />
-            <DateField source="updated_at" />
+            <DateField source="date_created" showTime />
+            <DateField source="updated_at" showTime />
             {/* <CreateRelatedButton/> */}
             <CloneButton/>
         </Datagrid>
