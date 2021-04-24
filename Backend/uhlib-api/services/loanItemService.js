@@ -115,7 +115,7 @@ createOne = async (req,res, next) =>{
         const quantity = req.body.quantity
         const query = `INSERT INTO LOAN_ITEM  (item_id , quantity, transaction_id)
         VALUES (?, ?, ? );`
-        const query2 = `update ITEMS set current_quantity = current_quantity - ${quantity} where item_id = ${item_id} ; `
+        const query2 = `update ITEMS set current_quantity = current_quantity - ${quantity}, is_available = 0 where item_id = ${item_id} ; `
         const params = [item_id, quantity, trans_id] 
         // const params2 = [parseInt(quantity), item_id] 
         // console.log(req.body)
