@@ -12,9 +12,11 @@ const loan_item_router = require('./routes/loanItem')
 const paidfinesRouter = require('./routes/paidfines');
 const notificationsRouter = require('./routes/notifications');
 const waitinglistRouter = require('./routes/waitinglist');
+const stocksRouter = require('./routes/getAllCurrentStocks');
 const authenticationRouter = require("./routes/authentication")
 const {authenticate_user} = require("./helper")
 const reportsRouter = require('./routes/reports');
+
 
 app.use(cors());
 
@@ -49,6 +51,7 @@ app.use('/api/loanitem', authenticate_user, loan_item_router)
 app.use('/api/paidfines', authenticate_user, paidfinesRouter);
 app.use('/api/notifications', authenticate_user, notificationsRouter);
 app.use('/api/waitinglist', authenticate_user, waitinglistRouter);
+app.use('/api/currentstocks', authenticate_user, stocksRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
