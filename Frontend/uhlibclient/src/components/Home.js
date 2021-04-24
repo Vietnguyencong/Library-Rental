@@ -19,7 +19,7 @@ class  Home extends React.Component {
   render () {
     return( 
     <div style={{marginTop:'20px', marginLeft:""}}>
-      <Members></Members>
+      {/* <Members></Members> */}
         <div class="ui container" style={{marginTop:'30px', marginBottom: "50px"}}>
           <About/>
           <div class="ui grid" style={{marginBottom:"30px"}}>
@@ -39,7 +39,7 @@ class  Home extends React.Component {
                 </a>
               </div>
             </div>
-            <MainContent index = {this.state.active}/>
+            {/* <MainContent index = {this.state.active}/> */}
           </div>
           <Library/>
       </div>

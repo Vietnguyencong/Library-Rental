@@ -19,6 +19,7 @@ import {
 } from '@material-ui/pickers';
 
 import moment from 'moment';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,7 +35,9 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function Report(){
+  // const Date_start = (props) => {
+  //   export default () => {
+export default function Report() {
 
     const [noOfUser, setNoOfUser] = useState({});
     const [noOfLoans, setNoOfLoans] = useState({});
@@ -54,8 +57,14 @@ useEffect(() =>{
         fetchData(new Date('2021-03-18T21:11:54'), new Date());
     }, [])
 
+    const generateReports = () =>{
+      fetchData(selectedDate,selectedDate2)
+    }
+    const egenerateReports = () =>{
+      EfetchData(selectedDate3,selectedDate4)
+    }
     function fetchData(selectedDate,selectedDate2){
-      if(selectedDate2 && selectedDate){
+      if(selectedDate2 && selectedDate && selectedDate < selectedDate2){
         console.log(selectedDate2.toISOString(), selectedDate2.toString());
         fetch(`https://uhlib.cc/api/reports/fetchusersdate?date1=${encodeURIComponent(selectedDate.toISOString())}&date2=${encodeURIComponent(selectedDate2.toISOString())}`)
         .then( response => response.json() ).then(res => setNoOfUser(res));
@@ -70,16 +79,20 @@ useEffect(() =>{
       }        //setpiedata(piedatArray)
     }
     function EfetchData(selectedDate3,selectedDate4){
-      fetch(`https://uhlib.cc/api/reports/fetchTotalEmp?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
-      .then( response => response.json() ).then(res => setnoOfEmployees(res));
-      fetch(`https://uhlib.cc/api/reports/fetchAnnualAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
-      .then( response => response.json() ).then(res => setavgAnnual(res));
-      fetch(`https://uhlib.cc/api/reports/fetchHourlyAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
-      .then( response => response.json() ).then(res => setavgHourly(res));
-      fetch('https://uhlib.cc/api/reports/fetchBaritems')
-      .then( response => response.json() ).then(res => setBardata(res));
-      fetch(`https://uhlib.cc/api/reports/fetchEpieitems?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
-      .then( response => response.json() ).then(res => setEpiedata(res));
+      if(selectedDate3 && selectedDate4 && selectedDate3 < selectedDate4){
+        fetch(`https://uhlib.cc/api/reports/fetchTotalEmp?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+        .then( response => response.json() ).then(res => setnoOfEmployees(res));
+        fetch(`https://uhlib.cc/api/reports/fetchAnnualAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+        .then( response => response.json() ).then(res => setavgAnnual(res));
+        fetch(`https://uhlib.cc/api/reports/fetchHourlyAvg?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+        .then( response => response.json() ).then(res => setavgHourly(res));
+        fetch('https://uhlib.cc/api/reports/fetchBaritems')
+        .then( response => response.json() ).then(res => setBardata(res));
+        fetch(`https://uhlib.cc/api/reports/fetchEpieitems?date3=${encodeURIComponent(selectedDate3.toISOString())}&date4=${encodeURIComponent(selectedDate4.toISOString())}`)
+        .then( response => response.json() ).then(res => setEpiedata(res));
+      }
+
+
     }
 
     const classes = useStyles();
@@ -97,22 +110,22 @@ useEffect(() =>{
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
-        fetchData(date);
+//        fetchData(date);
       };
 
     const handleDateChange2 = (date) => {
         console.log('selected date',date.toString());
         setSelectedDate2(date);
-        fetchData(selectedDate,date);
+      //  fetchData(selectedDate,date);
       };
     const handleDateChange3 = (date) => {
       setSelectedDate3(date);
-      EfetchData(date, selectedDate4);
+      // EfetchData(date, selectedDate4);
     };
     
     const handleDateChange4 = (date) => {
       setSelectedDate4(date);
-      EfetchData(selectedDate3,date);
+      // EfetchData(selectedDate3,date);
     };
     return <div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
@@ -146,6 +159,7 @@ useEffect(() =>{
         />
 
         </MuiPickersUtilsProvider>
+        
  
 
 
@@ -166,7 +180,8 @@ useEffect(() =>{
           }}
         />
         </MuiPickersUtilsProvider>    
-
+        { (selectedDate2 < selectedDate) && <p>Dstart date cannot be less thatn the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={generateReports}>Go</Button></div>
     {/* Date picker  */}
               </div>
 
@@ -306,7 +321,6 @@ useEffect(() =>{
             'aria-label': 'change date',
           }}
         />
-
         </MuiPickersUtilsProvider>
  
 
@@ -329,6 +343,8 @@ useEffect(() =>{
         />
         </MuiPickersUtilsProvider>  
  
+        { (selectedDate3 > selectedDate4) && <p>Dstart date cannot be less thatn the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={egenerateReports}>Go</Button></div>
               </div>
 
 
@@ -481,6 +497,9 @@ function TabPanel(props) {
         this.getSummary(this.state.startDate, this.state.endDate)
       }
       date_change (startdate, enddate){
+        if(startdate > enddate){
+          return;
+        }
         console.log("Date changed, updated the data")
         this.getData_rev(startdate, enddate)
         this.getData_count(startdate, enddate)
@@ -509,22 +528,41 @@ function TabPanel(props) {
       }
       fetch_url1 = (startDate)=>{ // for start date 
         this.setState({startDate: startDate})
-        var sd = new Date(this.state.startDate);
-        var year=sd.getFullYear();
-        var month=sd.getMonth()+1 //getMonth is zero based;
-        var day=sd.getDate();
-        var sd=year+"-"+month+"-"+day;
+        // var sd = new Date(this.state.startDate);
+        // var year=sd.getFullYear();
+        // var month=sd.getMonth()+1 //getMonth is zero based;
+        // var day=sd.getDate();
+        // var sd=year+"-"+month+"-"+day;
 
-        var ed = new Date(this.state.endDate);
-        var year=ed.getFullYear();
-        var month=ed.getMonth()+1 //getMonth is zero based;
-        var day=ed.getDate();
-        var ed=year+"-"+month+"-"+day;
+        // var ed = new Date(this.state.endDate);
+        // var year=ed.getFullYear();
+        // var month=ed.getMonth()+1 //getMonth is zero based;
+        // var day=ed.getDate();
+        // var ed=year+"-"+month+"-"+day;
 
-        this.date_change(sd, ed)
+        // this.date_change(sd, ed)
       }
       fetch_url2 = (endDate)=>{ // for enddate 
         this.setState({endDate: endDate})
+        // var sd = new Date(this.state.startDate);
+        // var year=sd.getFullYear();
+        // var month=sd.getMonth()+1 //getMonth is zero based;
+        // var day=sd.getDate();
+        // var sd=year+"-"+month+"-"+day;
+
+        // var ed = new Date(this.state.endDate);
+        // var year=ed.getFullYear();
+        // var month=ed.getMonth()+1 //getMonth is zero based;
+        // var day=ed.getDate();
+        // var ed=year+"-"+month+"-"+day;
+
+        // this.date_change(sd, ed)
+      }
+
+      onSubmit = ()=>{
+        if(new Date(this.state.startDate) > new Date(this.state.endDate)){
+          return;
+        }
         var sd = new Date(this.state.startDate);
         var year=sd.getFullYear();
         var month=sd.getMonth()+1 //getMonth is zero based;
@@ -536,9 +574,11 @@ function TabPanel(props) {
         var month=ed.getMonth()+1 //getMonth is zero based;
         var day=ed.getDate();
         var ed=year+"-"+month+"-"+day;
-
+        // this.fetch_url1(this.state.startDate)
+        // this.fetch_url2(this.state.endDate)
         this.date_change(sd, ed)
       }
+
       render(){
         return (
           
@@ -549,6 +589,7 @@ function TabPanel(props) {
                 fetch_url2={this.fetch_url2.bind(this)}
                 startDate={this.state.startDate}
                 endDate={this.state.endDate}
+                onSubmit={this.onSubmit.bind(this)}
               />
 
               <Paper>
@@ -664,7 +705,7 @@ function TabPanel(props) {
   
     const Date_start = (props) => {
       
-      const {startDate, endDate, fetch_url1, fetch_url2} = props
+      const {startDate, endDate, fetch_url1, fetch_url2, onSubmit} = props
       
       return (
         <div >
@@ -697,7 +738,9 @@ function TabPanel(props) {
               'aria-label': 'change date',
             }}
           />
-        </MuiPickersUtilsProvider>    
+        </MuiPickersUtilsProvider>
+        {(new Date(startDate) > new Date(endDate) ) && <p>Dstart date cannot be less thatn the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={onSubmit}>Go</Button></div><br/>
         </div>
       );
     };
