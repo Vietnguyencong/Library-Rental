@@ -1,6 +1,7 @@
 import * as React from "react";
 import {AutocompleteInput, CloneButton, List, ChipField,ReferenceField, Datagrid, TextField, EmailField, DateField, NumberField,  ReferenceInput, TextInput, SimpleForm, Edit, DateInput, NumberInput, SelectInput,BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, RichTextField, ReferenceManyField, SingleFieldList, BooleanField } from 'react-admin';
 import TrueIcon from '@material-ui/icons/Done'
+import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import FalseIcon from '@material-ui/icons/Clear'
 import {Grid} from '@material-ui/core'
 import {Actions} from "./helper"
@@ -78,9 +79,21 @@ export const TransactionEdit = props => (
     </Edit>
 );
 
+const ShowActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <EditButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
 
 export const TransactionCreate = props =>(
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
             <BooleanInput source="is_commit" />
@@ -89,7 +102,7 @@ export const TransactionCreate = props =>(
 )
 
 export const TransactionShow = props =>{
-    return <Show {...props}>
+    return <Show actions={<ShowActions/>} {...props}>
         <SimpleShowLayout>
     <Grid container spacing={1} style={{width:"100%"}}>
         <Grid item xs={6}>

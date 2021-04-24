@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ImageField, Show, Edit, Create, SimpleForm, List, Datagrid, DateInput, TextField, NumberInput, EmailField, Filter, RadioButtonGroupInput, ReferenceInput, SelectInput, ReferenceField, NumberField, DateField, EditButton, TextInput, BooleanInput } from 'react-admin';
-
+import { TopToolbar, ShowButton, ListButton} from 'react-admin';
 import { Grid, Typography } from '@material-ui/core';
 import {Actions, MyBooleanfield} from './helper'
 const ItemsFilter = (props) => (
@@ -46,8 +46,21 @@ export const ItemList = props => (
     </List>
 );
 
+const ShowActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <EditButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const ItemCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
@@ -58,15 +71,15 @@ export const ItemCreate = (props) => (
                     { id: 'Media', name: 'Media' },
                     { id: 'Printer', name: 'Printer' },
                     ]} />    
-                    <NumberInput source="price" fullWidth />
-                    <NumberInput source="current_quantity" default="1" fullWidth />    
+                    <NumberInput source="price" min={0} fullWidth />
+                    <NumberInput source="current_quantity" min={0} default="1" fullWidth />    
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp; </Typography>
                     <BooleanInput source="is_available" fullWidth />
-                    <NumberInput source="rent_period" fullWidth />
-                    <NumberInput source="stock" fullWidth />
-                    <NumberInput source="library_id" fullWidth />
+                    <NumberInput source="rent_period" min={1} fullWidth />
+                    <NumberInput source="stock" min={0} fullWidth />
+                    <NumberInput source="library_id" min={0} fullWidth />
                 </Grid>
                 <Grid item xs={5} >
                     <TextInput label="Description" source="shortDescr" fullWidth/>
@@ -88,16 +101,16 @@ export const ItemEdit = (props) =>(
                     { id: 'Media', name: 'Media' },
                     { id: 'Printer', name: 'Printer' },
                     ]} />    
-                    <NumberInput source="price" fullWidth />
-                    <NumberInput source="current_quantity" default="1" fullWidth /> 
+                    <NumberInput source="price" min={0} fullWidth />
+                    <NumberInput source="current_quantity" min={0} default="1" fullWidth /> 
                     <TextInput label="Description" source="shortDescr" fullWidth/>   
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp; </Typography>
                     <BooleanInput source="is_available" fullWidth />
-                    <NumberInput source="rent_period" fullWidth />
-                    <NumberInput source="stock" fullWidth />
-                    <NumberInput source="library_id" fullWidth />
+                    <NumberInput source="rent_period" min={1} fullWidth />
+                    <NumberInput source="stock" min={0} fullWidth />
+                    <NumberInput source="library_id" min={0} fullWidth />
                     <Grid item xs={3}>
                     <DateInput disabled source= "created_at" showTime > </DateInput>
                     </Grid>
@@ -112,7 +125,7 @@ export const ItemEdit = (props) =>(
 
 
 export const ItemShow = (props) =>(
-    <Show  {...props}>
+    <Show actions={<ShowActions/>} {...props}>
        <SimpleForm>
            <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>

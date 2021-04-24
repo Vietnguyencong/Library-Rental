@@ -31,7 +31,7 @@ getByFilter = async(sort, range, filter) => {
 
 async function getID(libraryID){
   const rows = await db.query(
-    `SELECT library_id, name, opening_hours, location
+    `SELECT library_id, name, opening_hours, location, created_at, updated_at
     FROM LIBRARIES
     WHERE library_id=${libraryID}`
   );

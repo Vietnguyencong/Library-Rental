@@ -28,6 +28,12 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const EmployeeList = props => (
     <List filters={<EmployeesFilter />} {...props}>
         <Datagrid rowClick="show"> 
@@ -54,7 +60,7 @@ export const EmployeeList = props => (
 
 
 export const EmployeeCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
@@ -120,24 +126,27 @@ export const EmployeeShow = props => (
     <Edit actions={<ShowActions/>} {...props}>
         <TabbedShowLayout syncWithLocation={false}>
             <Tab label="Summary">
-            First Name: <TextField source="first_name" />
-            Library ID: <NumberField source="library_id" />
-            Last Name: <TextField source="last_name" />
-            Middle Initial: <TextField source="middle_initial" />
-            Email Address: <TextField source="email_address" />
-            Job Title: <TextField source="job_title" />
-            Salary: <NumberField source="salary" />
-            Hourly Rate: <NumberField source="hourly_rate" />
-            Street Number: <NumberField source="street_number" />
-            Zipcode: <NumberField source="zipcode" />
-            City: <TextField source="city" />
-            Street Name: <TextField source="street_name" />
-            Password: <TextField source="password" />
-            State: <TextField source="state" />
-            Created at: <DateField  source= "created_at" showTime > </DateField>
-            Updated at:<DateField  source= "updated_at" showTime > </DateField>
-           
-        </Tab>
+            <TextField source="first_name" />
+            <NumberField source="library_id" />
+            <TextField source="last_name" />
+            <TextField source="middle_initial" />
+            <TextField source="email_address" />
+            <TextField source="password" />
+            <DateField  source= "created_at" showTime > </DateField>
+            <DateField  source= "updated_at" showTime > </DateField>
+            </Tab>
+            <Tab label="Address">
+            <NumberField source="street_number" />
+            <TextField source="street_name" />
+            <NumberField source="zipcode" />
+            <TextField source="city" />
+            <TextField source="state" />
+            </Tab>
+            <Tab label="Employee Info">
+            <TextField source="job_title" />
+            <NumberField source="salary" />
+            <NumberField source="hourly_rate" />
+            </Tab>
         </TabbedShowLayout>
     </Edit>
 )

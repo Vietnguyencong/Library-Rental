@@ -1,6 +1,7 @@
 import * as React from "react";
 import { List, Datagrid, TextField, DateField, NumberField, ReferenceField, ReferenceInput, TextInput, SimpleForm, Edit, NumberInput, SelectInput, BooleanInput,DateTimeInput, Create,Filter, Show, SimpleShowLayout, AutocompleteInput } from 'react-admin';
 import {Actions, MyBooleanfield} from "./helper";
+import { TopToolbar, ShowButton, ListButton, EditButton} from 'react-admin';
 import {Grid} from '@material-ui/core'
 const LoanitemFilter = (props) => (
     <Filter {...props}>
@@ -16,7 +17,25 @@ const LoanitemFilter = (props) => (
 );
 
 
+const EditActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
 
+const ShowActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <EditButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
 
 export const LoanitemList = props => (
     <List filters={<LoanitemFilter/>} {...props}>
@@ -38,7 +57,7 @@ export const LoanitemList = props => (
 
 
 export const LoanitemEdit = props => (
-    <Edit actions={<Actions/>} {...props}>
+    <Edit actions={<EditActions/>} {...props}>
         <SimpleForm >
             <Grid container spacing={1} style={{width:"100%"}}>
                 <Grid item xs={6}>
@@ -53,7 +72,7 @@ export const LoanitemEdit = props => (
                 <Grid item xs={6}>
                   
                     <BooleanInput source="is_due" fullWidth/>
-                    <NumberInput source="quantity" fullWidth/><br></br>
+                    <NumberInput source="quantity" min={0} fullWidth/><br></br>
                     <DateTimeInput disabled source="updated_at" showTime />
                 </Grid>
             </Grid>
@@ -65,7 +84,7 @@ export const LoanitemEdit = props => (
 
 
 export const LoanitemCreate = props => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <ReferenceInput  source="transaction_id" reference="transactions">
                 <AutocompleteInput  optionText="transaction_id" />
@@ -74,7 +93,7 @@ export const LoanitemCreate = props => (
                 <AutocompleteInput optionText="title"/>
             </ReferenceInput>
             <BooleanInput source="is_due" />
-            <NumberInput source="quantity" />
+            <NumberInput source="quantity" min={0} />
             <DateTimeInput disabled source="created_at" />
             <DateTimeInput disabled source="updated_at" />
         </SimpleForm>
@@ -83,7 +102,7 @@ export const LoanitemCreate = props => (
 
 
 export const LoanitemShow = props =>{
-    return <Show {...props}>
+    return <Show actions={<ShowActions/>}  {...props}>
     <SimpleShowLayout>
     <NumberField source="id"/>
             <NumberField source="item_id"/>

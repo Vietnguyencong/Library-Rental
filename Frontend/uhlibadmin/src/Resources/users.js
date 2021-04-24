@@ -34,6 +34,12 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const UserList = props => (
     <List filters={<UserFilter/>} {...props}>
         <Datagrid rowClick="show">
@@ -55,7 +61,7 @@ export const UserList = props => (
 );
 
 export const UserCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
@@ -64,17 +70,17 @@ export const UserCreate = (props) => (
                     <TextInput source="middle_initial" fullWidth />
                     <TextInput source="last_name" fullWidth />
                     <TextInput source="email_address" fullWidth />
-                    <NumberInput source="phone_number" fullWidth />
+                    <NumberInput source="phone_number" min={0} fullWidth />
                     <TextInput source="social_security" fullWidth />
                     <PasswordInput source="user_password" fullWidth />
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp;  </Typography>
-                    <NumberInput source="street_number" fullWidth />
+                    <NumberInput source="street_number" min={0} fullWidth />
                     <TextInput source="street_name" fullWidth />
                     <TextInput source="city" fullWidth />
                     <TextInput source="state" fullWidth />
-                    <NumberInput source="zip_code" fullWidth />
+                    <NumberInput source="zip_code" min={0} fullWidth />
                     <TextInput source="discount_id" defaultValue="1" fullWidth />
                     <TextInput source="is_admin" defaultValue="1" fullWidth />
                 </Grid>
@@ -96,7 +102,7 @@ export const UserEdit = (props) =>(
                     <TextInput source="middle_initial" fullWidth />
                     <TextInput source="last_name" fullWidth />
                     <TextInput source="email_address" fullWidth />
-                    <NumberInput source="phone_number" fullWidth />
+                    <NumberInput source="phone_number" min={0} fullWidth />
                     <TextInput source="social_security" fullWidth />
                     <PasswordInput disabled source="user_password" fullWidth />
                     <DateInput disabled source= "created_at" showTime > </DateInput>
@@ -104,11 +110,11 @@ export const UserEdit = (props) =>(
                 </Grid>
                 <Grid item xs={6}>
                     <Typography variant="h6" gutterBottom> &nbsp; </Typography>
-                    <NumberInput source="street_number" fullWidth />
+                    <NumberInput source="street_number" min={0} fullWidth />
                     <TextInput source="street_name" fullWidth />
                     <TextInput source="city" fullWidth />
                     <TextInput source="state" fullWidth />
-                    <NumberInput source="zip_code" fullWidth />
+                    <NumberInput source="zip_code" min={0} fullWidth />
                     <TextInput source="discount_id" defaultValue="1" fullWidth />
                     <TextInput source="is_admin" defaultValue="1" fullWidth />
                     <DateInput disabled source= "updated_at" showTime > </DateInput>

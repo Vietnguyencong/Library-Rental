@@ -28,6 +28,12 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const PaidList = props => (
     <List filters={<PaidFilter/>} {...props}>
         <Datagrid rowClick="show">
@@ -44,7 +50,7 @@ export const PaidList = props => (
 
 
 export const FinesCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
         <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>

@@ -28,6 +28,12 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const WaitList = props => (
     <List filters={<WaitFilter/>} {...props}>
         <Datagrid rowClick="show">
@@ -41,7 +47,7 @@ export const WaitList = props => (
 
 
 export const WaitCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
         <Typography variant="h6" gutterBottom>New waitlist item</Typography>
             <Grid container spacing={1} style={{ width: "100%" }}>

@@ -25,6 +25,12 @@ const ShowActions = ({ basePath, data, resource }) => (
     </TopToolbar>
 );
 
+const CreateActions = ({ basePath, data, resource }) => (
+    <TopToolbar>
+        <ListButton basePath={basePath} label="Back"  />
+    </TopToolbar>
+);
+
 export const LibraryList = props => (
     <List filters={<LibrariesFilter />} {...props}>
 
@@ -40,7 +46,7 @@ export const LibraryList = props => (
     </List>
 );
 export const LibraryCreate = (props) => (
-    <Create {...props}>
+    <Create actions={<CreateActions/>} {...props}>
         <SimpleForm>
             <Grid container spacing={1} style={{ width: "100%" }}>
                 <Grid item xs={6}>
@@ -63,8 +69,8 @@ export const LibraryEdit = (props) =>(
                         <TextInput source="name" fullWidth />  
                         <TextInput source="opening_hours" fullWidth />
                         <TextInput source="location" fullWidth />    
-                         {/*DateInput disabled source= "created_at" showTime > </DateInput> 
-                        <DateInput disabled source= "updated_at" showTime > </DateInput> */}
+                        <DateInput disabled source= "created_at" showTime > </DateInput> 
+                        <DateInput disabled source= "updated_at" showTime > </DateInput>
                 </Grid>
            </Grid>
        </SimpleForm>
@@ -79,6 +85,8 @@ export const LibraryShow = (props) => (
                 <TextField source="name" fullWidth />  
                 <TextField source="opening_hours" fullWidth />
                 <TextField source="location" fullWidth />
+                <DateField  source= "created_at" showTime > </DateField>
+                <DateField  source= "updated_at" showTime > </DateField>
             </Tab>
             <Tab label="Items">
                 <ReferenceManyField label="Items" reference="items" target="library_id">

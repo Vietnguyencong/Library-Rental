@@ -19,6 +19,7 @@ import {
 } from '@material-ui/pickers';
 
 import moment from 'moment';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -166,7 +167,7 @@ useEffect(() =>{
           }}
         />
         </MuiPickersUtilsProvider>    
-
+        <div><Button variant="outlined" color="secondary" >Go</Button></div>
     {/* Date picker  */}
               </div>
 
