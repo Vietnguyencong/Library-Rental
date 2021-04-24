@@ -12,4 +12,15 @@ router.get('/allstocks', authenticate_user, async function(req, res, next) {
     }
   });
 
-  module.exports = router;
+router.get('/one/:title', authenticate_user, async function(req, res, next) {
+let title  = req.params.title;
+// console.log('id is ${id}');
+try {
+    res.json(await getAllCurrentStocksService.getByTitle(title));
+} catch (err) {
+    console.error(`Get error `, err.message);
+    next(err);
+}
+});
+
+module.exports = router;
