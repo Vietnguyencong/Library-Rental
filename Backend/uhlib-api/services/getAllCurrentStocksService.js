@@ -14,11 +14,11 @@ async function get(){
 async function getByTitle(title){
     const rows =  await db.query(`CALL ITEM_LIST_INFO;`);
     const data = helper.cleanRows(rows);
-    var ndata = JSON.parse(JSON.stringify(data))[0];
-
+    var ndata = JSON.parse(JSON.stringify(data).split('"title":').join('"id":'))[0];
+    
     for(var i = 0, numRows=ndata.length;i<numRows;i++)
     {
-        if(ndata[i].title==title)
+        if(ndata[i].id==title)
         {
             return ndata[i];
         }
