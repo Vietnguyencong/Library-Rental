@@ -6,6 +6,7 @@ router.get("/many", getMany)
 router.get("/", getAll )   // add filter in  user_id or by transaction_id 
 router.get("/one/:id", getOne)
 router.post("/", createOne)
+router.post("/addloan", addLoan)
 router.put("/:id", editOne)
 router.delete("/one/:id", deleteOne)
 router.delete("/many", deleteMany)

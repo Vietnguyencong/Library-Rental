@@ -51,12 +51,12 @@ export default class App extends Component {
    // this.setState({ user });
    console.log("THIS IS THE USER", user)
     if(user){
-      const items = await axios.get('https://uhlib.cc/api/items/allitems');
+      const items = await axios.get('https://uhlib.cc/api/currentstocks/getall');
       this.setState({ user,  items: items.data, cart });
       console.log(items);
     }
     this.getNotification()
-    this.submitSearchForm("")
+//    this.submitSearchForm("")
   }
 
   login = async (email, password) => {
@@ -90,7 +90,7 @@ export default class App extends Component {
   
       this.setState({ user });
       localStorage.setItem("user", JSON.stringify(user));
-      this.submitSearchForm("")
+//      this.submitSearchForm("")
       return true;
     } else {
       return false;
@@ -135,12 +135,13 @@ export default class App extends Component {
         if (cart[p.item_id]) {
           p.stock = p.stock - cart[p.item_id].amount;
           console.log('item ',cart[p.item_id], p.item_id);
+          console.log("amount", cart[p.item_id].amount)
 
           console.log('data ',{ id: transaction_id, quantity: cart[p.item_id].amount, item_id: p.item_id });
           posts.push(
           axios.post(
-            `https://uhlib.cc/api/loanitem`,
-            { transaction_id: transaction_id, quantity: cart[p.item_id].amount, item_id: p.item_id },
+            `https://uhlib.cc/api/loanitem/addloan`,
+            { transaction_id: transaction_id, amount: cart[p.item_id].amount, item_id: p.item_id },
           ).then(response =>{
             console.log("response ", response.status);
           })
@@ -166,7 +167,7 @@ export default class App extends Component {
 
 
   
-    this.clearCart();
+   this.clearCart();
   };
 
   removeFromCart = cartItemId => {

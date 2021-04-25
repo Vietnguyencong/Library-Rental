@@ -13,9 +13,10 @@ class ItemList extends React.Component {
     }
 
 
+//    const products = await axios.get('https://uhlib.cc/api/items/allitems');
     async componentDidMount() {
         let user = localStorage.getItem("user");
-        const products = await axios.get('https://uhlib.cc/api/items/allitems');
+        const products = await axios.get('https://uhlib.cc/api/currentstocks/getall');
         user = user ? JSON.parse(user) : null;
         this.setState({ user,  products: products.data });
         }

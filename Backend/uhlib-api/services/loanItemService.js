@@ -109,10 +109,11 @@ getRefernce = async (req,res,next)=>{
 editOne = async (req,res ,next) =>{
     try{
         const id = req.params.id
+
         const is_due = (req.body.is_due) 
-        // const quantity = parseInt(req.body.quantity)
+        const quantity = parseInt(req.body.quantity)
         const query = `UPDATE LOAN_ITEM SET quantity = ?, is_due= ? WHERE id = ?; `
-        const rows = await db.promisePool.query(query, [ is_due, id])
+        const rows = await db.promisePool.query(query, [quantity, is_due, id])
         const data = cleanRows(rows[0])
         return res.json(data)
     }
@@ -145,6 +146,7 @@ createOne = async (req,res, next) =>{
         const trans_id = req.body.transaction_id 
         const item_id = req.body.item_id 
         // const quantity = req.body.quantity
+        
         const query0 = `SELECT is_available from ITEMS WHERE item_id = ${item_id};`
         const check = await db.promisePool.query(query0, [])
         const is_available = (check[0][0].is_available)
@@ -166,6 +168,58 @@ createOne = async (req,res, next) =>{
         }
         
     }catch(err){
+        next(err)
+    }
+}
+
+// description: create one item in loan item table 
+// route: delelete loan_item/one/
+// params: transaction_id, item_id and quantity 
+addLoan = async (req,res, next) =>{
+    console.log('get loan');
+    try{
+        const trans_id = req.body.transaction_id 
+        const item_id = req.body.item_id 
+        const amount = req.body.amount 
+        console.log("stuff", trans_id, item_id, amount);
+
+        // const quantity = req.body.quantity
+        
+        const query0 = `SELECT title from ITEMS WHERE item_id = ${item_id} limit 1;`    
+        const check = await db.promisePool.query(query0)
+        console.log('check', check[0][0].title);
+        const title = cleanRows(check)
+
+        const query1 = `SELECT * from ITEMS WHERE title = '${check[0][0].title}' and is_available = 1 limit ${amount};`
+        const countAvailable = await db.promisePool.query(query1, [])
+      console.log('coun avl',countAvailable[0].length );
+
+//        const is_available = (check[0][0].is_available)
+        if ( countAvailable[0].length >= amount){
+        
+            let item_ids = [];
+                for (const key of countAvailable[0]) {
+                    console.log('akey-value'+JSON.stringify(key));
+                    const query = `INSERT INTO LOAN_ITEM  (item_id , transaction_id)
+                    VALUES (?, ? );`
+                    const query2 = `update ITEMS set is_available = 0 where item_id = ${key.item_id} ; `
+                    const params = [key.item_id, trans_id] 
+                    // const params2 = [parseInt(quantity), item_id] 
+                    // console.log(req.body)
+                    // console.log(query2)
+                    const rows = await db.promisePool.query(query, params)
+                    const message = await db.promisePool.query(query2, [])
+                    item_ids.push(rows[0]);
+//                    console.log('response items', item_ids);
+                }
+ //               console.log('response insert', res.json(item_ids));
+            return res.json(item_ids)
+        }else{ 
+           return res.status(500).send({message: "Item is not avalable right now!"}) 
+        }
+        
+    }catch(err){
+        console.log('insert mul insert', err);
         next(err)
     }
 }
@@ -193,7 +247,8 @@ module.exports = {
     createOne, 
     getMany,
     deleteMany,
-    getRefernce
+     getRefernce,
+     addLoan
 }
 
 

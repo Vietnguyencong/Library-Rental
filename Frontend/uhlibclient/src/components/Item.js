@@ -30,6 +30,7 @@ const Item = props => {
     })
     return imagere
   }
+  console.log('cart item iss',item);
   return (
     <div className="column is-half">
       <div className="box">
@@ -60,14 +61,15 @@ const Item = props => {
               <span className="tag is-primary">${item.price}</span>
             </b>
             <div>{item.shortDescr}</div>
-            {item.stock > 0 ? (
-              <small>{item.stock + " Available"}</small>
+            {item.current_available > 0 ? (
+              <small>{item.current_available + " Available"}</small>
             ) : (
               <small className="has-text-danger">Out Of Stock</small>
             )}
             <div className="is-clearfix">
               <button
                 className="button is-small is-outlined is-primary   is-pulled-right"
+                disabled={item.current_available <= 0 }
                 onClick={() =>
                   props.addToCart1({
                     id: item.item_id,

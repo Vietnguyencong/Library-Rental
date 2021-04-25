@@ -4,13 +4,24 @@ const getAllCurrentStocksService = require('../services/getAllCurrentStocksServi
 const {authenticate_user} = require("../helper")
 
 router.get('/allstocks', authenticate_user, async function(req, res, next) {
-    try {
+  console.log("we here") 
+  try {
       res.json(await getAllCurrentStocksService.get(req.query.page));
     } catch (err) {
       console.error(`Get error `, err.message);
       next(err);
     }
   });
+
+router.get('/getall', authenticate_user, async function(req, res, next) {
+  console.log("Getall hit")
+  try {
+    res.json(await getAllCurrentStocksService.getAll(req.query.page));
+  } catch (err) {
+    console.error(`Get error `, err.message);
+    next(err);
+  }
+});
 
 router.get('/one/:title', authenticate_user, async function(req, res, next) {
 let title  = req.params.title;
