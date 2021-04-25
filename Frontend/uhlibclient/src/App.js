@@ -230,11 +230,15 @@ export default class App extends Component {
       <Nav.Link href="/cart">Cart { Object.keys(this.state.cart).length }</Nav.Link>
       <Nav.Link href="/items">Items</Nav.Link>
       <Nav.Link href="/notifcations">
-      <div class="ui label">
+      {this.state.user ?  <div class="ui label">
         <i class="mail icon"></i> {this.state.notiCount}
-      </div>
+      </div>  : <></>} 
+      {/* <div class="ui label">
+        <i class="mail icon"></i> {this.state.notiCount}
+      </div> */}
       </Nav.Link>
-      <Nav.Link href="/settings">Settings</Nav.Link>
+      {/* <Nav.Link href="/settings">Settings</Nav.Link> */}
+      {this.state.user ? <Nav.Link href="/settings">Settings</Nav.Link> :  <></>} 
       {this.state.user ? <Nav.Link><div onClick={this.logout}>Logout</div></Nav.Link> :  <Nav.Link href="/login">Login</Nav.Link>} 
      
     </Nav>

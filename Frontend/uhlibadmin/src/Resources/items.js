@@ -29,8 +29,8 @@ export const ItemList = props => (
     <List filters={<ItemsFilter />} {...props}>
 
 <Datagrid rowClick="show">
-<TextField source="title" />
-            <NumberField source="item_id" label="item_id"/>
+{/* <TextField source="title" /> */}
+            {/* <NumberField source="item_id" label="item_id"/> */}
             <TextField source="title" />
             {/* <NumberField source="current_quantity" /> */}
             {/* <NumberField source="stock" /> */}
