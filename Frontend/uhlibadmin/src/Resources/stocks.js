@@ -15,7 +15,8 @@ export const StocksList = props => (
     <List {...props}>
         <Datagrid rowClick="show">
             <TextField source="title" fullWidth />
-            <NumberField source="count" />
+            <NumberField source="stock" />
+            <NumberField source="currently_available" />
         </Datagrid>
     </List>
 );
@@ -29,7 +30,10 @@ export const StocksShow = props => (
                 Title: <TextField source="id" fullWidth />
                 </Grid>
                 <Grid item xs={6}>
-                Stock: <NumberField source="count" fullWidth/>
+                Stock: <NumberField source="stock" fullWidth/>
+                </Grid>
+                <Grid item xs={6}>
+                Stock: <NumberField source="currently_available" fullWidth/>
                 </Grid>
             </Grid>
         </SimpleForm>

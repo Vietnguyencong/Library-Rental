@@ -1,8 +1,8 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
+const apiUrl = 'http://localhost:5000/api';
 // const apiUrl = 'https://uhlib.cc/api';
-const apiUrl = 'https://uhlib.cc/api';
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
         options.headers = new Headers({ Accept: 'application/json' });
@@ -69,7 +69,7 @@ getList:  (resource, params) => {
         // get the loan item title from  
         // get the item id from loan item first 
         // GET http://my.api.url/posts?filter={"author_id":345}
-        const url = `${apiUrl}/${resource}?${stringify(query)}`;
+        const url = `${apiUrl}/${resource}/reference?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => ({
             data: json.map(resource => ({ ...resource, id: resource.transaction_id }) ),

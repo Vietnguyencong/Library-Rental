@@ -181,8 +181,8 @@ export const UserShow = (props) => (
                         <ReferenceField source="transaction_id" reference="transactions">
                             <TextField source="transaction_id" />
                         </ReferenceField>
-                        <DateField source="date_created" />
-                        <DateField source="updated_at" />
+                        <DateField source="date_created" showTime />
+                        <DateField source="updated_at" showTime />
                         <NumberField disabled source="total_price"></NumberField>
                         <NumberField disabled source="total_quantity"></NumberField>
                         <NumberField source="is_commit" />

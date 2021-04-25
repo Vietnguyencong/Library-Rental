@@ -40,17 +40,17 @@ router.get('/allusers', async function(req, res, next) {
   }
 });
 
-/* GETUSER BY ID */
-router.get('/:id', async function(req, res, next) {
-  let id  = req.params.id;
-  // console.log('id is ${id}');
-  try {
-    res.json(await usersService.getUser(id));
-  } catch (err) {
-    console.error(`Get error `, err.message);
-    next(err);
-  }
-});
+// /* GETUSER BY ID */
+// router.get('/:id', async function(req, res, next) {
+//   let id  = req.params.id;
+//   // console.log('id is ${id}');
+//   try {
+//     res.json(await usersService.getUser(id));
+//   } catch (err) {
+//     console.error(`Get error `, err.message);
+//     next(err);
+//   }
+// });
 
 /* GETUSER BY ID */
 router.get('/one/:id', async function(req, res, next) {

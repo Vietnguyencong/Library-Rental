@@ -1,8 +1,8 @@
 import { fetchUtils } from 'react-admin';
 import { stringify } from 'query-string';
 
-const apiUrl = 'https://uhlib.cc/api';
 // const apiUrl = 'https://uhlib.cc/api';
+const apiUrl = 'http://localhost:5000/api';
 // const httpClient = fetchUtils.fetchJson;
 const httpClient = (url, options = {}) => {
     if (!options.headers) {
@@ -39,7 +39,7 @@ getList:  (resource, params) => {
     //     return {data:json[0]}
     // }, 
     getOne: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+        httpClient(`${apiUrl}/${resource}/one/${params.id}`).then(({ json }) => ({
             data: json[0],
     })),
     getMany: (resource, params) => {

@@ -648,7 +648,7 @@ function TabPanel(props) {
                     title: 'Count',
                     chartArea: { width: '70%' },
                     hAxis: {
-                      title: 'Total Population',
+                      title: 'Day',
                       minValue: 0,
                     },
                     vAxis: {
@@ -686,7 +686,7 @@ function TabPanel(props) {
                     title: 'Revenues',
                     chartArea: { width: '70%' },
                     hAxis: {
-                      title: 'Total Population',
+                      title: 'Day',
                       minValue: 0,
                     },
                     vAxis: {

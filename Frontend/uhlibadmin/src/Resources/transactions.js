@@ -22,10 +22,10 @@ const MyBooleanfield = ({ record={}, source}) =>{
 const TransactionFilter = (props) => (
     <Filter {...props}>
         {/* <TextInput label="Search" source="q" alwaysOn /> */}
+        <TextInput label="search by transaction ID" source="transaction_id" alwaysOn/>
         <ReferenceInput label="Search by User" source="user_id" reference="users" alwaysOn>
             <SelectInput optionText="first_name" />
         </ReferenceInput>
-        <TextInput label="search by transaction ID" source="transaction_id" alwaysOn/>
     </Filter>
 );
 export const TransactionList = props => (
@@ -56,8 +56,8 @@ export const TransactionEdit = props => (
                 <Grid item xs={6}>
                     <ReferenceInput source="user_id" reference="users"><SelectInput optionText="first_name" /></ReferenceInput>
                     <BooleanInput source="is_commit" max={1} min={0} />
-                    <NumberInput disabled source="total_price"></NumberInput>
-                    <NumberInput disabled source="total_quantity"></NumberInput>
+                    {/* <NumberInput disabled source="total_price"></NumberInput> */}
+                    {/* <NumberInput disabled source="total_quantity"></NumberInput> */}
                     <TextInput disabled source="transaction_id" fullWidth ></TextInput>
                     <DateInput disabled source="date_created" fullWidth />
                     <DateTimeInput disabled source="updated_at" fullWidth/>
@@ -66,7 +66,7 @@ export const TransactionEdit = props => (
                 <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
                     <Datagrid>
                         <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-                        <NumberField source="item_id"/>
+                        <NumberField source="item_id" label="item_id"/>
                         <ReferenceField source="item_id" reference="items"><NumberField source="price"  options={{ style: 'currency', currency: 'USD' }} /></ReferenceField>
                     </Datagrid>
                 </ReferenceManyField>
@@ -117,8 +117,8 @@ export const TransactionShow = props =>{
         <Grid item xs={6}>
         <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
             <Datagrid>
-                <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-                <NumberField source="item_id"/>
+                <ReferenceField source="item_id" reference="items"label="title"><TextField label="title"source="title" /></ReferenceField>
+                <NumberField source="item_id" label="item_id"/>
             </Datagrid>
         </ReferenceManyField>
         </Grid>

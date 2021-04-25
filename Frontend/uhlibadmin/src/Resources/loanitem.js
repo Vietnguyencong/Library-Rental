@@ -40,9 +40,9 @@ const CreateActions = ({ basePath, data, resource }) => (
 export const LoanitemList = props => (
     <List filters={<LoanitemFilter/>} {...props}>
         <Datagrid rowClick="edit">
-            {/* <NumberField source="id"/> */}
+            <NumberField source="item_id" label="item_id"/>
             <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-            <NumberField source="quantity" />
+            {/* <NumberField source="quantity" /> */}
             <TextField source="transaction_id" />
             <MyBooleanfield source="is_due" />
             <DateField source="date_due" showTime/>
@@ -64,16 +64,17 @@ export const LoanitemEdit = props => (
                     <ReferenceInput  source="transaction_id" reference="transactions">
                         <TextInput  optionText="transaction_id" fullWidth/>
                     </ReferenceInput >
+                    <NumberInput source="item_id"/>
                     <ReferenceInput source="item_id" reference="items" >
-                        <AutocompleteInput optionText="title" fullWidth/>
+                        <AutocompleteInput disabled optionText="title" fullWidth/>
                     </ReferenceInput>
-                    <DateTimeInput disabled source="created_at" showTime/>
                 </Grid>
                 <Grid item xs={6}>
-                  
+
                     <BooleanInput source="is_due" fullWidth/>
-                    <NumberInput source="quantity" min={0} fullWidth/><br></br>
+                    {/* <NumberInput source="quantity" min={0} fullWidth/><br></br> */}
                     <DateTimeInput disabled source="updated_at" showTime />
+                    <DateTimeInput disabled source="created_at" showTime/>
                 </Grid>
             </Grid>
            
@@ -89,11 +90,12 @@ export const LoanitemCreate = props => (
             <ReferenceInput  source="transaction_id" reference="transactions">
                 <AutocompleteInput  optionText="transaction_id" />
             </ReferenceInput >
-            <ReferenceInput source="item_id" reference="items" >
+            {/* <ReferenceInput source="item_id" reference="items" >
                 <AutocompleteInput optionText="title"/>
-            </ReferenceInput>
+            </ReferenceInput> */}
+            <NumberInput source="item_id"/>
             <BooleanInput source="is_due" />
-            <NumberInput source="quantity" min={0} />
+            {/* <NumberInput source="quantity" min={0} /> */}
             <DateTimeInput disabled source="created_at" />
             <DateTimeInput disabled source="updated_at" />
         </SimpleForm>
@@ -105,8 +107,11 @@ export const LoanitemShow = props =>{
     return <Show actions={<ShowActions/>}  {...props}>
     <SimpleShowLayout>
     <NumberField source="id"/>
-            <NumberField source="item_id"/>
-            <NumberField source="quantity" />
+            <NumberField source="item_id" label="item_id"/>
+            {/* <NumberField source="quantity" /> */}
+            <ReferenceField source="item_id" reference="items">
+                <TextField source="title" />
+            </ReferenceField>
             <TextField source="transaction_id" />
             <NumberField source="is_due" />
             <DateField source="date_due" showTime/>

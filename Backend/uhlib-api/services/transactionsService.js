@@ -195,6 +195,41 @@ getAll = async(req,res,next)=>{
    
   }
 
+  
+getRefernce = async(req,res,next)=>{
+    try{
+        var context = JSON.parse(req.query.filter)
+        if ( JSON.stringify(context) !== "{}" ){
+            const keys = Object.keys(context)
+            var conditions = []
+            var params = []
+            // console.log(keys)
+            for (var i=0; i<keys.length; i++){
+                conditions.push(`${[keys[i]]} = "${context[keys[i]]}"`) 
+                params.push(context[keys[i]])
+            }
+            var condition_tring = conditions.join(" and ")
+            // console.log(condition_tring)
+            var query = `SELECT * from TRANSACTION where ${condition_tring} ;` 
+            console.log(query)
+            // console.log(query)
+            const rows = await db.promisePool.query(query, [])
+            const data = cleanRows(rows[0])
+            return res.json(data)
+            
+        }else{
+            const query = `SELECT * from TRANSACTION; `
+            const rows = await db.promisePool.query(query, []) 
+            const data = cleanRows(rows[0])
+            return res.json(data)
+        }
+        
+    }catch(err){
+        next(err)
+    }
+   
+  }
+
 module.exports = { 
     getOne, 
     getList, 
@@ -205,7 +240,8 @@ module.exports = {
     removeMany, 
     get_transactions_for_user, 
     view_items_in_transaction,
-    getAll
+    getAll,
+    getRefernce
 }
 
 

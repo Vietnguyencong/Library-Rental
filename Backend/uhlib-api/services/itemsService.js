@@ -42,11 +42,11 @@ async function getByFilter(sort, range, filter){
 async function create(item){
   const result = await db.query(
     `INSERT INTO ITEMS 
-    (title, stock, current_quantity, price, rent_period, item_type, library_id, is_available, shortDescr) 
+    (title, price, rent_period, item_type, library_id, is_available, shortDescr) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?)`, 
     [
-      item.title, item.stock, item.current_quantity, item.price,
+      item.title,  item.price,
       item.rent_period, item.item_type, item.library_id, item.is_available, item.shortDescr
     ]
   );
@@ -61,16 +61,27 @@ async function create(item){
 }
 
 async function update(id, req){
-  const user = await db.query(`
-  UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?, shortDescr=?
-   WHERE item_id=?`,
-   [
-    req.title, req.stock, req.current_quantity,
-    req.price, req.rent_period, req.item_type,
-    req.library_id, req.is_available, req.shortDescr,
-    id
-   ]
-   );
+  // const user = await db.query(`
+  // UPDATE ITEMS SET title=?, stock=?, current_quantity=?, price=?, rent_period=?, item_type=?, library_id=?, is_available=?, shortDescr=?
+  //  WHERE item_id=?`,
+  //  [
+  //   req.title, req.stock, req.current_quantity,
+  //   req.price, req.rent_period, req.item_type,
+  //   req.library_id, req.is_available, req.shortDescr,
+  //   id
+  //  ]
+  //  );
+
+   const user = await db.query(`
+   UPDATE ITEMS SET title=?,  price=?, rent_period=?, item_type=?, library_id=?, is_available=?, shortDescr=?
+    WHERE item_id=?`,
+    [
+     req.title, 
+     req.price, req.rent_period, req.item_type,
+     req.library_id, req.is_available, req.shortDescr,
+     id
+    ]
+    );
   
   let message = `Error in updating item ${id}`;
 
@@ -170,6 +181,7 @@ getAll = async(req,res,next)=>{
   }
  
 }
+
 
 module.exports = {
   get,

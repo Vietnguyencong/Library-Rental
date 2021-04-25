@@ -40,9 +40,28 @@ Content-Type: application/json
 
 post http://localhost:5000/api/loanitem
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjE2NDIsImV4cCI6MTYxOTMyNTI0Mn0.2B-Q3yYpVno09R7EyiOhNTJmdE_FzvQaPR7VUCHXgR0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
 
 {
     "transaction_id": "1adfc6ff-8ad7-466b-8c5d-b3cfb266fcba",
     "item_id":6
 }
+###
+get  http://localhost:5000/api/currentstocks/allstocks 
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
+
+### get by the title 
+get http://localhost:5000/api/currentstocks/one/To the moon and beyond
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
+### 
+get http://localhost:5000/api/users/getall?filter={}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
+
+
+### 
+get http://localhost:5000/api/transactions/reference?filter={"item_id": 3}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
+
+### 
+get http://localhost:5000/api/loanitem/reference?filter={"item_id": 3}
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF0cmFtQGdtYWlsLmNvcG0iLCJpYXQiOjE2MTkzMjkwNTYsImV4cCI6MTYxOTMzMjY1Nn0.KJ5rSJOIHoQeP_9ETiywiWJhZ3zVUM8oT-YT35GUu9A
