@@ -21,7 +21,8 @@ const ShowActions = ({ basePath, data, resource }) => (
 );
 
 export const NotificationList = props => (
-    <List filters={<NotificationFilter/>} {...props}>
+    // <List filters={<NotificationFilter/>} {...props}>
+    <List  {...props}>
         <Datagrid rowClick="show">
             <NumberField source="employee_id" />
             <TextField source="title" fullWidth />
