@@ -76,11 +76,10 @@ getAll = async(req,res,next)=>{
 editOne = async (req,res ,next) =>{
     try{
         const id = req.params.id
-
         const is_due = (req.body.is_due) 
-        const quantity = parseInt(req.body.quantity)
+        // const quantity = parseInt(req.body.quantity)
         const query = `UPDATE LOAN_ITEM SET quantity = ?, is_due= ? WHERE id = ?; `
-        const rows = await db.promisePool.query(query, [quantity, is_due, id])
+        const rows = await db.promisePool.query(query, [ is_due, id])
         const data = cleanRows(rows[0])
         return res.json(data)
     }
@@ -112,19 +111,27 @@ createOne = async (req,res, next) =>{
     try{
         const trans_id = req.body.transaction_id 
         const item_id = req.body.item_id 
-        const quantity = req.body.quantity
-        const query = `INSERT INTO LOAN_ITEM  (item_id , quantity, transaction_id)
-        VALUES (?, ?, ? );`
-        const query2 = `update ITEMS set current_quantity = current_quantity - ${quantity}, is_available = 0 where item_id = ${item_id} ; `
-        const params = [item_id, quantity, trans_id] 
-        // const params2 = [parseInt(quantity), item_id] 
-        // console.log(req.body)
-        // console.log(query2)
-        const rows = await db.promisePool.query(query, params)
-        const message = await db.promisePool.query(query2, [])
+        // const quantity = req.body.quantity
+        const query0 = `SELECT is_available from ITEMS WHERE item_id = ${item_id};`
+        const check = await db.promisePool.query(query0, [])
+        const is_available = (check[0][0].is_available)
+        if ( is_available === 1){
+            const query = `INSERT INTO LOAN_ITEM  (item_id , transaction_id)
+            VALUES (?, ? );`
+            const query2 = `update ITEMS set is_available = 0 where item_id = ${item_id} ; `
+            const params = [item_id, trans_id] 
+            // const params2 = [parseInt(quantity), item_id] 
+            // console.log(req.body)
+            // console.log(query2)
+            const rows = await db.promisePool.query(query, params)
+            const message = await db.promisePool.query(query2, [])
 
-        const data = cleanRows(rows[0])
-        return res.json(data)
+            const data = cleanRows(rows[0])
+            return res.json(data)
+        }else{ 
+            res.status(500).send({message: "Item is not avalable right now!"}) 
+        }
+        
     }catch(err){
         next(err)
     }
