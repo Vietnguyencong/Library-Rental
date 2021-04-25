@@ -1,6 +1,6 @@
 
-const apiUrl = 'http://localhost:5000/api';
-// const apiUrl = 'https://uhlib.cc/api';
+// const apiUrl = 'http://localhost:5000/api';
+const apiUrl = 'https://uhlib.cc/api';
 export default {
     // called when the user attempts to log in
     login: async ({ username, password }) => {
