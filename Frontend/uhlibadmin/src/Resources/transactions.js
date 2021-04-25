@@ -66,7 +66,7 @@ export const TransactionEdit = props => (
                 <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
                     <Datagrid>
                         <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-                        <NumberField source="quantity"/>
+                        <NumberField source="item_id"/>
                         <ReferenceField source="item_id" reference="items"><NumberField source="price"  options={{ style: 'currency', currency: 'USD' }} /></ReferenceField>
                     </Datagrid>
                 </ReferenceManyField>
@@ -118,7 +118,7 @@ export const TransactionShow = props =>{
         <ReferenceManyField label="Items cart" reference="loanitem" target="transaction_id" >
             <Datagrid>
                 <ReferenceField source="item_id" reference="items"><TextField source="title" /></ReferenceField>
-                <NumberField source="quantity"/>
+                <NumberField source="item_id"/>
             </Datagrid>
         </ReferenceManyField>
         </Grid>
