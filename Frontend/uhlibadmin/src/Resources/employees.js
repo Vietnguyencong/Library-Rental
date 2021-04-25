@@ -35,7 +35,8 @@ const CreateActions = ({ basePath, data, resource }) => (
 );
 
 export const EmployeeList = props => (
-    <List filters={<EmployeesFilter />} {...props}>
+    <List  {...props}>
+    {/* <List filters={<EmployeesFilter />} {...props}> */}
         <Datagrid rowClick="show"> 
             <NumberField source="library_id" fullWidth/>
             <TextField source="first_name" fullWidth/>

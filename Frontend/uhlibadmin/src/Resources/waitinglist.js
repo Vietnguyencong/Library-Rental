@@ -35,7 +35,8 @@ const CreateActions = ({ basePath, data, resource }) => (
 );
 
 export const WaitList = props => (
-    <List filters={<WaitFilter/>} {...props}>
+    // <List filters={<WaitFilter/>} {...props}>
+    <List  {...props}>
         <Datagrid rowClick="show">
         <ReferenceField source="user_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
         <ReferenceField source="item_id" reference="items" link={false}><TextField source="title" /></ReferenceField>

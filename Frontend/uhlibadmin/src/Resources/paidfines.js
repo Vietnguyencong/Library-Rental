@@ -35,7 +35,8 @@ const CreateActions = ({ basePath, data, resource }) => (
 );
 
 export const PaidList = props => (
-    <List filters={<PaidFilter/>} {...props}>
+    // <List filters={<PaidFilter/>} {...props}>
+    <List  {...props}>
         <Datagrid rowClick="show">
         <ReferenceField source="users_id" reference="users" link={false}><TextField source="first_name" /></ReferenceField>
             <NumberField source="loan_id" />
