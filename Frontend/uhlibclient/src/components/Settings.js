@@ -6,7 +6,10 @@ class Settings extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {user:{}};
+        this.state = {
+            user:{},
+            check_term: false
+        };
         this.user  = JSON.parse(localStorage.getItem('user'));
         // console.log("this email:", this.user.email);
         this.fetchUser();
@@ -45,69 +48,70 @@ class Settings extends React.Component {
 
     render() {
         return (
+            <div className="ui container" style={{marginTop:"20px"}}>
             <div className="hero is-primary">
                  <div className="hero-body container">
               <h4 className="title">User Settings</h4>
             </div>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
 
-                <form class="ui form" onSubmit={this.putUser}>
+                <form class="ui form" onSubmit={this.putUser} style={{marginLeft:"20px",marginRight:"20px", marginBottom:"20px"}}>
                 <div class="three fields">
                     <div class="eight  wide field">
                         <label>First Name</label>
-                        <input type="text" name="first_name" placeholder="First Name" />
+                        <input type="text" name="first_name" placeholder="First Name" onChange={e=> this.setState({user: {...this.state.user, first_name:e.target.value}})} value={this.state.user.first_name}/>
                     </div>
                     <div class="two wide field">
                         <label>Middle Initial</label>
-                        <input type="text" name="middle_initial" placeholder="Middle Initial" />
+                        <input type="text" name="middle_initial" placeholder="Middle Initial" onChange={e=> this.setState({user: {...this.state.user, middle_initial:e.target.value}})} value={this.state.user.middle_initial} value={this.state.user.middle_initial}/>
                     </div>
                     <div class="eight  wide field">
                         <label>Last Name</label>
-                        <input type="text" name="last_name" placeholder="Last Name" />
+                        <input type="text" name="last_name" placeholder="Last Name" onChange={e=> this.setState({user: {...this.state.user, last_name:e.target.value}})}  value={this.state.user.last_name} />
                     </div>
                     </div>
                     <div class="two fields">
                     <div class="field">
                         <label>Email</label>
-                        <input type="text" name="email_address" placeholder="Email" />
+                        <input type="text" name="email_address" placeholder="Email"value={this.state.user.email_address} onChange={e=> this.setState({user: {...this.state.user, email_address:e.target.value}})} value={this.state.user.email_address}/>
                     </div>
                     <div class="field">
                         <label>Phone Number</label>
-                        <input type="text" name="phone_number" placeholder="Phone Number" />
+                        <input type="text" name="phone_number" placeholder="Phone Number"value={this.state.user.phone_number} onChange={e=> this.setState({user: {...this.state.user, phone_number:e.target.value}})} value={this.state.user.phone_number}/>
                     </div>
                     </div>
                     <div class="two fields">
                     <div class="field">
                         <label>Street Name</label>
-                        <input type="text" name="street_name" placeholder="Street Name" />
+                        <input type="text" name="street_name" placeholder="Street Name" value={this.state.user.street_name} onChange={e=> this.setState({user: {...this.state.user, street_name:e.target.value}})} value={this.state.user.street_name}/>
                     </div>
                     <div class="field">
                         <label>Street Number</label>
-                        <input type="text" name="street_number" placeholder="Street Number" />
+                        <input type="text" name="street_number" placeholder="Street Number" value={this.state.user.street_number} onChange={e=> this.setState({user: {...this.state.user, street_number:e.target.value}})} value={this.state.user.street_number} />
                     </div>
                     </div>
                     <div class="three fields">
                     <div class="six  wide field">
                         <label>City</label>
-                        <input type="text" name="city" placeholder="City" />
+                        <input type="text" name="city" placeholder="City" value={this.state.user.city} onChange={e=> this.setState({user: {...this.state.user, city:e.target.value}})} value={this.state.user.city}/>
                     </div>
                     <div class="four wide field">
                         <label>State</label>
-                        <input type="text" name="state" placeholder="State" />
+                        <input type="text" name="state" placeholder="State" value={this.state.user.state} onChange={e=> this.setState({user: {...this.state.user, state:e.target.value}})} value={this.state.user.state} />
                     </div>
                     <div class="six  wide field">
                         <label>Zipcode</label>
-                        <input type="text" name="zip_code" placeholder="Zipcode" />
+                        <input type="text" name="zip_code" placeholder="Zipcode" value={this.state.user.zip_code} onChange={e=> this.setState({user: {...this.state.user, zip_code:e.target.value}})} value={this.state.user.zip_code}/>
                     </div>
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input type="text" name="user_password" placeholder="Password" />
+                        <input type="password" name="user_password" placeholder="Password" value={this.state.user.user_password} onChange={e=> this.setState({user: {...this.state.user, user_password:e.target.value}})} value={this.state.user.user_password}/>
                     </div>
 
                     <div class="field">
                         <div class="ui checkbox">
-                            <input type="checkbox" tabindex="0" class="hidden" />
+                            <input type="checkbox" required onChange={e=>this.setState({check_term: true})} value={this.state.check_term} />
                             <label>I agree to the Terms and Conditions</label>
                         </div>
                     </div>
@@ -115,6 +119,7 @@ class Settings extends React.Component {
                     
                 </form>
 
+            </div>
             </div>
         );
     };
