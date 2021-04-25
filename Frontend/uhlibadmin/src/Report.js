@@ -180,8 +180,8 @@ useEffect(() =>{
           }}
         />
         </MuiPickersUtilsProvider>    
-        { (selectedDate2 < selectedDate) && <p>Dstart date cannot be less thatn the end date</p>}
-        <div><Button variant="outlined" color="secondary" onClick={generateReports}>Go</Button></div>
+        { (selectedDate2 < selectedDate) && <p>Dstart date cannot be less than the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={generateReports}>Generate Report</Button></div>
     {/* Date picker  */}
               </div>
 
@@ -343,8 +343,8 @@ useEffect(() =>{
         />
         </MuiPickersUtilsProvider>  
  
-        { (selectedDate3 > selectedDate4) && <p>Dstart date cannot be less thatn the end date</p>}
-        <div><Button variant="outlined" color="secondary" onClick={egenerateReports}>Go</Button></div>
+        { (selectedDate3 > selectedDate4) && <p>Dstart date cannot be less than the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={egenerateReports}>Generate Report</Button></div>
               </div>
 
 
@@ -739,8 +739,8 @@ function TabPanel(props) {
             }}
           />
         </MuiPickersUtilsProvider>
-        {(new Date(startDate) > new Date(endDate) ) && <p>Dstart date cannot be less thatn the end date</p>}
-        <div><Button variant="outlined" color="secondary" onClick={onSubmit}>Go</Button></div><br/>
+        {(new Date(startDate) > new Date(endDate) ) && <p>Dstart date cannot be less than the end date</p>}
+        <div><Button variant="outlined" color="secondary" onClick={onSubmit}>Generate Report</Button></div><br/>
         </div>
       );
     };

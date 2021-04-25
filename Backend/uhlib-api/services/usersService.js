@@ -123,15 +123,18 @@ async function update(id, req){
   let thisid = id;
   console.log("REQ BODY", req.first_name);
   console.log(id);
-  console.log(req.id);
+  //console.log(req.id);
   const user = await db.query(`
-  UPDATE USERS SET first_name=?, middle_initial=?, last_name=?, street_number=?, city=?, state=?, zip_code=?, discount_id=?, is_admin=?, social_security=?
+  UPDATE USERS SET first_name=?, middle_initial=?, last_name=?, street_number=?, city=?, state=?, zip_code=?, discount_id=?, is_admin=?, social_security=?, street_name=?, email_address=?, phone_number=?, user_password=?
    WHERE user_id=?`,
    [
     req.first_name, req.middle_initial,
     req.last_name, req.street_number,
     req.city, req.state, req.zip_code,
-    req.discount_id, req.is_admin, req.social_security, id
+    req.discount_id, req.is_admin, 
+    req.social_security, req.street_name, 
+    req.email_address, req.phone_number,
+    req.user_password, id
    ]
    );
   

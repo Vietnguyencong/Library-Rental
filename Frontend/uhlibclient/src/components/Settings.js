@@ -22,9 +22,19 @@ class Settings extends React.Component {
     putUser = async (e) =>{
         e.preventDefault();
         this.user = this.state.user;
-        this.user.first_name = e.target.elements.first_name.value
-        this.user.last_name = e.target.elements.last_name.value
+        this.user.first_name = e.target.elements.first_name.value //
+        this.user.middle_initial = e.target.elements.middle_initial.value//
+        this.user.last_name = e.target.elements.last_name.value //
+        this.user.email_address = e.target.elements.email_address.value
+        this.user.phone_number = e.target.elements.phone_number.value//
+        this.user.street_name = e.target.elements.street_name.value
+        this.user.street_number = e.target.elements.street_number.value //
+        this.user.city = e.target.elements.city.value
+        this.user.state = e.target.elements.state.value
+        this.user.zip_code = e.target.elements.zip_code.value //
+        this.user.user_password = e.target.elements.user_password.value
         console.log('form data', this.user);
+        console.log(e.target.elements.street_name.value);
         console.log('form data fname', e.target.elements.first_name.value, this.user.id);
         // let response = await axios.put(`https://uhlib.cc/api/users/${this.user.user_id}`, this.user);
 
@@ -42,14 +52,59 @@ class Settings extends React.Component {
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
 
                 <form class="ui form" onSubmit={this.putUser}>
-                    <div class="field">
+                <div class="three fields">
+                    <div class="eight  wide field">
                         <label>First Name</label>
                         <input type="text" name="first_name" placeholder="First Name" />
                     </div>
-                    <div class="field">
+                    <div class="two wide field">
+                        <label>Middle Initial</label>
+                        <input type="text" name="middle_initial" placeholder="Middle Initial" />
+                    </div>
+                    <div class="eight  wide field">
                         <label>Last Name</label>
                         <input type="text" name="last_name" placeholder="Last Name" />
                     </div>
+                    </div>
+                    <div class="two fields">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="text" name="email_address" placeholder="Email" />
+                    </div>
+                    <div class="field">
+                        <label>Phone Number</label>
+                        <input type="text" name="phone_number" placeholder="Phone Number" />
+                    </div>
+                    </div>
+                    <div class="two fields">
+                    <div class="field">
+                        <label>Street Name</label>
+                        <input type="text" name="street_name" placeholder="Street Name" />
+                    </div>
+                    <div class="field">
+                        <label>Street Number</label>
+                        <input type="text" name="street_number" placeholder="Street Number" />
+                    </div>
+                    </div>
+                    <div class="three fields">
+                    <div class="six  wide field">
+                        <label>City</label>
+                        <input type="text" name="city" placeholder="City" />
+                    </div>
+                    <div class="four wide field">
+                        <label>State</label>
+                        <input type="text" name="state" placeholder="State" />
+                    </div>
+                    <div class="six  wide field">
+                        <label>Zipcode</label>
+                        <input type="text" name="zip_code" placeholder="Zipcode" />
+                    </div>
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="text" name="user_password" placeholder="Password" />
+                    </div>
+
                     <div class="field">
                         <div class="ui checkbox">
                             <input type="checkbox" tabindex="0" class="hidden" />
@@ -57,6 +112,7 @@ class Settings extends React.Component {
                         </div>
                     </div>
                     <button class="ui button" type="submit">Submit</button>
+                    
                 </form>
 
             </div>
