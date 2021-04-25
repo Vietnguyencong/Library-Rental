@@ -7,6 +7,7 @@ import employee_dataprovider from './dataproviders/employeeDataprovider'
 import paidfine_dataprovider from './dataproviders/paidfinesDataprovider'
 import waitinglist_dataprovider from './dataproviders/waitinglistDataprovider'
 import notifications_dataprovider from './dataproviders/notificationsDataprovider'
+import stocks_dataprovider from './dataproviders/stocksDataprovider'
 
 const dataProviders = [
     { dataProvider: user_dataprovider, resources: "users"},
@@ -19,6 +20,7 @@ const dataProviders = [
     { dataProvider: paidfine_dataprovider , resources: "paidfines"}, 
     { dataProvider: waitinglist_dataprovider , resources: "waitinglist"}, 
     { dataProvider: notifications_dataprovider , resources: "notifications"},
+    { dataProvider: stocks_dataprovider , resources: "currentstocks"},
   ];
 
 export default (type, resource, params) => {
